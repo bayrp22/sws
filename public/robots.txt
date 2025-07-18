@@ -88,4 +88,4 @@ User-agent: AhrefsBot
 Disallow: /
 
 # Sitemap location
-Sitemap: https://sitesforcabo.netlify.app/sitemap.xml
+Sitemap: https://searchloscabos.com/sitemap.xml
