@@ -7,19 +7,19 @@
   </options>
   <weblog>
     <serviceName>Not Available</serviceName>
-    <imageUrl>https://sitesforcabo.netlify.app/img/company-logo.svg</imageUrl>
+    <imageUrl>https://searchloscabos.com/img/company-logo.svg</imageUrl>
     <watermarkImageUrl></watermarkImageUrl>
     <homepageLinkText>Visit Homepage</homepageLinkText>
     <adminLinkText>No Admin</adminLinkText>
-    <adminUrl>https://sitesforcabo.netlify.app/</adminUrl>
-    <postEditingUrl>https://sitesforcabo.netlify.app/</postEditingUrl>
+    <adminUrl>https://searchloscabos.com/</adminUrl>
+    <postEditingUrl>https://searchloscabos.com/</postEditingUrl>
   </weblog>
   <buttons>
     <button>
       <id>0</id>
       <text>Visit Website</text>
-      <imageUrl>https://sitesforcabo.netlify.app/img/company-logo.svg</imageUrl>
-      <clickUrl>https://sitesforcabo.netlify.app/</clickUrl>
+      <imageUrl>https://searchloscabos.com/img/company-logo.svg</imageUrl>
+      <clickUrl>https://searchloscabos.com/</clickUrl>
     </button>
   </buttons>
 </manifest> 

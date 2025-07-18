@@ -40,7 +40,7 @@ const NotFound = () => {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://sitesforcabo.netlify.app/"
+            "item": "https://searchloscabos.com/"
           },
           {
             "@type": "ListItem",
