@@ -1,9 +1,26 @@
 [build]
   publish = "dist"
-  command = "npm run build"
+  command = "vite build && npm run prerender && npm run sitemap"
 
 [build.environment]
   NODE_VERSION = "18"
+
+# Canonical redirects
+[[redirects]]
+  from = "http://searchloscabos.com/*"
+  to   = "https://searchloscabos.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.searchloscabos.com/*"
+  to   = "https://searchloscabos.com/:splat"
+  status = 301
+  force = true
+# Optional: root → /en (keep 302 for now)
+[[redirects]]
+  from = "/"
+  to   = "/en"
+  status = 302
 
 # Security and SEO Headers
 [[headers]]
@@ -15,6 +32,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://www.google-analytics.com; font-src 'self' data:;"
 
 # Cache optimization for static assets
 [[headers]]

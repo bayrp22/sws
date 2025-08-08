@@ -11,10 +11,7 @@
     <link rel="canonical" href="https://searchloscabos.com/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     
-    <!-- Font Preloading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Font preload disabled until local woff2 files are added to public/fonts -->
     
     <!-- Primary Meta Tags -->
     <title>SWS - Strategic Web Solutions | Professional Websites in Los Cabos</title>
@@ -104,7 +101,7 @@
              "telephone": "+52-624-264-4012",
        "email": "bay@searchloscabos.com",
       "url": "https://searchloscabos.com",
-      "openingHours": "Mo-Fr 09:00-17:00",
+      "openingHours": "Mo-Su 00:00-23:59",
       "priceRange": "$$",
       "currenciesAccepted": "USD,MXN",
       "paymentAccepted": "Cash, Credit Card, Bank Transfer"
@@ -114,6 +111,19 @@
 
   <body>
     <div id="root"></div>
+    <!-- Hidden Netlify form for build-time detection -->
+    <form name="adaptive-form" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="adaptive-form" />
+      <input type="hidden" name="utm_source" />
+      <input type="hidden" name="utm_medium" />
+      <input type="hidden" name="utm_campaign" />
+      <input type="hidden" name="utm_term" />
+      <input type="hidden" name="utm_content" />
+      <input type="hidden" name="gclid" />
+      <input type="hidden" name="fbclid" />
+      <input type="hidden" name="referrer_path" />
+      <input type="text" name="bot-field" />
+    </form>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

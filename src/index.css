@@ -174,3 +174,6 @@
     transform: translateY(0);
   }
 }
+
+/* Local font will be added once woff2 files are available in public/fonts */
+html, body { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; }

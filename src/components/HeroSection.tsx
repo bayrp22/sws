@@ -171,6 +171,9 @@ const HeroSection: React.FC = () => {
         <img
           src="/img/company-logo.svg"
           alt="Company Logo"
+          width="56"
+          height="56"
+          decoding="async"
           className="w-14 h-auto"
         />
         <span className={`text-white text-xl font-semibold ml-2 company-name-transition ${showFullName ? 'company-name-expanded' : ''} ${isTyping ? 'company-name-typing' : ''}`}>
@@ -206,6 +209,9 @@ const HeroSection: React.FC = () => {
         <img
           src="/img/company-logo.svg"
           alt="SWS Logo"
+          width="96"
+          height="96"
+          decoding="async"
           className={`w-24 h-auto mb-8 animate-scale-in hidden md:block ${animationStage >= 3 ? 'visible' : ''}`}
         />
 

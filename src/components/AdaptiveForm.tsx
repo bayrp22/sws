@@ -29,6 +29,23 @@ interface FormData {
   bizDesc?: string;
 }
 
+function fillAttributionFields(form: HTMLFormElement | null) {
+  if (!form) return;
+  const params = new URLSearchParams(window.location.search);
+  const set = (name: string, value: string | null) => {
+    const input = form.querySelector(`input[name="${name}"]`) as HTMLInputElement | null;
+    if (input) input.value = value || '';
+  };
+  set('utm_source', params.get('utm_source'));
+  set('utm_medium', params.get('utm_medium'));
+  set('utm_campaign', params.get('utm_campaign'));
+  set('utm_term', params.get('utm_term'));
+  set('utm_content', params.get('utm_content'));
+  set('gclid', params.get('gclid'));
+  set('fbclid', params.get('fbclid'));
+  set('referrer_path', document.referrer || '');
+}
+
 const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFormSubmit }) => {
   const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,6 +58,11 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
     };
     window.addEventListener('languageChanged', handleLanguageChange as EventListener);
     return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
+  }, []);
+
+  useEffect(() => {
+    const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
+    fillAttributionFields(formEl);
   }, []);
 
   const {
@@ -141,6 +163,14 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         formData.append("language", language);
         formData.append("timestamp", new Date().toISOString());
 
+        // Attribution fields
+        const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
+        const names = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','referrer_path'];
+        names.forEach((n) => {
+          const input = formEl?.querySelector(`input[name="${n}"]`) as HTMLInputElement | null;
+          if (input && input.value) formData.append(n, input.value);
+        });
+
         // Submit to Netlify
         const response = await fetch("/", {
           method: "POST",
@@ -204,6 +234,15 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
             <div style={{ display: 'none' }}>
               <label>Don't fill this out: <input name="bot-field" /></label>
             </div>
+            {/* Attribution fields */}
+            <input type="hidden" name="utm_source" />
+            <input type="hidden" name="utm_medium" />
+            <input type="hidden" name="utm_campaign" />
+            <input type="hidden" name="utm_term" />
+            <input type="hidden" name="utm_content" />
+            <input type="hidden" name="gclid" />
+            <input type="hidden" name="fbclid" />
+            <input type="hidden" name="referrer_path" />
             
             {/* Name Field */}
             <div>

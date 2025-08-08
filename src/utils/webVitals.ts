@@ -31,7 +31,9 @@ function sendToAnalytics(metric: MetricData) {
 
 export function initWebVitals() {
   // Only track in production or when explicitly enabled
-  if (process.env.NODE_ENV === 'production' || process.env.VITE_TRACK_WEB_VITALS === 'true') {
+  const isProd = import.meta.env.PROD;
+  const trackOverride = (import.meta as any).env?.VITE_TRACK_WEB_VITALS === 'true';
+  if (isProd || trackOverride) {
     onCLS(sendToAnalytics);
     onINP(sendToAnalytics);
     onFCP(sendToAnalytics);
@@ -42,15 +44,7 @@ export function initWebVitals() {
 
 // SEO and performance helper functions
 export function preloadCriticalResources() {
-  // Preload critical fonts
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'preload';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap';
-  fontLink.as = 'style';
-  fontLink.crossOrigin = 'anonymous';
-  document.head.appendChild(fontLink);
-
-  // Preload critical images
+  // Preload critical images (set true LCP in index.html via <link rel="preload" as="image" ...>)
   const logoImg = new Image();
   logoImg.src = '/img/company-logo.svg';
 
