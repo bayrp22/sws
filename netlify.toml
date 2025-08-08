@@ -1,6 +1,6 @@
 [build]
   publish = "dist"
-  command = "vite build && npm run prerender && npm run sitemap"
+  command = "vite build && npm run og && npm run prerender && npm run sitemap"
 
 [build.environment]
   NODE_VERSION = "18"

@@ -19,7 +19,7 @@ const Page: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Meta path={path} lang="en" title={seoServices.title} description={seoServices.metaDescription} alternates={{ en: path, es: '/es/servicios/seo' }} />
+      <Meta path={path} lang="en" title={seoServices.title} description={seoServices.metaDescription} alternates={{ en: path, es: '/es/servicios/seo' }} ogImage={`/og/en-services-seo.svg`} />
       <div className="flex justify-end"><LanguageSwitcher /></div>
       <h1 className="text-3xl font-bold mb-4">{seoServices.title}</h1>
       <p className="text-gray-700 mb-6">{seoServices.intro}</p>

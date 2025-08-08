@@ -1,6 +1,6 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import { JSDOM } from 'jsdom';
 
 // Minimal SSR by loading the built client and injecting static HTML placeholders.
@@ -22,9 +22,9 @@ const routes: string[] = [
 ];
 
 // Route meta map for prerendered head tags
-const ROUTE_META: Record<string, { title: string; description: string; alternates: { en: string; es: string } }> = {
-  '/en': { title: 'Home | Strategic Web Solutions (SWS)', description: 'SWS builds custom, high-quality websites fast for Los Cabos businesses.', alternates: { en: '/en', es: '/es' } },
-  '/es': { title: 'Inicio | Strategic Web Solutions (SWS)', description: 'SWS crea sitios rápidos y de alta calidad para negocios en Los Cabos.', alternates: { en: '/en', es: '/es' } },
+const ROUTE_META: Record<string, { title: string; description: string; alternates: { en: string; es: string }; lcp?: string }> = {
+  '/en': { title: 'Home | Strategic Web Solutions (SWS)', description: 'SWS builds custom, high-quality websites fast for Los Cabos businesses.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/es': { title: 'Inicio | Strategic Web Solutions (SWS)', description: 'SWS crea sitios rápidos y de alta calidad para negocios en Los Cabos.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
   '/en/services/web-design-los-cabos': { title: 'Professional Web Design in Los Cabos | SWS', description: 'High-performance, visually stunning websites for Los Cabos and BCS.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
   '/es/servicios/diseno-web-los-cabos': { title: 'Diseño Web Profesional en Los Cabos | SWS', description: 'Sitios de alto rendimiento para Los Cabos y Baja California Sur.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
   '/en/services/custom-websites': { title: 'Custom Websites Tailored to Your Business | SWS', description: 'Fully customized, fast, secure, SEO-friendly websites.', alternates: { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' } },
@@ -43,10 +43,90 @@ function ensureDir(path: string) {
   mkdirSync(path, { recursive: true });
 }
 
+function cloneSiteWideJsonLdFromTemplate(document: Document, templateHtml: string) {
+  const tdom = new JSDOM(templateHtml);
+  const tscripts = tdom.window.document.querySelectorAll('script[type="application/ld+json"]');
+  tscripts.forEach(s => {
+    const clone = document.createElement('script');
+    clone.type = 'application/ld+json';
+    clone.textContent = s.textContent || '';
+    document.head.appendChild(clone);
+  });
+}
+
+function makeServiceJsonLd(route: string) {
+  const map: Record<string, { name: string; description: string; url: string }> = {
+    '/en/services/web-design-los-cabos': {
+      name: 'Professional Web Design in Los Cabos',
+      description: 'High-performance, visually stunning websites for Los Cabos and BCS.',
+      url: 'https://searchloscabos.com/en/services/web-design-los-cabos'
+    },
+    '/es/servicios/diseno-web-los-cabos': {
+      name: 'Diseño Web Profesional en Los Cabos',
+      description: 'Sitios de alto rendimiento para Los Cabos y Baja California Sur.',
+      url: 'https://searchloscabos.com/es/servicios/diseno-web-los-cabos'
+    },
+    '/en/services/custom-websites': {
+      name: 'Custom Websites Tailored to Your Business',
+      description: 'Fully customized, fast, secure, SEO-friendly websites.',
+      url: 'https://searchloscabos.com/en/services/custom-websites'
+    },
+    '/es/servicios/sitios-web-a-medida': {
+      name: 'Sitios Web a Medida para tu Negocio',
+      description: 'Páginas personalizadas, rápidas, seguras y con SEO.',
+      url: 'https://searchloscabos.com/es/servicios/sitios-web-a-medida'
+    },
+    '/en/services/seo': {
+      name: 'SEO Services That Put Your Business on the Map',
+      description: 'SEO for Los Cabos businesses. Increase visibility and leads.',
+      url: 'https://searchloscabos.com/en/services/seo'
+    },
+    '/es/servicios/seo': {
+      name: 'Servicios SEO para Destacar tu Negocio',
+      description: 'SEO para empresas en Los Cabos. Aumenta tu visibilidad.',
+      url: 'https://searchloscabos.com/es/servicios/seo'
+    },
+  };
+  const item = map[route];
+  if (!item) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: item.name,
+    description: item.description,
+    provider: { '@type': 'LocalBusiness', name: 'Search Web Services' },
+    areaServed: ['Los Cabos', 'Baja California Sur', 'Mexico'],
+    url: item.url,
+  };
+}
+
+function makeBreadcrumbJsonLd(route: string) {
+  const nameMap: Record<string, string> = {
+    '/en/services/web-design-los-cabos': 'Web Design Los Cabos',
+    '/es/servicios/diseno-web-los-cabos': 'Diseño Web Los Cabos',
+    '/en/services/custom-websites': 'Custom Websites',
+    '/es/servicios/sitios-web-a-medida': 'Sitios Web a Medida',
+    '/en/services/seo': 'SEO Services',
+    '/es/servicios/seo': 'Servicios SEO',
+  };
+  const name = nameMap[route];
+  if (!name) return null;
+  const localeRoot = route.startsWith('/es') ? 'https://searchloscabos.com/es' : 'https://searchloscabos.com/en';
+  const url = `https://searchloscabos.com${route}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: route.startsWith('/es') ? 'Inicio' : 'Home', item: localeRoot },
+      { '@type': 'ListItem', position: 2, name, item: url },
+    ],
+  };
+}
+
 function renderShellForRoute(route: string, template: string) {
   // Use JSDOM to manipulate head for canonical snapshots per route
   const dom = new JSDOM(template);
-  const document = dom.window.document;
+  const document = dom.window.document as Document;
 
   // Adjust base and canonical to point to specific route
   let linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -86,6 +166,35 @@ function renderShellForRoute(route: string, template: string) {
     xdAlt.setAttribute('hrefLang','x-default');
     xdAlt.setAttribute('href', `https://searchloscabos.com/`);
     document.head.appendChild(xdAlt);
+
+    // LCP image preload if configured
+    if (meta.lcp) {
+      const l = document.createElement('link');
+      l.setAttribute('rel', 'preload');
+      l.setAttribute('as', 'image');
+      l.setAttribute('href', meta.lcp);
+      l.setAttribute('fetchpriority', 'high');
+      document.head.appendChild(l);
+    }
+  }
+
+  // Duplicate site-wide JSON-LD from base template (Organization, LocalBusiness, WebSite)
+  cloneSiteWideJsonLdFromTemplate(document, template);
+
+  // Inject service and breadcrumb JSON-LD for service pages
+  const service = makeServiceJsonLd(route);
+  if (service) {
+    const s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(service);
+    document.head.appendChild(s);
+  }
+  const crumbs = makeBreadcrumbJsonLd(route);
+  if (crumbs) {
+    const b = document.createElement('script');
+    b.type = 'application/ld+json';
+    b.textContent = JSON.stringify(crumbs);
+    document.head.appendChild(b);
   }
 
   // Mark prerendered snapshot

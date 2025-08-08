@@ -107,6 +107,20 @@
       "paymentAccepted": "Cash, Credit Card, Bank Transfer"
     }
     </script>
+
+    <!-- WebSite + SearchAction Schema (site-wide) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://searchloscabos.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://searchloscabos.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </head>
 
   <body>

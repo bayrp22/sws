@@ -18,7 +18,7 @@ const HomeEn: React.FC = () => {
 
   return (
     <div className="h-full">
-      <Meta path="/en" lang="en" title="Home" alternates={{ en: '/en', es: '/es' }} />
+      <Meta path="/en" lang="en" title="Home" alternates={{ en: '/en', es: '/es' }} ogImage="/og/en.svg" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: 'Home', url: 'https://searchloscabos.com/en' }])) }} />
       <div className="container mx-auto px-4 py-2 flex justify-end"><LanguageSwitcher /></div>
