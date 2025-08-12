@@ -5,18 +5,36 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Canonical redirects
+# Canonical redirects to .tech
+[[redirects]]
+  from = "http://searchwebservices.tech/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.searchwebservices.tech/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+# Redirect the entire old domain to .tech
 [[redirects]]
   from = "http://searchloscabos.com/*"
-  to   = "https://searchloscabos.com/:splat"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://searchloscabos.com/*"
+  to   = "https://searchwebservices.tech/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "https://www.searchloscabos.com/*"
-  to   = "https://searchloscabos.com/:splat"
+  to   = "https://searchwebservices.tech/:splat"
   status = 301
   force = true
-# Optional: root → /en (keep 302 for now)
+
+# Optional: root → /en
 [[redirects]]
   from = "/"
   to   = "/en"

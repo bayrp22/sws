@@ -1,8 +1,8 @@
-export const siteName = 'Strategic Web Solutions (SWS)';
+export const siteName = 'Search Web Services (SWS)';
 export const contentBrandName = 'Search Web Services (SWS)';
-export const canonicalRoot = 'https://searchloscabos.com';
-export const defaultTitle = 'Professional Websites in Los Cabos';
-export const defaultDescription = 'SWS builds custom, high-quality websites fast and at a fraction of typical costs for Los Cabos businesses. Bilingual support, SEO-first, and performance-driven.';
+export const canonicalRoot = 'https://searchwebservices.tech';
+export const defaultTitle = 'Web Services in Los Cabos & Mexico';
+export const defaultDescription = 'Search Web Services builds fast, SEO-first websites and web services for businesses in Los Cabos and across Mexico.';
 export const languages = ['en', 'es'] as const;
 export type Lang = typeof languages[number];
 export const hreflangLocales: Record<Lang, string> = {

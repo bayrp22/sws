@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 
-const canonicalRoot = 'https://searchloscabos.com';
+const canonicalRoot = 'https://searchwebservices.tech';
 
 const routes = [
   { en: '/en', es: '/es' },

@@ -21,7 +21,7 @@ const buildCanonical = (path: string, canonicalOverride?: string) => {
 export const Meta: React.FC<MetaProps> = ({ path, lang, title, description, canonicalOverride, robots = 'index, follow', ogImage, alternates }) => {
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   const canonical = buildCanonical(path, canonicalOverride);
-  const og = ogImage || `${canonicalRoot}/img/company-logo.svg`;
+  const og = ogImage ? (ogImage.startsWith('http') ? ogImage : `${canonicalRoot}${ogImage}`) : `${canonicalRoot}/img/company-logo.svg`;
 
   const hrefEn = alternates?.en || '/en';
   const hrefEs = alternates?.es || '/es';
@@ -45,6 +45,7 @@ export const Meta: React.FC<MetaProps> = ({ path, lang, title, description, cano
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description || defaultDescription} />
       <meta name="twitter:image" content={og} />
+      <meta name="twitter:url" content={canonical} />
 
       {/* Hreflang alternates */}
       <link rel="alternate" hrefLang={hreflangLocales.en} href={`${canonicalRoot}${hrefEn}`} />
