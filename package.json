@@ -10,6 +10,7 @@
     "prerender": "tsx scripts/prerender.ts",
     "sitemap": "tsx scripts/generate-sitemap.ts",
     "og": "tsx scripts/build-og.ts",
+    "postdist:robots": "tsx scripts/copy-robots.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest --config jest.config.cjs",

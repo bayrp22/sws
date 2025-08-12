@@ -23,8 +23,8 @@ const routes: string[] = [
 
 // Route meta map for prerendered head tags
 const ROUTE_META: Record<string, { title: string; description: string; alternates: { en: string; es: string }; lcp?: string }> = {
-  '/en': { title: 'Home | Strategic Web Solutions (SWS)', description: 'SWS builds custom, high-quality websites fast for Los Cabos businesses.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
-  '/es': { title: 'Inicio | Strategic Web Solutions (SWS)', description: 'SWS crea sitios rápidos y de alta calidad para negocios en Los Cabos.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/en': { title: 'Home | Search Web Services (SWS)', description: 'SWS builds custom, high-quality websites fast for Los Cabos businesses.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/es': { title: 'Inicio | Search Web Services (SWS)', description: 'SWS crea sitios rápidos y de alta calidad para negocios en Los Cabos.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
   '/en/services/web-design-los-cabos': { title: 'Professional Web Design in Los Cabos | SWS', description: 'High-performance, visually stunning websites for Los Cabos and BCS.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
   '/es/servicios/diseno-web-los-cabos': { title: 'Diseño Web Profesional en Los Cabos | SWS', description: 'Sitios de alto rendimiento para Los Cabos y Baja California Sur.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
   '/en/services/custom-websites': { title: 'Custom Websites Tailored to Your Business | SWS', description: 'Fully customized, fast, secure, SEO-friendly websites.', alternates: { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' } },
