@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageNavigation } from '../hooks/useLanguageNavigation';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -15,16 +17,15 @@ try {
 }
 
 const HeroSection: React.FC = () => {
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
+  const { language } = useLanguage();
+  const { navigateToLanguage } = useLanguageNavigation();
   const [animationStage, setAnimationStage] = useState(0);
   const [showFullName, setShowFullName] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
 
   const changeLanguage = (newLanguage: 'EN' | 'ES') => {
-    setLanguage(newLanguage);
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new CustomEvent('languageChanged', { detail: newLanguage }));
+    navigateToLanguage(newLanguage);
   };
 
   const toggleCompanyName = () => {
@@ -55,11 +56,9 @@ const HeroSection: React.FC = () => {
     timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
     timeoutsRef.current = [];
 
-    // Start animation sequence
+    // Set up animation sequence
     animationDelays.forEach((delay, index) => {
-      const timeout = setTimeout(() => {
-        setAnimationStage(index + 1);
-      }, delay);
+      const timeout = setTimeout(() => setAnimationStage(index + 1), delay);
       timeoutsRef.current.push(timeout);
     });
 
@@ -68,7 +67,7 @@ const HeroSection: React.FC = () => {
       timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
       timeoutsRef.current = [];
     };
-  }, []); // Only run on mount
+  }, []);
 
   const scrollToNextSection = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -2,7 +2,7 @@ import React from 'react';
 import Meta from '@/seo/Meta';
 import { serviciosSEO } from '@/content/es/services';
 import { breadcrumbJsonLd, serviceJsonLd } from '@/seo/jsonld';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 const Page: React.FC = () => {
   const path = serviciosSEO.slug;
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Meta path={path} lang="es" title={serviciosSEO.title} description={serviciosSEO.metaDescription} alternates={{ en: '/en/services/seo', es: path }} ogImage={`/og/es-servicios-seo.svg`} />
-      <div className="flex justify-end"><LanguageSwitcher /></div>
+
       <h1 className="text-3xl font-bold mb-4">{serviciosSEO.title}</h1>
       <p className="text-gray-700 mb-6">{serviciosSEO.intro}</p>
       <div className="space-y-4">

@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, Check, X } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ProblemSection: React.FC = () => {
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
-
-  // Listen for language changes from other components
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      setLanguage(event.detail);
-    };
-    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
-  }, []);
+  const { language } = useLanguage();
 
   const content = {
     EN: {

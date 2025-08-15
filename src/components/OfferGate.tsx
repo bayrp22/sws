@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, UserPlus } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -20,16 +21,7 @@ interface OfferGateProps {
 }
 
 const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected }) => {
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
-
-  // Listen for language changes from other components
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      setLanguage(event.detail);
-    };
-    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
-  }, []);
+  const { language } = useLanguage();
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';

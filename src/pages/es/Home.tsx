@@ -8,7 +8,7 @@ import LocalTeamSection from '@/components/LocalTeamSection';
 import OfferGate from '@/components/OfferGate';
 import AdaptiveForm from '@/components/AdaptiveForm';
 import Confirmation from '@/components/Confirmation';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 import { websiteJsonLd, breadcrumbJsonLd } from '@/seo/jsonld';
 
 const HomeEs: React.FC = () => {
@@ -21,7 +21,7 @@ const HomeEs: React.FC = () => {
       <Meta path="/es" lang="es" title="Inicio" alternates={{ en: '/en', es: '/es' }} ogImage="/og/es.svg" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: 'Inicio', url: 'https://searchwebservices.tech/es' }])) }} />
-      <div className="container mx-auto px-4 py-2 flex justify-end"><LanguageSwitcher /></div>
+
       <main className="main-container">
         <HeroSection />
         <ProblemSection />

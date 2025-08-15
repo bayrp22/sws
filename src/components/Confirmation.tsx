@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, Send, Phone, Mail } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -19,7 +20,7 @@ interface ConfirmationProps {
 }
 
 const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) => {
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
+  const { language } = useLanguage();
   const [formData, setFormData] = useState({
     name: initialFormData?.name || '',
     email: initialFormData?.email || '',
@@ -28,15 +29,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
-
-  // Listen for language changes from other components
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      setLanguage(event.detail);
-    };
-    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
-  }, []);
 
   // Auto-scroll to this component when it renders
   useEffect(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import Meta from '@/seo/Meta';
 import { sitiosWebAMedida } from '@/content/es/services';
 import { breadcrumbJsonLd, serviceJsonLd } from '@/seo/jsonld';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 const Page: React.FC = () => {
   const path = sitiosWebAMedida.slug;
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Meta path={path} lang="es" title={sitiosWebAMedida.title} description={sitiosWebAMedida.metaDescription} alternates={{ en: '/en/services/custom-websites', es: path }} ogImage={`/og/es-servicios-sitios-web-a-medida.svg`} />
-      <div className="flex justify-end"><LanguageSwitcher /></div>
+
       <h1 className="text-3xl font-bold mb-4">{sitiosWebAMedida.title}</h1>
       <p className="text-gray-700 mb-6">{sitiosWebAMedida.intro}</p>
       <div className="space-y-4">

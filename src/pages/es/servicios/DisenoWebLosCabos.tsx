@@ -2,7 +2,7 @@ import React from 'react';
 import Meta from '@/seo/Meta';
 import { disenoWeb } from '@/content/es/services';
 import { breadcrumbJsonLd, serviceJsonLd } from '@/seo/jsonld';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 const Page: React.FC = () => {
   const path = disenoWeb.slug;
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Meta path={path} lang="es" title={disenoWeb.title} description={disenoWeb.metaDescription} alternates={{ en: '/en/services/web-design-los-cabos', es: path }} ogImage={`/og/es-servicios-diseno-web-los-cabos.svg`} />
-      <div className="flex justify-end"><LanguageSwitcher /></div>
+
       <h1 className="text-3xl font-bold mb-4">{disenoWeb.title}</h1>
       <p className="text-gray-700 mb-6">{disenoWeb.intro}</p>
       <div className="space-y-4">

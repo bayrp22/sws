@@ -2,7 +2,7 @@ import React from 'react';
 import Meta from '@/seo/Meta';
 import { webDesign } from '@/content/en/services';
 import { breadcrumbJsonLd, serviceJsonLd } from '@/seo/jsonld';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 const Page: React.FC = () => {
   const path = webDesign.slug;
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Meta path={path} lang="en" title={webDesign.title} description={webDesign.metaDescription} alternates={{ en: path, es: '/es/servicios/diseno-web-los-cabos' }} ogImage={`/og/en-services-web-design-los-cabos.svg`} />
-      <div className="flex justify-end"><LanguageSwitcher /></div>
+
       <h1 className="text-3xl font-bold mb-4">{webDesign.title}</h1>
       <p className="text-gray-700 mb-6">{webDesign.intro}</p>
       <div className="space-y-4">

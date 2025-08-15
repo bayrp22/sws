@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { CheckCircle, Mail, User, Building, Globe, FileText, Loader2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -10,8 +11,8 @@ try {
   // Fallback for motion elements
   motion = {
     section: 'section',
-    div: 'div',
     form: 'form',
+    div: 'div',
   };
 }
 
@@ -47,18 +48,9 @@ function fillAttributionFields(form: HTMLFormElement | null) {
 }
 
 const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFormSubmit }) => {
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
+  const { language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
-  // Listen for language changes from other components
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      setLanguage(event.detail);
-    };
-    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
-  }, []);
 
   useEffect(() => {
     const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;

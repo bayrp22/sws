@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Zap, Palette, Search, X } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -17,16 +18,7 @@ try {
 
 const SolutionSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [language, setLanguage] = useState<'EN' | 'ES'>('EN');
-
-  // Listen for language changes from other components
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      setLanguage(event.detail);
-    };
-    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    return () => window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
-  }, []);
+  const { language } = useLanguage();
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';
