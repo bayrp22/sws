@@ -194,7 +194,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         successMessage: "Thank you! We'll get back to you soon.",
         contactReminder: "Anything else? Feel free to call or email us anytime.",
         phone: "+52 624 264 4012",
-        email: "bay@searchloscabos.com"
+        email: "bay@searchwebservices.tech"
       }
     },
     ES: {
@@ -227,9 +227,9 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         submitButton: "Enviar Mensaje",
         submittingButton: "Enviando...",
         successMessage: "¡Gracias! Te responderemos pronto.",
-        contactReminder: "¿Tienes preguntas? No dudes en llamarnos o escribirnos en cualquier momento.",
+        contactReminder: "¿Algo más? No dudes en llamarnos o escribirnos en cualquier momento.",
         phone: "+52 624 264 4012",
-        email: "bay@searchloscabos.com"
+        email: "bay@searchwebservices.tech"
       }
     }
   };

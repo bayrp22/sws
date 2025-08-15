@@ -6,8 +6,8 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 const ContactEn: React.FC = () => {
   const path = '/en/contact';
   const breadcrumbs = breadcrumbJsonLd([
-    { name: 'Home', url: 'https://searchloscabos.com/en' },
-    { name: 'Contact', url: `https://searchloscabos.com${path}` },
+    { name: 'Home', url: 'https://searchwebservices.tech/en' },
+    { name: 'Contact', url: `https://searchwebservices.tech${path}` },
   ]);
   return (
     <div className="container mx-auto px-4 py-8">

@@ -2,24 +2,25 @@
 <manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
   <options>
     <clientType>WordPress</clientType>
-    <supportsEmbeds>No</supportsEmbeds>
-    <supportsScripts>No</supportsScripts>
+    <blogID></blogID>
   </options>
   <weblog>
-    <serviceName>Not Available</serviceName>
-    <imageUrl>https://searchloscabos.com/img/company-logo.svg</imageUrl>
+    <serviceName>SWS - Strategic Web Solutions</serviceName>
+    <imageUrl>https://searchwebservices.tech/img/company-logo.svg</imageUrl>
     <watermarkImageUrl></watermarkImageUrl>
-    <homepageLinkText>Visit Homepage</homepageLinkText>
-    <adminLinkText>No Admin</adminLinkText>
-    <adminUrl>https://searchloscabos.com/</adminUrl>
-    <postEditingUrl>https://searchloscabos.com/</postEditingUrl>
+    <homepageLinkText>Visit Site</homepageLinkText>
+    <adminLinkText>Dashboard</adminLinkText>
+    <adminUrl>https://searchwebservices.tech/</adminUrl>
+    <postEditingUrl>https://searchwebservices.tech/</postEditingUrl>
+    <allowKeywords>true</allowKeywords>
+    <allowNewCategories>true</allowNewCategories>
   </weblog>
   <buttons>
     <button>
       <id>0</id>
-      <text>Visit Website</text>
-      <imageUrl>https://searchloscabos.com/img/company-logo.svg</imageUrl>
-      <clickUrl>https://searchloscabos.com/</clickUrl>
+      <text>SWS Website</text>
+      <imageUrl>https://searchwebservices.tech/img/company-logo.svg</imageUrl>
+      <clickUrl>https://searchwebservices.tech/</clickUrl>
     </button>
   </buttons>
 </manifest> 

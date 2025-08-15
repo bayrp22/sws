@@ -7,14 +7,14 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 const Page: React.FC = () => {
   const path = webDesign.slug;
   const breadcrumbs = breadcrumbJsonLd([
-    { name: 'Home', url: 'https://searchloscabos.com/en' },
-    { name: 'Services', url: 'https://searchloscabos.com/en/services' },
-    { name: 'Web Design Los Cabos', url: `https://searchloscabos.com${path}` },
+    { name: 'Home', url: 'https://searchwebservices.tech/en' },
+    { name: 'Services', url: 'https://searchwebservices.tech/en/services' },
+    { name: 'Web Design Los Cabos', url: `https://searchwebservices.tech${path}` },
   ]);
   const service = serviceJsonLd({
     name: webDesign.title,
     description: webDesign.metaDescription,
-    url: `https://searchloscabos.com${path}`,
+    url: `https://searchwebservices.tech${path}`,
   });
 
   return (

@@ -59,32 +59,32 @@ function makeServiceJsonLd(route: string) {
     '/en/services/web-design-los-cabos': {
       name: 'Professional Web Design in Los Cabos',
       description: 'High-performance, visually stunning websites for Los Cabos and BCS.',
-      url: 'https://searchloscabos.com/en/services/web-design-los-cabos'
+      url: 'https://searchwebservices.tech/en/services/web-design-los-cabos'
     },
     '/es/servicios/diseno-web-los-cabos': {
       name: 'Diseño Web Profesional en Los Cabos',
       description: 'Sitios de alto rendimiento para Los Cabos y Baja California Sur.',
-      url: 'https://searchloscabos.com/es/servicios/diseno-web-los-cabos'
+      url: 'https://searchwebservices.tech/es/servicios/diseno-web-los-cabos'
     },
     '/en/services/custom-websites': {
       name: 'Custom Websites Tailored to Your Business',
       description: 'Fully customized, fast, secure, SEO-friendly websites.',
-      url: 'https://searchloscabos.com/en/services/custom-websites'
+      url: 'https://searchwebservices.tech/en/services/custom-websites'
     },
     '/es/servicios/sitios-web-a-medida': {
       name: 'Sitios Web a Medida para tu Negocio',
       description: 'Páginas personalizadas, rápidas, seguras y con SEO.',
-      url: 'https://searchloscabos.com/es/servicios/sitios-web-a-medida'
+      url: 'https://searchwebservices.tech/es/servicios/sitios-web-a-medida'
     },
     '/en/services/seo': {
       name: 'SEO Services That Put Your Business on the Map',
       description: 'SEO for Los Cabos businesses. Increase visibility and leads.',
-      url: 'https://searchloscabos.com/en/services/seo'
+      url: 'https://searchwebservices.tech/en/services/seo'
     },
     '/es/servicios/seo': {
       name: 'Servicios SEO para Destacar tu Negocio',
       description: 'SEO para empresas en Los Cabos. Aumenta tu visibilidad.',
-      url: 'https://searchloscabos.com/es/servicios/seo'
+      url: 'https://searchwebservices.tech/es/servicios/seo'
     },
   };
   const item = map[route];
@@ -111,8 +111,8 @@ function makeBreadcrumbJsonLd(route: string) {
   };
   const name = nameMap[route];
   if (!name) return null;
-  const localeRoot = route.startsWith('/es') ? 'https://searchloscabos.com/es' : 'https://searchloscabos.com/en';
-  const url = `https://searchloscabos.com${route}`;
+  const localeRoot = route.startsWith('/es') ? 'https://searchwebservices.tech/es' : 'https://searchwebservices.tech/en';
+  const url = `https://searchwebservices.tech${route}`;
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -135,7 +135,7 @@ function renderShellForRoute(route: string, template: string) {
     linkCanonical.setAttribute('rel', 'canonical');
     document.head.appendChild(linkCanonical);
   }
-  const canonicalHref = `https://searchloscabos.com${route === '/' ? '/' : route}`;
+  const canonicalHref = `https://searchwebservices.tech${route === '/' ? '/' : route}`;
   linkCanonical.setAttribute('href', canonicalHref);
 
   // Inject title/description and hreflang alternates
@@ -152,19 +152,19 @@ function renderShellForRoute(route: string, template: string) {
     const enAlt = document.createElement('link');
     enAlt.setAttribute('rel','alternate');
     enAlt.setAttribute('hrefLang','en-US');
-    enAlt.setAttribute('href', `https://searchloscabos.com${meta.alternates.en}`);
+    enAlt.setAttribute('href', `https://searchwebservices.tech${meta.alternates.en}`);
     document.head.appendChild(enAlt);
 
     const esAlt = document.createElement('link');
     esAlt.setAttribute('rel','alternate');
     esAlt.setAttribute('hrefLang','es-MX');
-    esAlt.setAttribute('href', `https://searchloscabos.com${meta.alternates.es}`);
+    esAlt.setAttribute('href', `https://searchwebservices.tech${meta.alternates.es}`);
     document.head.appendChild(esAlt);
 
     const xdAlt = document.createElement('link');
     xdAlt.setAttribute('rel','alternate');
     xdAlt.setAttribute('hrefLang','x-default');
-    xdAlt.setAttribute('href', `https://searchloscabos.com/`);
+    xdAlt.setAttribute('href', `https://searchwebservices.tech/`);
     document.head.appendChild(xdAlt);
 
     // LCP image preload if configured
