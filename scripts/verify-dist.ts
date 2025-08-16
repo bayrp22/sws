@@ -109,7 +109,7 @@ function main() {
   // D. Analytics (basic static checks)
   const rootHtml = read('index.html');
   results.push(
-    { name: 'No inline GA snippet in index.html', ok: !/www\.googletagmanager\.com\/gtag\/js\?id=/.test(rootHtml) },
+    { name: 'GTM script present in index.html', ok: /GTM-5WS9DD9Q/.test(rootHtml) },
   );
 
   // E. Forms + attribution

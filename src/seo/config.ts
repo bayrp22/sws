@@ -33,5 +33,5 @@ export const legal = {
   termsUrl: '',
 };
 export const analytics = {
-  ga4MeasurementId: 'G-ZWRYXHZS2Y',
+  gtmContainerId: 'GTM-5WS9DD9Q',
 }; 
