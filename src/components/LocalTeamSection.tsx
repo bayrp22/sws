@@ -78,7 +78,7 @@ const LocalTeamSection: React.FC = () => {
       title: { EN: "COO & Founder", ES: "COO & Fundador" }, 
       image: "/images/Borja Profile.png",
       phone: "+52 624 184 0829",
-      email: "borja@searchwebservices.tech"
+      email: "info@searchwebservices.tech"
     }
   ];
 

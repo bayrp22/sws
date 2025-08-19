@@ -71,7 +71,7 @@ const PricingSection: React.FC = () => {
   const pricingTiers = [
     {
       name: { EN: "Starter", ES: "Estándar" },
-      price: { EN: "$19K MXN", ES: "$19K MXN" },
+      price: { EN: "$25K MXN", ES: "$25K MXN" },
       features: {
         EN: [
           "Professional Web Design",
@@ -93,7 +93,7 @@ const PricingSection: React.FC = () => {
     },
     {
       name: { EN: "Business", ES: "Empresarial" },
-      price: { EN: "$30K MXN", ES: "$30K MXN" },
+      price: { EN: "$40K MXN", ES: "$40K MXN" },
       features: {
         EN: [
           "Everything in Starter",
