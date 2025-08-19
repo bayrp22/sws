@@ -19,6 +19,7 @@ const routes: string[] = [
   '/en/contact', '/es/contacto',
   '/en/pricing', '/es/precios',
   '/en/about', '/es/nosotros',
+  '/form', '/formulario',
 ];
 
 // Route meta map for prerendered head tags
@@ -37,6 +38,8 @@ const ROUTE_META: Record<string, { title: string; description: string; alternate
   '/es/precios': { title: 'Precios | SWS', description: 'Paquetes transparentes para negocios en Los Cabos.', alternates: { en: '/en/pricing', es: '/es/precios' } },
   '/en/about': { title: 'About | SWS', description: 'Fast, SEO-first websites for Los Cabos and BCS.', alternates: { en: '/en/about', es: '/es/nosotros' } },
   '/es/nosotros': { title: 'Nosotros | SWS', description: 'Sitios rápidos y optimizados para SEO en Los Cabos.', alternates: { en: '/en/about', es: '/es/nosotros' } },
+  '/form': { title: 'Get Started Today - Project Form | SWS', description: 'Ready to start your web project? Fill out our form and let\'s move forward with your business goals today.', alternates: { en: '/form', es: '/formulario' } },
+  '/formulario': { title: 'Comienza Hoy - Formulario de Proyecto | SWS', description: '¿Listo para iniciar tu proyecto web? Completa nuestro formulario y avancemos con tus objetivos comerciales hoy mismo.', alternates: { en: '/form', es: '/formulario' } },
 };
 
 function ensureDir(path: string) {

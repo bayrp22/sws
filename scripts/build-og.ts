@@ -19,6 +19,8 @@ const routes: Array<{ path: string; title: string }> = [
   { path: '/es/precios', title: 'Precios' },
   { path: '/en/about', title: 'About' },
   { path: '/es/nosotros', title: 'Nosotros' },
+  { path: '/form', title: 'Get Started Today' },
+  { path: '/formulario', title: 'Comienza Hoy' },
 ];
 
 function slugify(p: string) {

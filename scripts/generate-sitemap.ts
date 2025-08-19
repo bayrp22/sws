@@ -11,6 +11,7 @@ const routes = [
   { en: '/en/contact', es: '/es/contacto' },
   { en: '/en/pricing', es: '/es/precios' },
   { en: '/en/about', es: '/es/nosotros' },
+  { en: '/form', es: '/formulario' },
 ];
 
 function escapeXml(s: string) {

@@ -15,6 +15,8 @@ import PricingEn from './pages/en/Pricing';
 import PricingEs from './pages/es/Precios';
 import AboutEn from './pages/en/About';
 import AboutEs from './pages/es/Nosotros';
+import FormEn from './pages/en/Form';
+import FormularioEs from './pages/es/Formulario';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -39,6 +41,9 @@ const AppRoutes: React.FC = () => (
 
     <Route path="/en/about" element={<AboutEn />} />
     <Route path="/es/nosotros" element={<AboutEs />} />
+
+    <Route path="/form" element={<FormEn />} />
+    <Route path="/formulario" element={<FormularioEs />} />
 
     <Route path="*" element={<NotFound />} />
   </Routes>
