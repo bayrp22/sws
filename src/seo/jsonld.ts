@@ -1,4 +1,5 @@
 import { canonicalRoot, contact, social } from './config';
+import { FAQItem } from '../data/faq';
 
 export function organizationJsonLd() {
   return {
@@ -88,5 +89,20 @@ export function serviceJsonLd({ name, description, url }: { name: string; descri
       'Mexico'
     ],
     url,
+  };
+}
+
+export function faqPageJsonLd(faqItems: FAQItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\|(.*?)\|/g, '').trim()
+      }
+    }))
   };
 } 

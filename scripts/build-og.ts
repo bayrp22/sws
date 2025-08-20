@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
+import { faqData } from '../src/data/faq.js';
 
 const site = 'Search Web Services (SWS)';
 const brandLine = 'Los Cabos Web Design | SWS';
@@ -21,6 +22,8 @@ const routes: Array<{ path: string; title: string }> = [
   { path: '/es/nosotros', title: 'Nosotros' },
   { path: '/form', title: 'Get Started Today' },
   { path: '/formulario', title: 'Comienza Hoy' },
+  { path: '/faq', title: 'FAQ' },
+  ...faqData.map(item => ({ path: `/faq/${item.slug}`, title: item.question.substring(0, 50) + (item.question.length > 50 ? '...' : '') })),
 ];
 
 function slugify(p: string) {

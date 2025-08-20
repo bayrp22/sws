@@ -10,6 +10,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(__dirname, '../dist');
 const indexHtmlPath = resolve(distDir, 'index.html');
 
+// Import FAQ data for generating routes
+import { faqData } from '../src/data/faq.js';
+
 const routes: string[] = [
   '/',
   '/en', '/es',
@@ -20,6 +23,8 @@ const routes: string[] = [
   '/en/pricing', '/es/precios',
   '/en/about', '/es/nosotros',
   '/form', '/formulario',
+  '/faq',
+  ...faqData.map(item => `/faq/${item.slug}`),
 ];
 
 // Route meta map for prerendered head tags
@@ -40,6 +45,16 @@ const ROUTE_META: Record<string, { title: string; description: string; alternate
   '/es/nosotros': { title: 'Nosotros | SWS', description: 'Sitios rápidos y optimizados para SEO en Los Cabos.', alternates: { en: '/en/about', es: '/es/nosotros' } },
   '/form': { title: 'Get Started Today - Project Form | SWS', description: 'Ready to start your web project? Fill out our form and let\'s move forward with your business goals today.', alternates: { en: '/form', es: '/formulario' } },
   '/formulario': { title: 'Comienza Hoy - Formulario de Proyecto | SWS', description: '¿Listo para iniciar tu proyecto web? Completa nuestro formulario y avancemos con tus objetivos comerciales hoy mismo.', alternates: { en: '/form', es: '/formulario' } },
+  '/faq': { title: 'Search Web Services – Master FAQ (2025) | SWS', description: 'Answer real buyer questions and rank for long‑tail queries while funnelling visitors to our quote form. Find answers to common questions about our web design and development services.', alternates: { en: '/faq', es: '/faq' } },
+  // FAQ individual pages
+  ...Object.fromEntries(faqData.map(item => [
+    `/faq/${item.slug}`,
+    { 
+      title: `${item.question} | SWS`, 
+      description: item.metaDescription, 
+      alternates: { en: `/faq/${item.slug}`, es: `/faq/${item.slug}` } 
+    }
+  ])),
 };
 
 function ensureDir(path: string) {

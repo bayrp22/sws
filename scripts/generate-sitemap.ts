@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
+import { faqData } from '../src/data/faq.js';
 
 const canonicalRoot = 'https://searchwebservices.tech';
 
@@ -12,6 +13,8 @@ const routes = [
   { en: '/en/pricing', es: '/es/precios' },
   { en: '/en/about', es: '/es/nosotros' },
   { en: '/form', es: '/formulario' },
+  { en: '/faq', es: '/faq' },
+  ...faqData.map(item => ({ en: `/faq/${item.slug}`, es: `/faq/${item.slug}` })),
 ];
 
 function escapeXml(s: string) {
