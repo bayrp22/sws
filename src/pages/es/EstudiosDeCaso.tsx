@@ -204,7 +204,7 @@ const EstudiosDeCaso: React.FC = () => {
                   ¿Listo para unirte a nuestro portafolio?
                 </h3>
                 <p className="text-xl mb-8 text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                  Creemos algo increíble juntos. Obtén tu cotización personalizada y cronograma en menos de 24 horas.
+                  Creemos algo increíble juntos. Obtén tu cotización personalizada y cronograma hoy.
                 </p>
                 <Link 
                   to="/es/contacto?source=case-studies"

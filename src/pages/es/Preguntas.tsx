@@ -59,7 +59,7 @@ const PreguntasEs: React.FC = () => {
           ¿Listo para comenzar?
         </h2>
         <p className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Obtén una cotización personalizada y cronograma para tu proyecto en menos de 24 horas.
+          Obtén una cotización personalizada y cronograma para tu proyecto.
         </p>
         <Link 
           to="/es/contacto?source=faq-cta"

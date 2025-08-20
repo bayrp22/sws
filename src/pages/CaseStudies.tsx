@@ -204,7 +204,7 @@ const CaseStudies: React.FC = () => {
                   Ready to join our portfolio?
                 </h3>
                 <p className="text-xl mb-8 text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                  Let's create something amazing together. Get your custom quote and timeline in under 24 hours.
+                  Let's create something amazing together. Get your custom quote and timeline today.
                 </p>
                 <Link 
                   to="/contact?source=case-studies"

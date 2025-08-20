@@ -39,7 +39,7 @@ const FAQ: React.FC = () => {
           Ready to get started?
         </h2>
         <p className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Get a custom quote and timeline for your project in under 24 hours.
+          Get a custom quote and timeline for your project.
         </p>
         <Link 
           to="/contact?source=faq-cta"
