@@ -38,4 +38,18 @@ export const serviciosSEO = {
     { heading: 'Optimización continua', text: 'Monitoreo y ajustes constantes para resultados duraderos.' },
   ],
   cta: 'Mejora tu posicionamiento. Comienza tu plan SEO',
+};
+
+export const desarrolloWeb = {
+  slug: '/es/servicios/desarrollo-web',
+  title: 'Desarrollo Web y Desarrollo de Sitios Web en Los Cabos',
+  metaDescription: 'Desarrollo web y de sitios web rápido, seguro y optimizado para SEO para negocios en Los Cabos y Baja California Sur. Proyectos a medida, buenas prácticas y código limpio.',
+  intro: 'Desarrollamos sitios rápidos, seguros y listos para SEO con estándares modernos. Ya sea un proyecto nuevo o mejoras a tu sitio actual, entregamos código limpio y resultados medibles.',
+  sections: [
+    { heading: 'Estándares modernos', text: 'TypeScript, arquitecturas modulares, accesibilidad y diseño responsivo para mayor durabilidad.' },
+    { heading: 'Rendimiento y Core Web Vitals', text: 'Carga, render y respuesta optimizados para mejor experiencia y posicionamiento.' },
+    { heading: 'Arquitectura lista para SEO', text: 'URLs limpias, HTML semántico, datos estructurados y contenido indexable.' },
+    { heading: 'Seguridad y escalabilidad', text: 'Configuraciones reforzadas, gestión de dependencias y despliegues que escalan con tu tráfico.' },
+  ],
+  cta: 'Solicita una cotización para tu proyecto de desarrollo web',
 }; 

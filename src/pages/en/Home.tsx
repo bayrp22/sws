@@ -18,7 +18,14 @@ const HomeEn: React.FC = () => {
 
   return (
     <div className="h-full">
-      <Meta path="/en" lang="en" title="Home" alternates={{ en: '/en', es: '/es' }} ogImage="/og/en.svg" />
+      <Meta 
+        path="/en" 
+        lang="en" 
+        title="Web Design & Website Development in Los Cabos" 
+        description="Custom websites, web design, website development, and website SEO for businesses in Los Cabos and Baja California Sur. Fast delivery, clean code, real results."
+        alternates={{ en: '/en', es: '/es' }} 
+        ogImage="/og/en.svg" 
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: 'Home', url: 'https://searchwebservices.tech/en' }])) }} />
 
@@ -26,6 +33,22 @@ const HomeEn: React.FC = () => {
         <HeroSection />
         <ProblemSection />
         <SolutionSection />
+        
+        {/* Popular Web Services Section */}
+        <section className="py-16 px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6">Popular Web Services</h2>
+            <ul className="space-y-3">
+              <li><a href="/en/services/web-design-los-cabos" className="text-blue-600 hover:underline">Web Design</a></li>
+              <li><a href="/en/services/web-design-los-cabos" className="text-blue-600 hover:underline">Website Design</a></li>
+              <li><a href="/en/services/web-development" className="text-blue-600 hover:underline">Web Development</a></li>
+              <li><a href="/en/services/web-development" className="text-blue-600 hover:underline">Website Development</a></li>
+              <li><a href="/en/services/custom-websites" className="text-blue-600 hover:underline">Custom Websites</a></li>
+              <li><a href="/en/services/seo" className="text-blue-600 hover:underline">Website SEO</a></li>
+            </ul>
+          </div>
+        </section>
+        
         <PricingSection />
         <LocalTeamSection />
         <OfferGate onPathSelected={setPath} />

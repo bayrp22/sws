@@ -16,7 +16,9 @@ import { faqData } from '../src/data/faq.js';
 const routes: string[] = [
   '/',
   '/en', '/es',
+  '/en/services', '/es/servicios',
   '/en/services/web-design-los-cabos', '/es/servicios/diseno-web-los-cabos',
+  '/en/services/web-development', '/es/servicios/desarrollo-web',
   '/en/services/custom-websites', '/es/servicios/sitios-web-a-medida',
   '/en/services/seo', '/es/servicios/seo',
   '/en/contact', '/es/contacto',
@@ -31,10 +33,14 @@ const routes: string[] = [
 
 // Route meta map for prerendered head tags
 const ROUTE_META: Record<string, { title: string; description: string; alternates: { en: string; es: string }; lcp?: string }> = {
-  '/en': { title: 'Home | Search Web Services (SWS)', description: 'SWS builds custom, high-quality websites fast for Los Cabos businesses.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
-  '/es': { title: 'Inicio | Search Web Services (SWS)', description: 'SWS crea sitios rápidos y de alta calidad para negocios en Los Cabos.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/en': { title: 'Web Design & Website Development in Los Cabos | SWS', description: 'Custom websites, web design, website development, and website SEO for businesses in Los Cabos and Baja California Sur. Fast delivery, clean code, real results.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/es': { title: 'Diseño Web y Desarrollo de Sitios Web en Los Cabos | SWS', description: 'Sitios web a medida, diseño web, desarrollo de sitios web y SEO para empresas en Los Cabos y Baja California Sur. Entrega rápida, código limpio y resultados reales.', alternates: { en: '/en', es: '/es' }, lcp: '/images/pink-lines-new.png' },
+  '/en/services': { title: 'Web Services in Los Cabos | SWS', description: 'Explore our web services in Los Cabos: web design, website design, web development, website development, custom websites, and website SEO.', alternates: { en: '/en/services', es: '/es/servicios' } },
+  '/es/servicios': { title: 'Servicios Web en Los Cabos | SWS', description: 'Explora nuestros servicios web en Los Cabos: diseño web, diseño de sitios web, desarrollo web, desarrollo de sitios web, sitios web a medida y SEO para sitios web.', alternates: { en: '/en/services', es: '/es/servicios' } },
   '/en/services/web-design-los-cabos': { title: 'Professional Web Design in Los Cabos | SWS', description: 'High-performance, visually stunning websites for Los Cabos and BCS.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
   '/es/servicios/diseno-web-los-cabos': { title: 'Diseño Web Profesional en Los Cabos | SWS', description: 'Sitios de alto rendimiento para Los Cabos y Baja California Sur.', alternates: { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' } },
+  '/en/services/web-development': { title: 'Web Development & Website Development in Los Cabos | SWS', description: 'Fast, secure, SEO‑ready web development and website development for businesses in Los Cabos and Baja California Sur. Custom builds, best practices, and clean code.', alternates: { en: '/en/services/web-development', es: '/es/servicios/desarrollo-web' } },
+  '/es/servicios/desarrollo-web': { title: 'Desarrollo Web y Desarrollo de Sitios Web en Los Cabos | SWS', description: 'Desarrollo web y de sitios web rápido, seguro y optimizado para SEO para negocios en Los Cabos y Baja California Sur. Proyectos a medida, buenas prácticas y código limpio.', alternates: { en: '/en/services/web-development', es: '/es/servicios/desarrollo-web' } },
   '/en/services/custom-websites': { title: 'Custom Websites Tailored to Your Business | SWS', description: 'Fully customized, fast, secure, SEO-friendly websites.', alternates: { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' } },
   '/es/servicios/sitios-web-a-medida': { title: 'Sitios Web a Medida para tu Negocio | SWS', description: 'Páginas personalizadas, rápidas, seguras y con SEO.', alternates: { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' } },
   '/en/services/seo': { title: 'SEO Services That Put Your Business on the Map | SWS', description: 'SEO for Los Cabos businesses. Increase visibility and leads.', alternates: { en: '/en/services/seo', es: '/es/servicios/seo' } },
@@ -118,6 +124,16 @@ function makeServiceJsonLd(route: string) {
       description: 'SEO para empresas en Los Cabos. Aumenta tu visibilidad.',
       url: 'https://searchwebservices.tech/es/servicios/seo'
     },
+    '/en/services/web-development': {
+      name: 'Web Development & Website Development in Los Cabos',
+      description: 'Fast, secure, SEO‑ready web development and website development for businesses in Los Cabos and Baja California Sur. Custom builds, best practices, and clean code.',
+      url: 'https://searchwebservices.tech/en/services/web-development'
+    },
+    '/es/servicios/desarrollo-web': {
+      name: 'Desarrollo Web y Desarrollo de Sitios Web en Los Cabos',
+      description: 'Desarrollo web y de sitios web rápido, seguro y optimizado para SEO para negocios en Los Cabos y Baja California Sur. Proyectos a medida, buenas prácticas y código limpio.',
+      url: 'https://searchwebservices.tech/es/servicios/desarrollo-web'
+    },
   };
   const item = map[route];
   if (!item) return null;
@@ -136,6 +152,8 @@ function makeBreadcrumbJsonLd(route: string) {
   const nameMap: Record<string, string> = {
     '/en/services/web-design-los-cabos': 'Web Design Los Cabos',
     '/es/servicios/diseno-web-los-cabos': 'Diseño Web Los Cabos',
+    '/en/services/web-development': 'Web Development',
+    '/es/servicios/desarrollo-web': 'Desarrollo Web',
     '/en/services/custom-websites': 'Custom Websites',
     '/es/servicios/sitios-web-a-medida': 'Sitios Web a Medida',
     '/en/services/seo': 'SEO Services',

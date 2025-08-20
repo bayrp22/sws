@@ -4,8 +4,12 @@ import NotFound from './pages/NotFound';
 import Navigation from './components/Navigation';
 import HomeEn from './pages/en/Home';
 import HomeEs from './pages/es/Home';
+import ServicesIndexEn from './pages/en/services/Index';
+import ServiciosIndexEs from './pages/es/servicios/Index';
 import WebDesignEn from './pages/en/services/WebDesignLosCabos';
 import WebDesignEs from './pages/es/servicios/DisenoWebLosCabos';
+import WebDevelopmentEn from './pages/en/services/WebDevelopment';
+import DesarrolloWebEs from './pages/es/servicios/DesarrolloWeb';
 import CustomWebsitesEn from './pages/en/services/CustomWebsites';
 import CustomWebsitesEs from './pages/es/servicios/SitiosWebAMedida';
 import SeoServicesEn from './pages/en/services/SEO';
@@ -31,8 +35,14 @@ const AppRoutes: React.FC = () => (
     <Route path="/en" element={<HomeEn />} />
     <Route path="/es" element={<HomeEs />} />
 
+    <Route path="/en/services" element={<ServicesIndexEn />} />
+    <Route path="/es/servicios" element={<ServiciosIndexEs />} />
+
     <Route path="/en/services/web-design-los-cabos" element={<WebDesignEn />} />
     <Route path="/es/servicios/diseno-web-los-cabos" element={<WebDesignEs />} />
+
+    <Route path="/en/services/web-development" element={<WebDevelopmentEn />} />
+    <Route path="/es/servicios/desarrollo-web" element={<DesarrolloWebEs />} />
 
     <Route path="/en/services/custom-websites" element={<CustomWebsitesEn />} />
     <Route path="/es/servicios/sitios-web-a-medida" element={<CustomWebsitesEs />} />

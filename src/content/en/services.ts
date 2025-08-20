@@ -38,4 +38,18 @@ export const seoServices = {
     { heading: 'Ongoing optimization', text: 'Continuous monitoring and adjustments for lasting results.' },
   ],
   cta: 'Let’s boost your rankings. Start Your SEO Plan',
+};
+
+export const webDevelopment = {
+  slug: '/en/services/web-development',
+  title: 'Web Development & Website Development in Los Cabos',
+  metaDescription: 'Fast, secure, SEO‑ready web development and website development for businesses in Los Cabos and Baja California Sur. Custom builds, best practices, and clean code.',
+  intro: 'We develop fast, secure, and SEO‑ready websites using modern standards. Whether you need a new build or improvements to an existing site, we deliver clean code and measurable results.',
+  sections: [
+    { heading: 'Modern standards', text: 'TypeScript, modular architectures, accessibility, and responsive layouts built for longevity.' },
+    { heading: 'Performance & Core Web Vitals', text: 'Optimized loading, rendering, and interaction for better user experience and rankings.' },
+    { heading: 'SEO‑ready architecture', text: 'Clean URL structure, semantic HTML, structured data, and indexable content.' },
+    { heading: 'Security & scalability', text: 'Hardened configurations, dependency hygiene, and deployments that scale with your traffic.' },
+  ],
+  cta: 'Get a quote for your web development project',
 }; 

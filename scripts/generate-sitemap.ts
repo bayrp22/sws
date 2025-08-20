@@ -6,7 +6,9 @@ const canonicalRoot = 'https://searchwebservices.tech';
 
 const routes = [
   { en: '/en/', es: '/es/' },
+  { en: '/en/services', es: '/es/servicios' },
   { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' },
+  { en: '/en/services/web-development', es: '/es/servicios/desarrollo-web' },
   { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' },
   { en: '/en/services/seo', es: '/es/servicios/seo' },
   { en: '/en/contact', es: '/es/contacto' },

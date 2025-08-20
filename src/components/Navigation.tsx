@@ -44,12 +44,14 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
   const navContent = {
     EN: {
       faq: 'FAQ',
+      services: 'Services',
       caseStudies: 'Case Studies',
       buildYours: 'Build Yours',
       home: 'Home'
     },
     ES: {
       faq: 'FAQ',
+      services: 'Servicios',
       caseStudies: 'Casos de Éxito',
       buildYours: 'Construye el Tuyo',
       home: 'Inicio'
@@ -107,6 +109,15 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
           >
             {navContent[language].faq}
           </button>
+          
+          <Link
+            to={language === 'ES' ? '/es/servicios' : '/en/services'}
+            className={`${textColor} ${hoverColor} transition-all duration-200 font-medium text-sm ${
+              (location.pathname.startsWith('/en/services') || location.pathname.startsWith('/es/servicios')) ? 'font-bold underline' : ''
+            }`}
+          >
+            {navContent[language].services}
+          </Link>
           
           <button
             onClick={navigateToCaseStudies}

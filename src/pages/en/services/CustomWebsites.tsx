@@ -9,7 +9,7 @@ const Page: React.FC = () => {
   const breadcrumbs = breadcrumbJsonLd([
     { name: 'Home', url: 'https://searchwebservices.tech/en' },
     { name: 'Services', url: 'https://searchwebservices.tech/en/services' },
-    { name: 'Custom Websites', url: `https://searchwebservices.tech${path}` },
+    { name: 'Custom Websites', url: 'https://searchwebservices.tech/en/services/custom-websites' },
   ]);
   const service = serviceJsonLd({
     name: customWebsites.title,

@@ -1,7 +1,7 @@
 export const canonicalRoot = 'https://searchwebservices.tech';
 
 export const siteName = 'Search Web Services';
-export const defaultDescription = 'Professional website development and digital solutions for Los Cabos businesses.';
+export const defaultDescription = 'Custom websites, web design, website development, and website SEO for businesses in Los Cabos and Baja California Sur.';
 
 export const hreflangLocales = {
   en: 'en-US',
