@@ -13,9 +13,9 @@ const routes = [
   { en: '/en/pricing', es: '/es/precios' },
   { en: '/en/about', es: '/es/nosotros' },
   { en: '/form', es: '/formulario' },
-  { en: '/faq', es: '/faq' },
-  ...faqData.map(item => ({ en: `/faq/${item.slug}`, es: `/faq/${item.slug}` })),
-  { en: '/case-studies', es: '/case-studies' },
+  { en: '/faq', es: '/preguntas' },
+  ...faqData.map(item => ({ en: `/faq/${item.slug}`, es: `/preguntas/${item.slug}` })),
+  { en: '/case-studies', es: '/estudios-de-caso' },
 ];
 
 function escapeXml(s: string) {
