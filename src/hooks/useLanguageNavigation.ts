@@ -6,9 +6,40 @@ export const useLanguageNavigation = () => {
   const navigate = useNavigate();
   const { language, isSpanish } = useLanguage();
 
+  // Route mappings for special routes that don't follow /en or /es prefix pattern
+  const routeMappings = {
+    // English -> Spanish
+    '/form': '/formulario',
+    '/faq': '/preguntas',
+    '/case-studies': '/estudios-de-caso',
+    // Spanish -> English  
+    '/formulario': '/form',
+    '/preguntas': '/faq',
+    '/estudios-de-caso': '/case-studies'
+  };
+
   const switchLanguage = () => {
     const currentPath = location.pathname;
     
+    // Handle special route mappings first
+    if (routeMappings[currentPath]) {
+      navigate(routeMappings[currentPath]);
+      return;
+    }
+    
+    // Handle FAQ and case study sub-routes (e.g., /faq/slug, /preguntas/slug)
+    if (currentPath.startsWith('/faq/')) {
+      const slug = currentPath.replace('/faq/', '');
+      navigate(`/preguntas/${slug}`);
+      return;
+    }
+    if (currentPath.startsWith('/preguntas/')) {
+      const slug = currentPath.replace('/preguntas/', '');
+      navigate(`/faq/${slug}`);
+      return;
+    }
+    
+    // Handle standard prefix routes
     if (isSpanish) {
       // Switch from ES to EN
       const newPath = currentPath.replace(/^\/es(\/|$)/, '/en$1');
