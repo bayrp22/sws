@@ -21,7 +21,7 @@ const FAQItem: React.FC = () => {
     { name: 'FAQ', url: '/faq' },
     { name: faqItem.question, url: `/faq/${faqItem.slug}` }
   ];
-  const breadcrumbJsonLd = breadcrumbJsonLd(breadcrumbItems);
+  const breadcrumbStructuredData = breadcrumbJsonLd(breadcrumbItems);
 
 
 
@@ -44,7 +44,7 @@ const FAQItem: React.FC = () => {
       />
       <script 
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
       />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
@@ -89,21 +89,20 @@ const FAQItem: React.FC = () => {
           </nav>
 
           <div className="max-w-4xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl text-white font-bold text-2xl shadow-2xl shadow-blue-500/25 mb-8">
+            {/* Single FAQ Section */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-3xl p-8 hover:border-gray-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/5">
+              <div className="flex items-start gap-6 mb-6">
+                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
                 {faqItem.id}
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight">
+                <div className="flex-1">
+                  <h1 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
                 {faqItem.question}
               </h1>
-              <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
-                {faqItem.metaDescription}
-              </p>
             </div>
+              </div>
 
-            {/* Content */}
-            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-3xl p-10 mb-12 hover:border-gray-500/40 transition-all duration-300">
+              <div className="mb-8">
               {faqItem.id === 1 ? (
                 // Custom pricing table for FAQ #1
                 <div className="prose prose-invert prose-xl max-w-none">
@@ -357,10 +356,10 @@ const FAQItem: React.FC = () => {
                         <div className="px-6 py-4 text-gray-300 leading-relaxed text-base">
                           Monthly
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  
+                </div>
+              </div>
+            </div>
+
                   <p className="text-gray-300 leading-relaxed text-lg">
                     Major redesigns or new features are quoted separately.
                   </p>
@@ -370,103 +369,22 @@ const FAQItem: React.FC = () => {
                   content={faqItem.answer}
                   className="prose-xl [&_p]:text-lg [&_li]:text-lg"
                 />
-              )}
-
-              {/* CTA */}
-              <div className="mt-10 pt-8 border-t border-gray-600/30">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <div className="text-center sm:text-left">
-                    <p className="text-gray-300 font-semibold text-lg mb-2">
-                      Ready to get started?
-                    </p>
-                    <p className="text-gray-400 text-sm">
-                      Let's discuss your project requirements
-                    </p>
-                  </div>
-                  <Link 
-                    to={faqItem.ctaUrl}
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 flex items-center gap-2"
-                  >
-                    {faqItem.ctaText}
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
+                            )}
               </div>
-            </div>
-
-            {/* Navigation */}
-            <div className="bg-gradient-to-r from-gray-800/40 to-gray-700/30 backdrop-blur-sm border border-gray-600/30 rounded-2xl p-8 mb-12">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-gray-600/30">
                 <Link 
                   to="/faq"
-                  className="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2 transition-colors duration-200 text-lg"
+                  className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition-colors duration-200"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Back to all FAQs
+                  ← Back to all FAQs
                 </Link>
-                
-                <div className="flex gap-6">
-                  {faqItem.id > 1 && (
                     <Link 
-                      to={`/faq/${faqData[faqItem.id - 2].slug}`}
-                      className="text-gray-400 hover:text-gray-200 font-medium flex items-center gap-2 transition-colors duration-200"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                      Previous
+                  to={faqItem.ctaUrl}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
+                >
+                  {faqItem.ctaText}
                     </Link>
-                  )}
-                  {faqItem.id < faqData.length && (
-                    <Link 
-                      to={`/faq/${faqData[faqItem.id].slug}`}
-                      className="text-gray-400 hover:text-gray-200 font-medium flex items-center gap-2 transition-colors duration-200"
-                    >
-                      Next
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Related Questions */}
-            <div className="mt-16">
-              <h2 className="text-3xl font-bold text-white mb-10 text-center">Other Frequently Asked Questions</h2>
-              <div className="grid gap-6">
-                {faqData
-                  .filter(item => item.id !== faqItem.id)
-                  .slice(0, 3)
-                  .map(item => (
-                    <Link
-                      key={item.id}
-                      to={`/faq/${item.slug}`}
-                      className="group block bg-gradient-to-r from-gray-800/30 to-gray-700/20 backdrop-blur-sm border border-gray-600/30 rounded-2xl p-6 hover:from-gray-700/40 hover:to-gray-600/30 hover:border-gray-500/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/5"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 flex-1 min-w-0">
-                          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500/20 to-purple-600/20 border border-blue-500/30 rounded-xl flex items-center justify-center text-blue-400 font-bold text-sm">
-                            {item.id}
-                          </div>
-                          <h3 className="font-semibold text-gray-200 group-hover:text-white transition-colors duration-200 pr-4">
-                            {item.question}
-                          </h3>
-                        </div>
-                        <div className="flex-shrink-0 text-gray-500 group-hover:text-blue-400 transition-colors duration-200">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    </Link>
-                  ))
-                }
               </div>
             </div>
           </div>

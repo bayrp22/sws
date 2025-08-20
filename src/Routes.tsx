@@ -20,6 +20,10 @@ import FormEn from './pages/en/Form';
 import FormularioEs from './pages/es/Formulario';
 import FAQ from './pages/FAQ';
 import FAQItem from './pages/FAQItem';
+import PreguntasEs from './pages/es/Preguntas';
+import PreguntaItem from './pages/es/PreguntaItem';
+import CaseStudies from './pages/CaseStudies';
+import EstudiosDeCaso from './pages/es/EstudiosDeCaso';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -51,16 +55,11 @@ const AppRoutes: React.FC = () => (
     <Route path="/faq" element={<FAQ />} />
     <Route path="/faq/:slug" element={<FAQItem />} />
 
-    <Route path="/case-studies" element={<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 relative">
-      <Navigation variant="page" />
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">Case Studies</h1>
-        <p className="text-lg text-slate-600">Coming Soon - Our client success stories and project showcases.</p>
-        <Link to="/faq" className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-          View FAQ Instead
-        </Link>
-      </div>
-    </div>} />
+    <Route path="/preguntas" element={<PreguntasEs />} />
+    <Route path="/preguntas/:slug" element={<PreguntaItem />} />
+
+    <Route path="/case-studies" element={<CaseStudies />} />
+    <Route path="/estudios-de-caso" element={<EstudiosDeCaso />} />
 
     <Route path="*" element={<NotFound />} />
   </Routes>

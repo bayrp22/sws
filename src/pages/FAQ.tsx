@@ -483,7 +483,7 @@ const FAQ: React.FC = () => {
                 {ctaFaqItem}
               </div>
            </div>
-         </div>
+          </div>
 
                   {/* Mobile Index - Only visible on mobile */}
          <div className="lg:hidden mb-12 max-w-4xl mx-auto">
