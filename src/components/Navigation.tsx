@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageNavigation } from '../hooks/useLanguageNavigation';
 
 interface NavigationProps {
   variant?: 'hero' | 'page';
@@ -8,7 +9,8 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStage = 10 }) => {
-  const { language, changeLanguage } = useLanguage();
+  const { language } = useLanguage();
+  const { navigateToLanguage } = useLanguageNavigation();
   const location = useLocation();
   const navigate = useNavigate();
   const [showFullName, setShowFullName] = useState(false);
@@ -28,6 +30,16 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
   const navigateToForm = () => {
     const formPath = language === 'ES' ? '/formulario' : '/form';
     navigate(formPath);
+  };
+
+  const navigateToFAQ = () => {
+    const faqPath = language === 'ES' ? '/preguntas' : '/faq';
+    navigate(faqPath);
+  };
+
+  const navigateToCaseStudies = () => {
+    const caseStudiesPath = language === 'ES' ? '/estudios-de-caso' : '/case-studies';
+    navigate(caseStudiesPath);
   };
 
   const scrollToOfferGate = () => {
@@ -101,23 +113,23 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
             </Link>
           )}
           
-          <Link
-            to="/faq"
+          <button
+            onClick={navigateToFAQ}
             className={`${textColor} ${hoverColor} transition-all duration-200 font-medium text-sm ${
-              location.pathname.startsWith('/faq') ? 'font-bold underline' : ''
+              (location.pathname.startsWith('/faq') || location.pathname.startsWith('/preguntas')) ? 'font-bold underline' : ''
             }`}
           >
             {navContent[language].faq}
-          </Link>
+          </button>
           
-          <Link
-            to="/case-studies"
+          <button
+            onClick={navigateToCaseStudies}
             className={`${textColor} ${hoverColor} transition-all duration-200 font-medium text-sm ${
-              location.pathname.startsWith('/case-studies') ? 'font-bold underline' : ''
+              (location.pathname.startsWith('/case-studies') || location.pathname.startsWith('/estudios-de-caso')) ? 'font-bold underline' : ''
             }`}
           >
             {navContent[language].caseStudies}
-          </Link>
+          </button>
           
           {/* Build Yours CTA - Prominent */}
           <button
@@ -135,7 +147,7 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
       }`}>
         <div className={`${bgColor} rounded-full px-4 py-2 flex items-center space-x-2`}>
           <button
-            onClick={() => changeLanguage('ES')}
+            onClick={() => navigateToLanguage('ES')}
             className={`${textColor} transition-all duration-200 text-sm ${
               language === 'ES' ? 'font-bold underline' : hoverColor
             }`}
@@ -144,7 +156,7 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
           </button>
           <span className={`${isDarkBackground ? 'text-white/60' : 'text-slate-400'}`}>|</span>
           <button
-            onClick={() => changeLanguage('EN')}
+            onClick={() => navigateToLanguage('EN')}
             className={`${textColor} transition-all duration-200 text-sm ${
               language === 'EN' ? 'font-bold underline' : hoverColor
             }`}
