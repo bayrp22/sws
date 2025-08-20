@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WordPress Not Available - SWS Strategic Web Solutions</title>
+    <title>WordPress Not Available - Search Web Services</title>
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="refresh" content="0; url=/">
 </head>

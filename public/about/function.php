@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Functions - SWS Strategic Web Solutions</title>
+    <title>Functions - Search Web Services</title>
     <meta name="robots" content="noindex, follow">
     <meta http-equiv="refresh" content="0; url=/#about">
 </head>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No Admin Interface - SWS Strategic Web Solutions</title>
+    <title>No Admin Interface - Search Web Services</title>
     <meta name="robots" content="noindex, nofollow">
 </head>
 <body>

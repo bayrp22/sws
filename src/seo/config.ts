@@ -1,6 +1,6 @@
 export const canonicalRoot = 'https://searchwebservices.tech';
 
-export const siteName = 'SWS - Strategic Web Solutions';
+export const siteName = 'Search Web Services';
 export const defaultDescription = 'Professional website development and digital solutions for Los Cabos businesses.';
 
 export const hreflangLocales = {

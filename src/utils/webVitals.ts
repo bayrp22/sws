@@ -73,7 +73,7 @@ export function optimizeImages() {
     
     // Add proper alt text if missing
     if (!img.alt) {
-      img.alt = img.src.includes('logo') ? 'SWS Strategic Web Solutions Logo' : 'Image';
+      img.alt = img.src.includes('logo') ? 'Search Web Services Logo' : 'Image';
     }
   });
 } 
