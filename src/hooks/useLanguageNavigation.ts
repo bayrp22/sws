@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { faqData } from '../data/faq';
+import { faqDataEs } from '../data/faq-es';
 
 export const useLanguageNavigation = () => {
   const location = useLocation();
@@ -18,6 +20,24 @@ export const useLanguageNavigation = () => {
     '/estudios-de-caso': '/case-studies'
   };
 
+  // Create FAQ slug mappings based on matching IDs
+  const createFAQSlugMappings = () => {
+    const enToEs: Record<string, string> = {};
+    const esToEn: Record<string, string> = {};
+    
+    faqData.forEach(enItem => {
+      const esItem = faqDataEs.find(es => es.id === enItem.id);
+      if (esItem) {
+        enToEs[enItem.slug] = esItem.slug;
+        esToEn[esItem.slug] = enItem.slug;
+      }
+    });
+    
+    return { enToEs, esToEn };
+  };
+
+  const { enToEs, esToEn } = createFAQSlugMappings();
+
   const switchLanguage = () => {
     const currentPath = location.pathname;
     
@@ -27,15 +47,27 @@ export const useLanguageNavigation = () => {
       return;
     }
     
-    // Handle FAQ and case study sub-routes (e.g., /faq/slug, /preguntas/slug)
+    // Handle FAQ sub-routes with proper slug mapping
     if (currentPath.startsWith('/faq/')) {
-      const slug = currentPath.replace('/faq/', '');
-      navigate(`/preguntas/${slug}`);
+      const englishSlug = currentPath.replace('/faq/', '');
+      const spanishSlug = enToEs[englishSlug];
+      if (spanishSlug) {
+        navigate(`/preguntas/${spanishSlug}`);
+      } else {
+        // Fall back to Spanish FAQ main page if no equivalent exists
+        navigate('/preguntas');
+      }
       return;
     }
     if (currentPath.startsWith('/preguntas/')) {
-      const slug = currentPath.replace('/preguntas/', '');
-      navigate(`/faq/${slug}`);
+      const spanishSlug = currentPath.replace('/preguntas/', '');
+      const englishSlug = esToEn[spanishSlug];
+      if (englishSlug) {
+        navigate(`/faq/${englishSlug}`);
+      } else {
+        // Fall back to English FAQ main page if no equivalent exists
+        navigate('/faq');
+      }
       return;
     }
     
