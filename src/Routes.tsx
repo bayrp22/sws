@@ -1,6 +1,7 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import NotFound from './pages/NotFound';
+import Navigation from './components/Navigation';
 import HomeEn from './pages/en/Home';
 import HomeEs from './pages/es/Home';
 import WebDesignEn from './pages/en/services/WebDesignLosCabos';
@@ -49,6 +50,17 @@ const AppRoutes: React.FC = () => (
 
     <Route path="/faq" element={<FAQ />} />
     <Route path="/faq/:slug" element={<FAQItem />} />
+
+    <Route path="/case-studies" element={<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 relative">
+      <Navigation variant="page" />
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-slate-900 mb-4">Case Studies</h1>
+        <p className="text-lg text-slate-600">Coming Soon - Our client success stories and project showcases.</p>
+        <Link to="/faq" className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+          View FAQ Instead
+        </Link>
+      </div>
+    </div>} />
 
     <Route path="*" element={<NotFound />} />
   </Routes>

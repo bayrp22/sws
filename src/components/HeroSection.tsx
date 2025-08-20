@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useLanguageNavigation } from '../hooks/useLanguageNavigation';
+import Navigation from './Navigation';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -18,25 +18,8 @@ try {
 
 const HeroSection: React.FC = () => {
   const { language } = useLanguage();
-  const { navigateToLanguage } = useLanguageNavigation();
   const [animationStage, setAnimationStage] = useState(0);
-  const [showFullName, setShowFullName] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
-
-  const changeLanguage = (newLanguage: 'EN' | 'ES') => {
-    navigateToLanguage(newLanguage);
-  };
-
-  const toggleCompanyName = () => {
-    setIsTyping(true);
-    setShowFullName(prev => !prev);
-    
-    // Remove typing cursor after animation completes (3 blinks + typewriter transition)
-    setTimeout(() => {
-      setIsTyping(false);
-    }, 1300); // Slightly longer than the blink animation duration (1.2s)
-  };
 
   // Animation sequence timing
   const animationDelays = [
@@ -161,47 +144,8 @@ const HeroSection: React.FC = () => {
         }}
       ></div>
 
-      {/* Company logo in top-left corner with SWS text */}
-      <button
-        className={`absolute top-6 left-6 flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200 animate-slide-in-left ${animationStage >= 2 ? 'visible' : ''}`}
-        onClick={toggleCompanyName}
-        aria-label="Toggle company name display"
-      >
-        <img
-          src="/img/company-logo.svg"
-          alt="Company Logo"
-          width="56"
-          height="56"
-          decoding="async"
-          className="w-14 h-auto"
-        />
-        <span className={`text-white text-xl font-semibold ml-2 company-name-transition ${showFullName ? 'company-name-expanded' : ''} ${isTyping ? 'company-name-typing' : ''}`}>
-          {showFullName ? 'Search Web Services' : 'SWS'}
-        </span>
-      </button>
-
-      {/* Language Toggle */}
-      <div className={`absolute top-6 right-6 animate-fade-in ${animationStage >= 8 ? 'visible' : ''}`}>
-        <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 flex items-center space-x-2">
-          <button
-            onClick={() => changeLanguage('ES')}
-            className={`text-white transition-all duration-200 ${
-              language === 'ES' ? 'font-bold underline' : 'hover:opacity-80'
-            }`}
-          >
-            ES
-          </button>
-          <span className="text-white/60">|</span>
-          <button
-            onClick={() => changeLanguage('EN')}
-            className={`text-white transition-all duration-200 ${
-              language === 'EN' ? 'font-bold underline' : 'hover:opacity-80'
-            }`}
-          >
-            EN
-          </button>
-        </div>
-      </div>
+      {/* Navigation */}
+      <Navigation variant="hero" animationStage={animationStage} />
 
       <div className="text-center px-4 md:px-8 max-w-4xl flex flex-col items-center relative z-20 pt-8 md:pt-0">
         {/* Magnifying glass logo - centered at top */}

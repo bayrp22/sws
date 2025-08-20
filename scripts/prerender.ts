@@ -25,6 +25,7 @@ const routes: string[] = [
   '/form', '/formulario',
   '/faq',
   ...faqData.map(item => `/faq/${item.slug}`),
+  '/case-studies',
 ];
 
 // Route meta map for prerendered head tags
@@ -55,6 +56,7 @@ const ROUTE_META: Record<string, { title: string; description: string; alternate
       alternates: { en: `/faq/${item.slug}`, es: `/faq/${item.slug}` } 
     }
   ])),
+  '/case-studies': { title: 'Case Studies | SWS', description: 'Coming Soon - Our client success stories and project showcases.', alternates: { en: '/case-studies', es: '/case-studies' } },
 };
 
 function ensureDir(path: string) {

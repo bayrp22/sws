@@ -15,6 +15,7 @@ const routes = [
   { en: '/form', es: '/formulario' },
   { en: '/faq', es: '/faq' },
   ...faqData.map(item => ({ en: `/faq/${item.slug}`, es: `/faq/${item.slug}` })),
+  { en: '/case-studies', es: '/case-studies' },
 ];
 
 function escapeXml(s: string) {

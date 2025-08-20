@@ -18,9 +18,10 @@ try {
 
 interface OfferGateProps {
   onPathSelected: (path: "site" | "nosite") => void;
+  variant?: "default" | "hero";
 }
 
-const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected }) => {
+const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected, variant = "default" }) => {
   const { language } = useLanguage();
 
   // Check if Framer Motion is available
@@ -92,28 +93,27 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected }) => {
     }, 100);
   };
 
+  // Conditional styling based on variant
+  const isHeroVariant = variant === "hero";
+  const sectionClasses = isHeroVariant 
+    ? "" // No background for hero variant, inherits from parent
+    : "bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 py-16 md:py-20 lg:py-24";
+  
+  const cardClasses = isHeroVariant
+    ? "bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-2xl hover:shadow-lime-400/20 cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-slate-700 hover:border-[#A5FF00]"
+    : "bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-transparent hover:border-[#A5FF00]";
+
+  const titleClasses = isHeroVariant ? "text-white" : "text-gray-900";
+  const descriptionClasses = isHeroVariant ? "text-slate-300" : "text-gray-600";
+
   return (
     <Section
       id="quote"
-      className="bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 py-16 md:py-20 lg:py-24"
+      data-section="offer-gate"
+      className={sectionClasses}
       {...sectionProps}
     >
-      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-        <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <Header
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8"
-            {...headerProps}
-          >
-            {content[language].headline}
-          </Header>
-          <Subheader
-            className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
-            {...headerProps}
-          >
-            {content[language].question}
-          </Subheader>
-        </div>
-
+      <div className={isHeroVariant ? "" : "container mx-auto px-4 md:px-8 max-w-6xl"}>
         <Cards
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto"
           {...cardsProps}
@@ -121,16 +121,16 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected }) => {
           {/* Has Website Card */}
           <div
             onClick={() => handleChoice("site")}
-            className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-transparent hover:border-[#A5FF00]"
+            className={cardClasses}
           >
             <div className="text-center">
-              <div className="bg-[#A5FF00]/20 rounded-full border-4 border-[#A5FF00] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 md:w-10 md:h-10 text-black" />
+              <div className="bg-green-900 rounded-full border-4 border-[#A5FF00] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 md:w-10 md:h-10 text-white" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+              <h3 className={`text-xl md:text-2xl font-bold mb-4 ${titleClasses}`}>
                 {content[language].hasWebsite.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className={`leading-relaxed ${descriptionClasses}`}>
                 {content[language].hasWebsite.description}
               </p>
             </div>
@@ -139,16 +139,16 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected }) => {
           {/* Needs Website Card */}
           <div
             onClick={() => handleChoice("nosite")}
-            className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-transparent hover:border-[#A5FF00]"
+            className={cardClasses}
           >
             <div className="text-center">
-              <div className="bg-pink-200/60 rounded-full border-4 border-pink-400 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
-                <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-black" />
+              <div className="bg-pink-900 rounded-full border-4 border-pink-400 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
+                <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-white" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+              <h3 className={`text-xl md:text-2xl font-bold mb-4 ${titleClasses}`}>
                 {content[language].needsWebsite.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className={`leading-relaxed ${descriptionClasses}`}>
                 {content[language].needsWebsite.description}
               </p>
             </div>
