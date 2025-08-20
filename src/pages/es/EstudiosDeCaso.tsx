@@ -12,6 +12,8 @@ interface CaseStudy {
   budget: string;
   timeline: string;
   description: string;
+  image: string;
+  imageAlt: string;
 }
 
 const caseStudies: CaseStudy[] = [
@@ -23,7 +25,9 @@ const caseStudies: CaseStudy[] = [
     displayUrl: "bajaexperience.life",
     budget: "$25,000 MXN",
     timeline: "14 días",
-    description: "Blog personal y serie de podcast que documenta el camino transformador de Scott Purcell hacia la salud y el bienestar, con historias inspiradoras y consejos prácticos."
+    description: "Blog personal y serie de podcast que documenta el camino transformador de Scott Purcell hacia la salud y el bienestar, con historias inspiradoras y consejos prácticos.",
+    image: "/case-studies/bajaexperience.jpg",
+    imageAlt: "Captura de pantalla del sitio web BajaExperience mostrando blog personal y interfaz de podcast"
   },
   {
     id: 2,
@@ -33,7 +37,9 @@ const caseStudies: CaseStudy[] = [
     displayUrl: "wildcabocorporate.framer.website",
     budget: "$40,000 MXN",
     timeline: "18 días",
-    description: "Agencia de yates de lujo en Baja California Sur que ofrece servicios de charter premium, gestión de yates y experiencias marítimas exclusivas."
+    description: "Agencia de yates de lujo en Baja California Sur que ofrece servicios de charter premium, gestión de yates y experiencias marítimas exclusivas.",
+    image: "/case-studies/blue-ocean.jpg",
+    imageAlt: "Sitio web de Blue Ocean Yachting mostrando servicios de charter de yates de lujo en Cabo"
   },
   {
     id: 3,
@@ -43,7 +49,9 @@ const caseStudies: CaseStudy[] = [
     displayUrl: "caboweddingplanner.love",
     budget: "$40,000 MXN",
     timeline: "21 días",
-    description: "Servicio de planificación de bodas de destino de alta gama especializado en ceremonias y recepciones de lujo en Los Cabos y áreas circundantes."
+    description: "Servicio de planificación de bodas de destino de alta gama especializado en ceremonias y recepciones de lujo en Los Cabos y áreas circundantes.",
+    image: "/case-studies/ucw.jpg",
+    imageAlt: "Sitio web de Unique Cabo Weddings mostrando servicios de planificación de bodas de destino de lujo"
   },
   {
     id: 4,
@@ -53,7 +61,9 @@ const caseStudies: CaseStudy[] = [
     displayUrl: "antiguacafe.com",
     budget: "$25,000 MXN",
     timeline: "12 días",
-    description: "Encantador café local ubicado en el corazón del centro de San José del Cabo, sirviendo café mexicano auténtico y pasteles tradicionales."
+    description: "Encantador café local ubicado en el corazón del centro de San José del Cabo, sirviendo café mexicano auténtico y pasteles tradicionales.",
+    image: "/case-studies/antigua-cafe.jpg",
+    imageAlt: "Sitio web de Antigua Cafe mostrando cafetería mexicana auténtica y pasteles tradicionales"
   },
   {
     id: 5,
@@ -63,7 +73,9 @@ const caseStudies: CaseStudy[] = [
     displayUrl: "todossantos.homes",
     budget: "$40,000 MXN",
     timeline: "19 días",
-    description: "Plataforma inmobiliaria premium especializada en propiedades de lujo y casas vacacionales en el pueblo artístico de Todos Santos."
+    description: "Plataforma inmobiliaria premium especializada en propiedades de lujo y casas vacacionales en el pueblo artístico de Todos Santos.",
+    image: "/case-studies/todos-santos.jpg",
+    imageAlt: "Sitio web de Todos Santos Real Estate con propiedades de lujo y casas vacacionales"
   }
 ];
 
@@ -129,20 +141,14 @@ const EstudiosDeCaso: React.FC = () => {
 
           {/* Right Side - Thumbnail */}
           <div className={`${index % 2 === 1 ? 'md:order-1' : ''}`}>
-            <div className="aspect-video bg-gradient-to-br from-gray-700/50 to-gray-800/50 rounded-2xl border border-gray-600/30 flex items-center justify-center group-hover:border-gray-500/40 transition-all duration-300">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <p className="text-gray-400 text-sm font-medium">
-                  Captura del Proyecto
-                </p>
-                <p className="text-gray-500 text-xs mt-1">
-                  Próximamente
-                </p>
-              </div>
+            <div className="aspect-video bg-gradient-to-br from-gray-700/50 to-gray-800/50 rounded-2xl border border-gray-600/30 overflow-visible group-hover:border-gray-500/40 transition-all duration-300 hover:scale-105 cursor-pointer">
+              <img
+                src={study.image}
+                alt={study.imageAlt}
+                className="w-full h-full object-cover transition-transform duration-300 rounded-2xl"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>

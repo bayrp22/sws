@@ -27,11 +27,40 @@ export const useLanguageNavigation = () => {
     switchLanguage();
   };
 
+  const navigateToHome = () => {
+    const homePath = isSpanish ? '/es' : '/en';
+    navigate(homePath);
+  };
+
+  const navigateToFAQ = () => {
+    const faqPath = isSpanish ? '/preguntas' : '/faq';
+    navigate(faqPath);
+  };
+
+  const navigateToCaseStudies = () => {
+    const caseStudiesPath = isSpanish ? '/estudios-de-caso' : '/case-studies';
+    navigate(caseStudiesPath);
+  };
+
+  const navigateToForm = () => {
+    const formPath = isSpanish ? '/formulario' : '/form';
+    navigate(formPath);
+  };
+
+  const getLanguageAwareRoute = (englishRoute: string, spanishRoute: string) => {
+    return isSpanish ? spanishRoute : englishRoute;
+  };
+
   return {
     currentLanguage: language,
     isSpanish,
     isEnglish: !isSpanish,
     switchLanguage,
     navigateToLanguage,
+    navigateToHome,
+    navigateToFAQ,
+    navigateToCaseStudies,
+    navigateToForm,
+    getLanguageAwareRoute,
   };
 }; 

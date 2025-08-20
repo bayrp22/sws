@@ -10,7 +10,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStage = 10 }) => {
   const { language } = useLanguage();
-  const { navigateToLanguage } = useLanguageNavigation();
+  const { navigateToLanguage, navigateToForm, navigateToFAQ, navigateToCaseStudies, navigateToHome } = useLanguageNavigation();
   const location = useLocation();
   const navigate = useNavigate();
   const [showFullName, setShowFullName] = useState(false);
@@ -27,28 +27,14 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
     }
   };
 
-  const navigateToForm = () => {
-    const formPath = language === 'ES' ? '/formulario' : '/form';
-    navigate(formPath);
-  };
-
-  const navigateToFAQ = () => {
-    const faqPath = language === 'ES' ? '/preguntas' : '/faq';
-    navigate(faqPath);
-  };
-
-  const navigateToCaseStudies = () => {
-    const caseStudiesPath = language === 'ES' ? '/estudios-de-caso' : '/case-studies';
-    navigate(caseStudiesPath);
-  };
-
   const scrollToOfferGate = () => {
     const offerGateElement = document.querySelector('[data-section="offer-gate"]');
     if (offerGateElement) {
       offerGateElement.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // If not on home page, navigate to home with form parameter
-      window.location.href = '/en#offer-gate';
+      // If not on home page, navigate to language-aware home with form parameter
+      const homeUrl = language === 'ES' ? '/es#offer-gate' : '/en#offer-gate';
+      window.location.href = homeUrl;
     }
   };
 

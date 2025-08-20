@@ -19,7 +19,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const location = useLocation();
   
   // Determine language from URL route
-  const isSpanish = location.pathname.startsWith('/es');
+  const spanishRoutes = ['/preguntas', '/estudios-de-caso', '/formulario'];
+  const isSpanish = location.pathname.startsWith('/es') || 
+                   spanishRoutes.some(route => location.pathname.startsWith(route));
   const language: Language = isSpanish ? 'ES' : 'EN';
   
   const value: LanguageContextType = {

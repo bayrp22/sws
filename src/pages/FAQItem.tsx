@@ -5,9 +5,11 @@ import { faqPageJsonLd, breadcrumbJsonLd } from '../seo/jsonld';
 import Meta from '../seo/Meta';
 import Navigation from '../components/Navigation';
 import FAQContent from '../components/FAQContent';
+import { useLanguageNavigation } from '../hooks/useLanguageNavigation';
 
 const FAQItem: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { getLanguageAwareRoute } = useLanguageNavigation();
   
   const faqItem = faqData.find(item => item.slug === slug);
   
@@ -59,7 +61,7 @@ const FAQItem: React.FC = () => {
           <nav className="mb-12">
             <ol className="flex items-center space-x-3 text-sm">
               <li>
-                <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-1">
+                <Link to={getLanguageAwareRoute('/en', '/es')} className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-1">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 15V9a2 2 0 012-2h4a2 2 0 012 2v6" />
@@ -73,7 +75,7 @@ const FAQItem: React.FC = () => {
                 </svg>
               </li>
               <li>
-                <Link to="/faq" className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                <Link to={getLanguageAwareRoute('/faq', '/preguntas')} className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
                   FAQ
                 </Link>
               </li>
