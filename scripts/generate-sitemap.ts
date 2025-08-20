@@ -5,7 +5,7 @@ import { faqData } from '../src/data/faq.js';
 const canonicalRoot = 'https://searchwebservices.tech';
 
 const routes = [
-  { en: '/en', es: '/es' },
+  { en: '/en/', es: '/es/' },
   { en: '/en/services/web-design-los-cabos', es: '/es/servicios/diseno-web-los-cabos' },
   { en: '/en/services/custom-websites', es: '/es/servicios/sitios-web-a-medida' },
   { en: '/en/services/seo', es: '/es/servicios/seo' },
@@ -13,9 +13,9 @@ const routes = [
   { en: '/en/pricing', es: '/es/precios' },
   { en: '/en/about', es: '/es/nosotros' },
   { en: '/form', es: '/formulario' },
-  { en: '/faq', es: '/preguntas' },
+  { en: '/faq/', es: '/preguntas/' },
   ...faqData.map(item => ({ en: `/faq/${item.slug}`, es: `/preguntas/${item.slug}` })),
-  { en: '/case-studies', es: '/estudios-de-caso' },
+  { en: '/case-studies/', es: '/estudios-de-caso/' },
 ];
 
 function escapeXml(s: string) {
