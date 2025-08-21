@@ -4,8 +4,6 @@ import NotFound from './pages/NotFound';
 import Navigation from './components/Navigation';
 import HomeEn from './pages/en/Home';
 import HomeEs from './pages/es/Home';
-import ServicesIndexEn from './pages/en/services/Index';
-import ServiciosIndexEs from './pages/es/servicios/Index';
 import WebDesignEn from './pages/en/services/WebDesignLosCabos';
 import WebDesignEs from './pages/es/servicios/DisenoWebLosCabos';
 import WebDevelopmentEn from './pages/en/services/WebDevelopment';
@@ -34,9 +32,6 @@ const AppRoutes: React.FC = () => (
     <Route path="/" element={<HomeEn />} />
     <Route path="/en" element={<HomeEn />} />
     <Route path="/es" element={<HomeEs />} />
-
-    <Route path="/en/services" element={<ServicesIndexEn />} />
-    <Route path="/es/servicios" element={<ServiciosIndexEs />} />
 
     <Route path="/en/services/web-design-los-cabos" element={<WebDesignEn />} />
     <Route path="/es/servicios/diseno-web-los-cabos" element={<WebDesignEs />} />
