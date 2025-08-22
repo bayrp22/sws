@@ -132,6 +132,26 @@ Los rediseños principales o nuevas funciones se cotizan por separado.`,
     metaDescription: "Sí—nuestro Plan de Servicio SWS (MXN $2,200/mes) cubre gestión de seguridad, actualizaciones de contenido, mejora continua, respuesta de emergencia y reportes.",
     ctaText: "Agregar mantenimiento",
     ctaUrl: "/es/contacto?source=faq-maintenance"
+  },
+  {
+    id: 9,
+    question: "¿En qué servicios web se especializan?",
+    slug: "especializacion-servicios-web",
+    answer: `Nos especializamos en los servicios web más demandados para empresas de Los Cabos:
+
+**Servicios Web Principales:**
+
+• **[Diseño Web](/es/servicios/diseno-web-los-cabos)** - Diseño web profesional y mobile-first que convierte visitantes en clientes
+• **[Diseño de Sitios Web](/es/servicios/diseno-web-los-cabos)** - Diseño visual personalizado y optimización de experiencia de usuario
+• **[Desarrollo Web](/es/servicios/desarrollo-web)** - Desarrollo full-stack con frameworks modernos y código limpio
+• **[Desarrollo de Sitios Web](/es/servicios/desarrollo-web)** - Funcionalidad personalizada, integraciones y optimización de rendimiento
+• **[Sitios Web a Medida](/es/servicios/sitios-web-a-medida)** - Soluciones personalizadas construidas específicamente para las necesidades de tu negocio
+• **[SEO para Sitios Web](/es/servicios/seo)** - Optimización para motores de búsqueda para ayudarte a posicionarte mejor en Google
+
+Cada servicio está diseñado para ayudar a las empresas de Los Cabos a establecer una presencia online sólida, atraer más clientes y hacer crecer sus ingresos a través de soluciones web efectivas.`,
+    metaDescription: "Nos especializamos en diseño web, diseño de sitios web, desarrollo web, desarrollo de sitios web, sitios web a medida y SEO para empresas de Los Cabos.",
+    ctaText: "Obtener mi cotización de servicios web",
+    ctaUrl: "/es/contacto?source=faq-services"
   }
 ];
 

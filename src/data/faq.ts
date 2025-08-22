@@ -132,6 +132,26 @@ Major redesigns or new features are quoted separately.`,
     metaDescription: "Yes—our SWS Service Plan (MXN $2,200/mo) covers security management, content updates, continuous improvement, emergency response, and reporting.",
     ctaText: "Add maintenance",
     ctaUrl: "/contact?source=faq-maintenance"
+  },
+  {
+    id: 9,
+    question: "What web services do you specialize in?",
+    slug: "web-services-specialization",
+    answer: `We specialize in the most in-demand web services for Los Cabos businesses:
+
+**Core Web Services:**
+
+• **[Web Design](/en/services/web-design-los-cabos)** - Professional, mobile-first website design that converts visitors into customers
+• **[Website Design](/en/services/web-design-los-cabos)** - Custom visual design and user experience optimization
+• **[Web Development](/en/services/web-development)** - Full-stack development with modern frameworks and clean code
+• **[Website Development](/en/services/web-development)** - Custom functionality, integrations, and performance optimization
+• **[Custom Websites](/en/services/custom-websites)** - Tailored solutions built specifically for your business needs
+• **[Website SEO](/en/services/seo)** - Search engine optimization to help you rank higher in Google
+
+Each service is designed to help Los Cabos businesses establish a strong online presence, attract more customers, and grow their revenue through effective web solutions.`,
+    metaDescription: "We specialize in web design, website design, web development, website development, custom websites, and website SEO for Los Cabos businesses.",
+    ctaText: "Get my web service quote",
+    ctaUrl: "/contact?source=faq-services"
   }
 ];
 

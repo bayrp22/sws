@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Meta from '../seo/Meta';
 import Navigation from '../components/Navigation';
+import SocialProofSection from '../components/SocialProofSection';
 
 interface CaseStudy {
   id: number;
@@ -166,14 +167,13 @@ const CaseStudies: React.FC = () => {
       />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%)]"></div>
-        
         <Navigation variant="page" />
         
-        <div className="container mx-auto px-4 pt-32 pb-16 relative z-10">
-          {/* Header */}
+        {/* Social Proof Hero Section */}
+        <SocialProofSection />
+        
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          {/* Case Studies Header */}
           <div className="text-center mb-20">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl mb-8">
               <svg className="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

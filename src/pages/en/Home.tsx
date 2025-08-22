@@ -34,21 +34,6 @@ const HomeEn: React.FC = () => {
         <ProblemSection />
         <SolutionSection />
         
-        {/* Popular Web Services Section */}
-        <section className="py-16 px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6">Popular Web Services</h2>
-            <ul className="space-y-3">
-              <li><a href="/en/services/web-design-los-cabos" className="text-blue-600 hover:underline">Web Design</a></li>
-              <li><a href="/en/services/web-design-los-cabos" className="text-blue-600 hover:underline">Website Design</a></li>
-              <li><a href="/en/services/web-development" className="text-blue-600 hover:underline">Web Development</a></li>
-              <li><a href="/en/services/web-development" className="text-blue-600 hover:underline">Website Development</a></li>
-              <li><a href="/en/services/custom-websites" className="text-blue-600 hover:underline">Custom Websites</a></li>
-              <li><a href="/en/services/seo" className="text-blue-600 hover:underline">Website SEO</a></li>
-            </ul>
-          </div>
-        </section>
-        
         <PricingSection />
         <LocalTeamSection />
         <OfferGate onPathSelected={setPath} />
