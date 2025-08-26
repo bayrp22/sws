@@ -55,7 +55,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
   }, [isMenuOpen]);
 
   const isHomePage = location.pathname === '/' || location.pathname === '/en' || location.pathname === '/es';
-  const isDarkBackground = variant === 'hero';
+  const isDarkBackground = true; // Always use dark theme styling
 
   const navContent = {
     EN: {
@@ -74,9 +74,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
     }
   };
 
-  const textColor = isDarkBackground ? 'text-white' : 'text-slate-900';
-  const hoverColor = isDarkBackground ? 'hover:text-white/80' : 'hover:text-slate-700';
-  const bgColor = isDarkBackground ? 'bg-white/20 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm shadow-sm';
+  const textColor = 'text-white';
+  const hoverColor = 'hover:text-white/80';
+  const bgColor = 'bg-white/20 backdrop-blur-sm';
 
   const handleNavigation = (action: () => void) => {
     action();
@@ -144,18 +144,16 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
           />
           
           {/* Menu Panel */}
-          <div className={`fixed top-0 right-0 h-full w-80 max-w-[90vw] ${
-            isDarkBackground ? 'bg-slate-900' : 'bg-white'
-          } shadow-2xl transform transition-transform duration-300 ease-in-out`}>
+          <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex flex-col h-full">
               {/* Menu Header */}
-              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+                              <div className="flex items-center justify-between p-6 border-b border-slate-700">
                 <h2 className={`text-xl font-semibold ${textColor}`}>
                   {navContent[language].menu}
                 </h2>
                 <button
                   onClick={closeMenu}
-                  className={`${textColor} p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200`}
+                                      className={`${textColor} p-2 rounded-md hover:bg-slate-800 transition-colors duration-200`}
                   aria-label="Close menu"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,7 +168,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
                   {!isHomePage && (
                     <button
                       onClick={() => handleNavigation(navigateToHome)}
-                      className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800`}
+                      className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-800`}
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -181,8 +179,8 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
                   
                   <button
                     onClick={() => handleNavigation(navigateToFAQ)}
-                    className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 ${
-                      (location.pathname.startsWith('/faq') || location.pathname.startsWith('/preguntas')) ? 'bg-slate-100 dark:bg-slate-800 font-bold' : ''
+                    className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-800 ${
+                      (location.pathname.startsWith('/faq') || location.pathname.startsWith('/preguntas')) ? 'bg-slate-800 font-bold' : ''
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -193,8 +191,8 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
                   
                   <button
                     onClick={() => handleNavigation(navigateToCaseStudies)}
-                    className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 ${
-                      (location.pathname.startsWith('/case-studies') || location.pathname.startsWith('/estudios-de-caso')) ? 'bg-slate-100 dark:bg-slate-800 font-bold' : ''
+                    className={`w-full text-left py-3 px-4 rounded-lg ${textColor} ${hoverColor} transition-all duration-200 font-medium text-lg flex items-center space-x-3 hover:bg-slate-800 ${
+                      (location.pathname.startsWith('/case-studies') || location.pathname.startsWith('/estudios-de-caso')) ? 'bg-slate-800 font-bold' : ''
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +215,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
               </div>
 
               {/* Language Toggle */}
-              <div className="px-6 py-6 border-t border-slate-200 dark:border-slate-700">
+              <div className="px-6 py-6 border-t border-slate-700">
                 <div className="flex items-center justify-center space-x-4">
                   <span className={`${textColor} text-sm font-medium`}>Language:</span>
                   <div className="flex items-center space-x-3">
@@ -229,7 +227,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         language === 'ES' 
                           ? 'bg-[#A5FF00] text-black font-bold' 
-                          : `${textColor} ${hoverColor} hover:bg-slate-100 dark:hover:bg-slate-800`
+                          : `${textColor} ${hoverColor} hover:bg-slate-800`
                       }`}
                     >
                       ES
@@ -242,7 +240,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ variant = 'hero', a
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         language === 'EN' 
                           ? 'bg-[#A5FF00] text-black font-bold' 
-                          : `${textColor} ${hoverColor} hover:bg-slate-100 dark:hover:bg-slate-800`
+                          : `${textColor} ${hoverColor} hover:bg-slate-800`
                       }`}
                     >
                       EN

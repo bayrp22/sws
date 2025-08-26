@@ -39,7 +39,7 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
   };
 
   const isHomePage = location.pathname === '/' || location.pathname === '/en' || location.pathname === '/es';
-  const isDarkBackground = variant === 'hero';
+  const isDarkBackground = true; // Always use dark theme styling
 
   const navContent = {
     EN: {
@@ -56,9 +56,9 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
     }
   };
 
-  const textColor = isDarkBackground ? 'text-white' : 'text-slate-900';
-  const hoverColor = isDarkBackground ? 'hover:text-white/80' : 'hover:text-slate-700';
-  const bgColor = isDarkBackground ? 'bg-white/20 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm shadow-sm';
+  const textColor = 'text-white';
+  const hoverColor = 'hover:text-white/80';
+  const bgColor = 'bg-white/20 backdrop-blur-sm';
 
   return (
     <>
