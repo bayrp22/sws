@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Meta from '../seo/Meta';
 import Navigation from '../components/Navigation';
 import SocialProofSection from '../components/SocialProofSection';
+import { useSequentialAnimation } from '../hooks/useSequentialAnimation';
 
 interface CaseStudy {
   id: number;
@@ -81,10 +82,22 @@ const caseStudies: CaseStudy[] = [
 ];
 
 const CaseStudies: React.FC = () => {
-  // Memoize the case study cards to prevent re-rendering during scroll
+  // Sequential animation for page header elements only - not for case study cards
+  const { getAnimationClass } = useSequentialAnimation({
+    delays: [0, 200, 400, 600, 800]
+  });
+
+  // Memoize the case study cards with immediate visibility - no animation stage dependencies
   const caseStudyCards = useMemo(() => 
     caseStudies.map((study, index) => (
-      <div key={study.id} className="group bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-3xl p-8 hover:border-gray-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/5">
+      <div 
+        key={study.id} 
+        className="group bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-3xl p-8 hover:border-gray-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/5 animate-fade-in-up visible"
+        style={{ 
+          animationDelay: `${500 + (index * 200)}ms`,
+          animationFillMode: 'both'
+        }}
+      >
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Left Side - Project Info */}
           <div className={`${index % 2 === 1 ? 'md:order-2' : ''}`}>
@@ -176,27 +189,27 @@ const CaseStudies: React.FC = () => {
         {/* Social Proof Hero Section */}
         <SocialProofSection />
         
-        <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className={`container mx-auto px-4 py-16 relative z-10 ${getAnimationClass(1, 'animate-fade-in-up')}`}>
           {/* Case Studies Header */}
           <div className="text-center mb-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl mb-8">
+            <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl mb-8 ${getAnimationClass(2, 'animate-scale-in')}`}>
               <svg className="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight">
+            <h1 className={`text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight ${getAnimationClass(3, 'animate-fade-in-up')}`}>
               Case Studies
             </h1>
           </div>
 
           {/* Case Studies Grid */}
-          <div className="max-w-6xl mx-auto grid gap-8 md:gap-12">
+          <div className={`max-w-6xl mx-auto grid gap-8 md:gap-12 ${getAnimationClass(4, 'animate-fade-in-up')}`}>
             {caseStudyCards}
           </div>
 
           {/* Bottom CTA */}
           <div className="mt-20 text-center">
-            <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/30 rounded-3xl p-12 text-white relative overflow-hidden max-w-4xl mx-auto">
+            <div className={`bg-gradient-to-r from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/30 rounded-3xl p-12 text-white relative overflow-hidden max-w-4xl mx-auto ${getAnimationClass(5, 'animate-bounce-in')}`}>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 rounded-3xl"></div>
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">

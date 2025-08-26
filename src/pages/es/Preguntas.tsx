@@ -5,8 +5,14 @@ import { faqPageJsonLd } from '../../seo/jsonld';
 import Meta from '../../seo/Meta';
 import Navigation from '../../components/Navigation';
 import FAQContent from '../../components/FAQContent';
+import { useSequentialAnimation } from '../../hooks/useSequentialAnimation';
 
 const PreguntasEs: React.FC = () => {
+  // Sequential animation for page elements
+  const { getAnimationClass } = useSequentialAnimation({
+    delays: [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800]
+  });
+
   // Memoize the JSON-LD data to prevent recalculation
   const jsonLd = useMemo(() => faqPageJsonLd(faqDataEs), []);
 
@@ -445,7 +451,7 @@ const PreguntasEs: React.FC = () => {
           {/* Main Content Layout */}
           <div className="max-w-7xl mx-auto flex gap-8 lg:gap-12 h-[calc(100vh-8rem)]">
             {/* Left Sidebar - Index */}
-            <div className="w-1/4 hidden lg:block">
+            <div className={`w-1/4 hidden lg:block ${getAnimationClass(2, 'animate-slide-in-left')}`}>
               <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-2xl h-full flex flex-col">
                 <div className="p-6 border-b border-gray-600/30">
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -459,15 +465,15 @@ const PreguntasEs: React.FC = () => {
             </div>
 
             {/* Right Content - FAQ Items */}
-            <div id="main-content" className="w-full lg:w-3/4 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-600/50 scrollbar-track-transparent">
+            <div id="main-content" className={`w-full lg:w-3/4 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-600/50 scrollbar-track-transparent ${getAnimationClass(3, 'animate-fade-in-up')}`}>
               {/* Header - Now scrolls with content */}
               <div className="text-center mb-16 pt-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl mb-8">
+                <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-2xl mb-8 ${getAnimationClass(4, 'animate-scale-in')}`}>
                   <svg className="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight">
+                <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight ${getAnimationClass(5, 'animate-fade-in-up')}`}>
                   Preguntas Frecuentes
                 </h1>
                 <div className="max-w-3xl mx-auto">

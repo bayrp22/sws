@@ -33,6 +33,54 @@
     <meta name="geo.position" content="23.0545;-109.7915" />
     <meta name="ICBM" content="23.0545, -109.7915" />
 
+    <!-- Prevent white flash on page load -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #000000 100%);
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+      }
+      
+      #root {
+        min-height: 100vh;
+        background: inherit;
+      }
+      
+      /* Smooth transition when React takes over */
+      body.loaded #root {
+        opacity: 1;
+      }
+      
+      /* Loading state styles */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #000000 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        opacity: 0.6;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 0.6; transform: scale(1); }
+        50% { opacity: 0.9; transform: scale(1.05); }
+      }
+    </style>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://searchwebservices.tech/" />
@@ -137,7 +185,15 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading state shown until React loads -->
+      <div class="loading-container" id="loading-container">
+        <svg class="loading-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2" fill="none" opacity="0.3"/>
+          <path d="M20 50 L35 35 L50 50 L65 35 L80 50" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
     <!-- Hidden Netlify form for build-time detection -->
     <form name="adaptive-form" netlify netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="adaptive-form" />

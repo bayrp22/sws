@@ -31,4 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Remove loading indicator and render React app
+const root = createRoot(document.getElementById("root")!);
+root.render(<App />);
+
+// Remove loading indicator once React has rendered
+setTimeout(() => {
+  const loadingContainer = document.getElementById('loading-container');
+  if (loadingContainer) {
+    loadingContainer.style.opacity = '0';
+    loadingContainer.style.transition = 'opacity 0.3s ease-out';
+    setTimeout(() => {
+      loadingContainer.remove();
+    }, 300);
+  }
+  document.body.classList.add('loaded');
+}, 100);
