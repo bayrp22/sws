@@ -1,27 +1,24 @@
 export type Theme = 'light' | 'dark';
 
 interface FaviconConfig {
+  svg: string;
+  png: string;
   ico: string;
-  png16: string;
-  png32: string;
-  png48: string;
   appleTouchIcon: string;
 }
 
 const faviconConfigs: Record<Theme, FaviconConfig> = {
   light: {
-    ico: '/favicon-light.ico',
-    png16: '/favicon-16x16-light.png',
-    png32: '/favicon-32x32-light.png',
-    png48: '/favicon-48x48-light.png',
-    appleTouchIcon: '/apple-touch-icon-light.png',
+    svg: '/favicon.svg', // SVG adapts automatically via CSS media queries
+    png: '/favicon-light.png?v=2',
+    ico: '/favicon-light.ico?v=2',
+    appleTouchIcon: '/apple-touch-icon-light.png?v=2',
   },
   dark: {
-    ico: '/favicon.ico',
-    png16: '/favicon-16x16.png',
-    png32: '/favicon-32x32.png',
-    png48: '/favicon-48x48.png',
-    appleTouchIcon: '/apple-touch-icon.png',
+    svg: '/favicon.svg', // SVG adapts automatically via CSS media queries
+    png: '/favicon.png?v=2',
+    ico: '/favicon.ico?v=2',
+    appleTouchIcon: '/apple-touch-icon.png?v=2',
   },
 };
 
@@ -48,48 +45,33 @@ class ThemeManager {
   private updateFavicon(theme: Theme) {
     const config = faviconConfigs[theme];
     
-    // Remove existing favicon links
-    const existingLinks = document.querySelectorAll('link[rel*="icon"]');
+    // Remove existing favicon links (except SVG which stays the same)
+    const existingLinks = document.querySelectorAll('link[rel="alternate icon"], link[rel="apple-touch-icon"], link[rel="icon"][type="image/x-icon"]');
     existingLinks.forEach(link => link.remove());
     
-    // Add new favicon links
+    // Add new favicon links following Google's requirements
     const head = document.head;
     
-    // ICO favicon (fallback)
+    // PNG fallback (Google's requirement)
+    const pngLink = document.createElement('link');
+    pngLink.rel = 'alternate icon';
+    pngLink.type = 'image/png';
+    pngLink.href = config.png;
+    head.appendChild(pngLink);
+    
+    // Apple touch icon
+    const appleLink = document.createElement('link');
+    appleLink.rel = 'apple-touch-icon';
+    appleLink.setAttribute('sizes', '180x180');
+    appleLink.href = config.appleTouchIcon;
+    head.appendChild(appleLink);
+    
+    // Legacy ICO fallback
     const icoLink = document.createElement('link');
     icoLink.rel = 'icon';
     icoLink.type = 'image/x-icon';
     icoLink.href = config.ico;
     head.appendChild(icoLink);
-    
-    // PNG favicons
-    const png32Link = document.createElement('link');
-    png32Link.rel = 'icon';
-    png32Link.type = 'image/png';
-    png32Link.sizes = '32x32';
-    png32Link.href = config.png32;
-    head.appendChild(png32Link);
-    
-    const png16Link = document.createElement('link');
-    png16Link.rel = 'icon';
-    png16Link.type = 'image/png';
-    png16Link.sizes = '16x16';
-    png16Link.href = config.png16;
-    head.appendChild(png16Link);
-    
-    const png48Link = document.createElement('link');
-    png48Link.rel = 'icon';
-    png48Link.type = 'image/png';
-    png48Link.sizes = '48x48';
-    png48Link.href = config.png48;
-    head.appendChild(png48Link);
-    
-    // Apple touch icon
-    const appleLink = document.createElement('link');
-    appleLink.rel = 'apple-touch-icon';
-    appleLink.sizes = '180x180';
-    appleLink.href = config.appleTouchIcon;
-    head.appendChild(appleLink);
   }
 
   private applyTheme(theme: Theme) {
