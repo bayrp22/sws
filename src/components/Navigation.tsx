@@ -62,9 +62,9 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
 
   return (
     <>
-      {/* Company logo in top-left corner */}
+      {/* Company logo in top-left corner - Desktop only */}
       <div
-        className={`absolute top-6 left-6 flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200 z-50 ${
+        className={`absolute top-6 left-6 flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200 z-50 hidden lg:flex ${
           variant === 'hero' ? `animate-slide-in-left ${animationStage >= 2 ? 'visible' : ''}` : ''
         }`}
         onClick={toggleCompanyName}
@@ -85,8 +85,8 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
         </Link>
       </div>
 
-      {/* Main Navigation */}
-      <nav className={`absolute top-6 left-1/2 transform -translate-x-1/2 z-50 ${
+      {/* Main Navigation - Desktop only */}
+      <nav className={`absolute top-6 left-1/2 transform -translate-x-1/2 z-50 hidden lg:block ${
         variant === 'hero' ? `animate-fade-in ${animationStage >= 3 ? 'visible' : ''}` : ''
       }`}>
         <div className={`${bgColor} rounded-full px-6 py-3 flex items-center space-x-6`}>
@@ -127,8 +127,8 @@ const Navigation: React.FC<NavigationProps> = ({ variant = 'hero', animationStag
         </div>
       </nav>
 
-      {/* Language Toggle in top-right */}
-      <div className={`absolute top-6 right-6 z-50 ${
+      {/* Language Toggle in top-right - Desktop only */}
+      <div className={`absolute top-6 right-6 z-50 hidden lg:flex ${
         variant === 'hero' ? `animate-fade-in ${animationStage >= 8 ? 'visible' : ''}` : ''
       }`}>
         <div className={`${bgColor} rounded-full px-4 py-2 flex items-center space-x-2`}>

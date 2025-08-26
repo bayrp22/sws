@@ -3,7 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { faqDataEs } from '../../data/faq-es';
 import { faqPageJsonLd, breadcrumbJsonLd } from '../../seo/jsonld';
 import Meta from '../../seo/Meta';
-import Navigation from '../../components/Navigation';
+import ResponsiveNavigation from '../../components/ResponsiveNavigation';
 import FAQContent from '../../components/FAQContent';
 
 const PreguntaItem: React.FC = () => {
@@ -50,7 +50,7 @@ const PreguntaItem: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%)]"></div>
         
-        <Navigation variant="page" />
+        <ResponsiveNavigation variant="page" />
         
         <div className="container mx-auto px-4 pt-24 pb-16 relative z-10">
           {/* Breadcrumb */}

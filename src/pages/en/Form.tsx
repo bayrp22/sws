@@ -3,7 +3,7 @@ import Meta from '@/seo/Meta';
 import OfferGate from '@/components/OfferGate';
 import AdaptiveForm from '@/components/AdaptiveForm';
 import Confirmation from '@/components/Confirmation';
-import Navigation from '@/components/Navigation';
+import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import { websiteJsonLd, breadcrumbJsonLd } from '@/seo/jsonld';
 import { useSequentialAnimation } from '@/hooks/useSequentialAnimation';
 
@@ -34,7 +34,7 @@ const FormEn: React.FC = () => {
       ])) }} />
 
       <div className="relative">
-        <Navigation variant="page" />
+        <ResponsiveNavigation variant="page" />
         
         <main className="main-container">
           {/* Hero Section with integrated form */}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import Navigation from './Navigation';
+import ResponsiveNavigation from './ResponsiveNavigation';
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -145,7 +145,7 @@ const HeroSection: React.FC = () => {
       ></div>
 
       {/* Navigation */}
-      <Navigation variant="hero" animationStage={animationStage} />
+              <ResponsiveNavigation variant="hero" animationStage={animationStage} />
 
       <div className="text-center px-4 md:px-8 max-w-4xl flex flex-col items-center relative z-20 pt-8 md:pt-0">
         {/* Magnifying glass logo - centered at top */}

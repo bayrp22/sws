@@ -294,5 +294,17 @@ body, .bg-theme-primary, .bg-theme-secondary, .text-theme-primary, .text-theme-s
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Mobile navigation spacing */
+@media (max-width: 1023px) {
+  .mobile-nav-padding {
+    padding-top: 5rem; /* Account for fixed mobile header */
+  }
+  
+  /* Ensure mobile menu has proper z-index */
+  .mobile-menu-overlay {
+    z-index: 9999;
+  }
+}
+
 /* Local font will be added once woff2 files are available in public/fonts */
 html, body { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; }
