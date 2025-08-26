@@ -3,12 +3,16 @@ import App from './App.tsx'
 import './index.css'
 import { initWebVitals, preloadCriticalResources, optimizeImages } from './utils/webVitals.ts'
 import { initGTM } from './analytics/ga'
+import { themeManager } from './utils/themeManager'
 
 // Initialize Web Vitals tracking
 initWebVitals();
 
 // Initialize GTM
 initGTM();
+
+// Initialize theme manager
+console.log('Theme Manager initialized:', themeManager.getTheme());
 
 // Preload critical resources
 preloadCriticalResources();

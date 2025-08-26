@@ -4,6 +4,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Custom Properties for Theme System */
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-gradient-start: #f1f5f9;
+  --bg-gradient-middle: #e2e8f0;
+  --bg-gradient-end: #cbd5e1;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-accent: #6366f1;
+  --border-color: #e5e7eb;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme colors */
+:root[data-theme="dark"] {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-gradient-start: #111827;
+  --bg-gradient-middle: #1f2937;
+  --bg-gradient-end: #000000;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-accent: #818cf8;
+  --border-color: #374151;
+  --card-bg: #1f2937;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Auto theme based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-gradient-start: #111827;
+    --bg-gradient-middle: #1f2937;
+    --bg-gradient-end: #000000;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-accent: #818cf8;
+    --border-color: #374151;
+    --card-bg: #1f2937;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+  }
+}
+
 @layer base {
   html, body {
     height: 100%;
@@ -198,6 +246,52 @@
   100% {
     transform: translateY(0);
   }
+}
+
+/* Theme-aware utility classes */
+@layer utilities {
+  .bg-theme-primary {
+    background-color: var(--bg-primary);
+  }
+  
+  .bg-theme-secondary {
+    background-color: var(--bg-secondary);
+  }
+  
+  .bg-theme-gradient {
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 50%, var(--bg-gradient-end) 100%);
+  }
+  
+  .text-theme-primary {
+    color: var(--text-primary);
+  }
+  
+  .text-theme-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .text-theme-accent {
+    color: var(--text-accent);
+  }
+  
+  .border-theme {
+    border-color: var(--border-color);
+  }
+  
+  .card-theme {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px -1px var(--card-shadow);
+  }
+  
+  /* Smooth transitions for theme changes */
+  .theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+/* Apply theme transition to common elements */
+body, .bg-theme-primary, .bg-theme-secondary, .text-theme-primary, .text-theme-secondary {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Local font will be added once woff2 files are available in public/fonts */
