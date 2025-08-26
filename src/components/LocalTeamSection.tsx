@@ -55,13 +55,13 @@ const LocalTeamSection: React.FC = () => {
       headline2: "a Faceless Agency",
       paragraph1: "We're your neighbors in Los Cabos. We build real relationships and websites that bring value to our community.",
       headline3: "",
-      paragraph2: " Get to know us! We met as kids at Colegio El Camino and are now founders of Search, your web solutions company. We don't work remotely—we're right here in Los Cabos and always available to meet in person."},
+      paragraph2: " Get to know us! We met as kids at Colegio El Camino and are now founders of Search, your web services company. We don't work remotely—we're right here in Los Cabos and always available to meet in person."},
     ES: {
       headline1: "Desde Los Cabos.",
       headline2: "Para Negocios,",
       headline3: "Como el Tuyo.",
       paragraph1: "No somos una agencia sin rostro. Somos locales, igual que tu negocio. Construyendo relaciones reales y sitios web que aportan valor a nuestra comunidad.",
-      paragraph2: "¡Conocenos! Nosotros nos conocimos de niños en el Colegio El Camino y ahora somos cofundadores de Search, tu empresa de soluciones web. No trabajamos a distancia. Estamos aquí contigo en Los Cabos, disponibles para cualquier reunión cara a cara."
+      paragraph2: "¡Conocenos! Nosotros nos conocimos de niños en el Colegio El Camino y ahora somos cofundadores de Search, tu empresa de servicios web. No trabajamos a distancia. Estamos aquí contigo en Los Cabos, disponibles para cualquier reunión cara a cara."
     }
   };
 

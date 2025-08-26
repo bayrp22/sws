@@ -167,6 +167,10 @@ const EstudiosDeCaso: React.FC = () => {
       />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%)]"></div>
+        
         <Navigation variant="page" />
         
         {/* Social Proof Hero Section */}
@@ -183,11 +187,6 @@ const EstudiosDeCaso: React.FC = () => {
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-6 leading-tight">
               Estudios de Caso
             </h1>
-            <div className="max-w-4xl mx-auto">
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Explora nuestro portafolio de proyectos exitosos de desarrollo web en Los Cabos. Ejemplos reales de sitios web personalizados, plataformas de e-commerce y soluciones digitales que hemos construido para empresas locales.
-              </p>
-            </div>
           </div>
 
           {/* Case Studies Grid */}
@@ -207,7 +206,7 @@ const EstudiosDeCaso: React.FC = () => {
                   Creemos algo increíble juntos. Obtén tu cotización personalizada y cronograma hoy.
                 </p>
                 <Link 
-                  to="/es/contacto?source=case-studies"
+                  to="/formulario?source=case-studies"
                   className="inline-block bg-gradient-to-r from-white to-gray-100 text-gray-900 px-12 py-5 rounded-2xl font-bold text-xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:shadow-white/20 hover:from-gray-50 hover:to-white"
                 >
                   Iniciar Tu Proyecto

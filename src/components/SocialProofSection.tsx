@@ -21,44 +21,32 @@ const clients: Client[] = [
   {
     id: 1,
     name: 'Wild Cabo',
-    logo: '/client-logos/wild-cabo.svg',
+    logo: '/wild cabo white logo.png',
     alt: 'Wild Cabo logo'
   },
   {
     id: 2,
     name: 'Ronival',
-    logo: '/client-logos/ronival.svg',
+    logo: '/ronival white fill logo.png',
     alt: 'Ronival logo'
   },
   {
     id: 3,
     name: 'UCW',
-    logo: '/client-logos/ucw.svg',
+    logo: '/ucw logo white fill.png',
     alt: 'Unique Cabo Weddings logo'
   },
   {
     id: 4,
-    name: 'Blue Ocean',
-    logo: '/client-logos/blue-ocean.svg',
-    alt: 'Blue Ocean Yachting logo'
+    name: 'Cabo Pirates',
+    logo: '/Cabo Pirates all white logo.png',
+    alt: 'Cabo Pirates logo'
   },
   {
     id: 5,
     name: 'Antigua Cafe',
-    logo: '/client-logos/antigua-cafe.svg',
+    logo: '/antigua cafe logo.png',
     alt: 'Antigua Cafe logo'
-  },
-  {
-    id: 6,
-    name: 'BajaExperience',
-    logo: '/client-logos/bajaexperience.svg',
-    alt: 'BajaExperience logo'
-  },
-  {
-    id: 7,
-    name: 'Todos Santos',
-    logo: '/client-logos/todos-santos.svg',
-    alt: 'Todos Santos Real Estate logo'
   }
 ];
 
@@ -140,96 +128,69 @@ const SocialProofSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%)]"></div>
+    <section className="min-h-screen px-4 relative flex items-center">
       
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 w-full py-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-4 leading-tight">
+        <div className="text-center mb-8 md:mb-12 lg:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-3 md:mb-4 leading-tight">
             {currentContent.heading}
           </h2>
-          <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
             {currentContent.subheading}
           </p>
         </div>
 
         {/* Client Logos */}
-        <div className="mb-20">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 mb-8">
+        <div className="mb-0">
+          {/* Logo Container */}
+          <div className="grid grid-cols-5 gap-2 md:gap-4 lg:gap-6 items-center justify-items-center max-w-4xl mx-auto mb-4 md:mb-6">
+            {clients.map((client) => {
+              // Individual styling for each logo to ensure visual consistency
+              const getLogoStyles = (logoName: string) => {
+                switch (logoName) {
+                  case 'Wild Cabo':
+                    return "w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28"; // Square logo, slightly smaller
+                  case 'Ronival':
+                    return "w-14 h-14 md:w-18 md:h-18 lg:w-24 lg:h-24"; // Circular logo, even smaller
+                  case 'UCW':
+                    return "w-20 h-12 md:w-28 md:h-16 lg:w-36 lg:h-20"; // Wide clover logo, width priority
+                  case 'Cabo Pirates':
+                    return "w-24 h-18 md:w-32 md:h-24 lg:w-40 lg:h-32"; // Detailed logo, slightly larger for better visibility
+                  case 'Antigua Cafe':
+                    return "w-28 h-16 md:w-40 md:h-24 lg:w-48 lg:h-28"; // Text-heavy logo, larger for better readability
+                  default:
+                    return "w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32"; // Fallback
+                }
+              };
+
+              return (
+                <div key={client.id} className="flex items-center justify-center">
+                  <img
+                    src={client.logo}
+                    alt={client.alt}
+                    className={`${getLogoStyles(client.name)} object-contain opacity-80 hover:opacity-100 transition-all duration-300 hover:scale-105`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Names Container */}
+          <div className="grid grid-cols-5 gap-2 md:gap-4 lg:gap-6 justify-items-center max-w-4xl mx-auto">
             {clients.map((client) => (
-              <div
-                key={client.id}
-                className="flex items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-white/30 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/5"
-              >
-                <img
-                  src={client.logo}
-                  alt={client.alt}
-                  className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <div key={`name-${client.id}`} className="text-center">
+                <h3 className="text-gray-300 text-xs md:text-sm lg:text-base font-medium hover:text-white transition-colors duration-300">
+                  {client.name}
+                </h3>
               </div>
             ))}
-            
-            {/* "And More" Button */}
-            <div className="flex items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm rounded-2xl border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 cursor-pointer group">
-              <div className="text-center">
-                <div className="text-2xl mb-1 text-blue-400 group-hover:text-blue-300 transition-colors">+</div>
-                <div className="text-xs text-gray-300 group-hover:text-white transition-colors font-medium">
-                  {language === 'EN' ? 'more' : 'más'}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {currentContent.testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-gradient-to-br from-gray-800/40 to-gray-900/60 backdrop-blur-sm border border-gray-600/30 rounded-3xl p-8 hover:border-gray-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5"
-            >
-              {/* Stars */}
-              <div className="flex items-center mb-4">
-                {renderStars(testimonial.rating)}
-              </div>
-              
-              {/* Quote */}
-              <blockquote className="text-gray-300 leading-relaxed mb-6 text-lg">
-                "{testimonial.quote}"
-              </blockquote>
-              
-              {/* Author */}
-              <div className="border-t border-gray-600/30 pt-4">
-                <div className="font-semibold text-white text-lg">
-                  {testimonial.author}
-                </div>
-                <div className="text-gray-400 font-medium">
-                  {testimonial.company}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* CTA to scroll down to case studies */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer group">
-            <span className="text-lg font-medium">{currentContent.moreButton}</span>
-            <svg 
-              className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-200" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </div>
       </div>
     </section>
   );
