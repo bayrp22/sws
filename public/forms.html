@@ -1,43 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hidden Forms for Netlify</title>
+    <title>Netlify Forms Configuration</title>
 </head>
 <body>
-    <!-- Test Form - Simple Test Form -->
-    <form name="test-form" method="POST" action="/test-success" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="test-form" />
-        <div style="display: none;">
-            <label>Don't fill this out: <input name="bot-field" /></label>
-        </div>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="businessName" />
-        <textarea name="message"></textarea>
-        <input type="hidden" name="utm_source" />
-        <input type="hidden" name="utm_medium" />
-        <input type="hidden" name="utm_campaign" />
-        <input type="hidden" name="utm_term" />
-        <input type="hidden" name="utm_content" />
-        <input type="hidden" name="gclid" />
-        <input type="hidden" name="fbclid" />
-        <input type="hidden" name="referrer_path" />
-    </form>
-
-    <!-- Adaptive Form - Processed by React component, not needed here -->
-
-    <!-- Confirmation Form - Follow-up Questions Form -->
-    <form name="confirmation-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="confirmation-contact" />
-        <div style="display: none;">
-            <label>Don't fill this out: <input name="bot-field" /></label>
-        </div>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message"></textarea>
-        <input type="text" name="originalPath" />
-        <input type="text" name="language" />
-        <input type="text" name="timestamp" />
-    </form>
+    <!-- All forms are now handled by React components -->
+    <!-- No hidden forms needed - React forms handle Netlify processing -->
 </body>
 </html> 
