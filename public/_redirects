@@ -27,4 +27,6 @@
 # Handle specific file extensions that don't exist
 /*.php                      /           301
 
-# Form redirects temporarily disabled - forms removed for rebuild 
+# Netlify Form Redirects
+/contact-form         /form/success  200
+/contacto-formulario  /formulario/success  200 
