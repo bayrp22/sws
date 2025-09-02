@@ -20,6 +20,8 @@ import AboutEn from './pages/en/About';
 import AboutEs from './pages/es/Nosotros';
 import FormEn from './pages/en/Form';
 import FormularioEs from './pages/es/Formulario';
+import FormSuccessEn from './pages/en/FormSuccess';
+import FormSuccessEs from './pages/es/FormSuccess';
 import FAQ from './pages/FAQ';
 import FAQItem from './pages/FAQItem';
 import PreguntasEs from './pages/es/Preguntas';
@@ -55,7 +57,9 @@ const AppRoutes: React.FC = () => (
     <Route path="/es/nosotros" element={<AboutEs />} />
 
     <Route path="/form" element={<FormEn />} />
+    <Route path="/form/formsuccess" element={<FormSuccessEn />} />
     <Route path="/formulario" element={<FormularioEs />} />
+    <Route path="/formulario/formsuccess" element={<FormSuccessEs />} />
 
     <Route path="/faq" element={<FAQ />} />
     <Route path="/faq/:slug" element={<FAQItem />} />
