@@ -31,4 +31,5 @@
 /adaptive-form              /form/formsuccess  200
 /confirmation-contact       /form/formsuccess  200
 /adaptive-formulario        /formulario/formsuccess  200
-/confirmation-contact-es    /formulario/formsuccess  200 
+/confirmation-contact-es    /formulario/formsuccess  200
+/test-form                  /test-success  200 

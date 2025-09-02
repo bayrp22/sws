@@ -28,6 +28,8 @@ import PreguntasEs from './pages/es/Preguntas';
 import PreguntaItem from './pages/es/PreguntaItem';
 import CaseStudies from './pages/CaseStudies';
 import EstudiosDeCaso from './pages/es/EstudiosDeCaso';
+import TestForm from './pages/TestForm';
+import TestSuccess from './pages/TestSuccess';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -69,6 +71,9 @@ const AppRoutes: React.FC = () => (
 
     <Route path="/case-studies" element={<CaseStudies />} />
     <Route path="/estudios-de-caso" element={<EstudiosDeCaso />} />
+
+    <Route path="/test-form" element={<TestForm />} />
+    <Route path="/test-success" element={<TestSuccess />} />
 
     <Route path="*" element={<NotFound />} />
   </Routes>
