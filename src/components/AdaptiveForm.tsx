@@ -30,21 +30,30 @@ interface FormData {
   bizDesc?: string;
 }
 
+function collectAttributionData() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source'),
+    utm_medium: params.get('utm_medium'),
+    utm_campaign: params.get('utm_campaign'),
+    utm_term: params.get('utm_term'),
+    utm_content: params.get('utm_content'),
+    gclid: params.get('gclid'),
+    fbclid: params.get('fbclid'),
+    referrer_path: document.referrer || ''
+  };
+}
+
 function fillAttributionFields(form: HTMLFormElement | null) {
   if (!form) return;
-  const params = new URLSearchParams(window.location.search);
+  const attributionData = collectAttributionData();
   const set = (name: string, value: string | null) => {
     const input = form.querySelector(`input[name="${name}"]`) as HTMLInputElement | null;
     if (input) input.value = value || '';
   };
-  set('utm_source', params.get('utm_source'));
-  set('utm_medium', params.get('utm_medium'));
-  set('utm_campaign', params.get('utm_campaign'));
-  set('utm_term', params.get('utm_term'));
-  set('utm_content', params.get('utm_content'));
-  set('gclid', params.get('gclid'));
-  set('fbclid', params.get('fbclid'));
-  set('referrer_path', document.referrer || '');
+  Object.entries(attributionData).forEach(([key, value]) => {
+    set(key, value);
+  });
 }
 
 const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFormSubmit }) => {
@@ -55,6 +64,21 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
   useEffect(() => {
     const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
     fillAttributionFields(formEl);
+  }, []);
+
+  // Also update attribution fields when URL changes
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
+      fillAttributionFields(formEl);
+    };
+
+    // Listen for popstate events (back/forward navigation)
+    window.addEventListener('popstate', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
   }, []);
 
   const {
@@ -121,7 +145,16 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
       const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
       if (isDevelopment) {
-        // In development, simulate form submission
+        // Collect attribution data
+        const attributionData = collectAttributionData();
+
+        // Ensure attribution fields are populated in the form before collecting
+        const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
+        if (formEl) {
+          fillAttributionFields(formEl);
+        }
+
+        // In development, simulate form submission with attribution data
         console.log('Development mode - simulating form submission:', {
           name: data.name,
           bizName: data.bizName,
@@ -130,15 +163,16 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
           bizDesc: data.bizDesc,
           path,
           language,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          attribution: attributionData
         });
-        
+
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         // Pass the form data to parent component
         onFormSubmit?.({ name: data.name, email: data.email });
-        
+
         setIsSuccess(true);
         onStatusChange?.("success");
         reset();
@@ -155,12 +189,16 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         formData.append("language", language);
         formData.append("timestamp", new Date().toISOString());
 
-        // Attribution fields
+        // Ensure attribution fields are populated before collecting
         const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
-        const names = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','referrer_path'];
-        names.forEach((n) => {
-          const input = formEl?.querySelector(`input[name="${n}"]`) as HTMLInputElement | null;
-          if (input && input.value) formData.append(n, input.value);
+        if (formEl) {
+          fillAttributionFields(formEl);
+        }
+
+        // Collect and append attribution fields
+        const attributionData = collectAttributionData();
+        Object.entries(attributionData).forEach(([key, value]) => {
+          if (value) formData.append(key, value);
         });
 
         // Submit to Netlify

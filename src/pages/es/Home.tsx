@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Meta from '@/seo/Meta';
 import HeroSection from '@/components/HeroSection';
 import ProblemSection from '@/components/ProblemSection';
@@ -12,9 +13,23 @@ import Confirmation from '@/components/Confirmation';
 import { websiteJsonLd, breadcrumbJsonLd } from '@/seo/jsonld';
 
 const HomeEs: React.FC = () => {
+  const navigate = useNavigate();
   const [path, setPath] = useState<"site" | "nosite" | null>(null);
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [submittedFormData, setSubmittedFormData] = useState<{ name: string; email: string } | null>(null);
+
+  // Handle form status changes and URL updates
+  const handleFormStatusChange = (status: "idle" | "loading" | "success" | "error") => {
+    setFormStatus(status);
+    if (status === 'success' && path) {
+      navigate('/formulario/formsuccess', {
+        state: {
+          path: path,
+          formData: submittedFormData
+        }
+      });
+    }
+  };
 
   return (
     <div className="h-full">
@@ -37,7 +52,7 @@ const HomeEs: React.FC = () => {
         <PricingSection />
         <LocalTeamSection />
         <OfferGate onPathSelected={setPath} />
-        <AdaptiveForm path={path} onStatusChange={setFormStatus} onFormSubmit={setSubmittedFormData as any} />
+        <AdaptiveForm path={path} onStatusChange={handleFormStatusChange} onFormSubmit={setSubmittedFormData as any} />
         {formStatus === 'success' && path && (
           <Confirmation path={path} initialFormData={submittedFormData} />
         )}
