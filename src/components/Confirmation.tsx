@@ -59,38 +59,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
   // Component selection based on availability
   const Section = isFramerAvailable ? motion.section : 'section';
 
-  // Function to populate additional form fields before submission
-  const populateFormFields = (form: HTMLFormElement) => {
-    // Set additional fields
-    const originalPathInput = form.querySelector('input[name="originalPath"]') as HTMLInputElement;
-    const languageInput = form.querySelector('input[name="language"]') as HTMLInputElement;
-    const timestampInput = form.querySelector('input[name="timestamp"]') as HTMLInputElement;
-
-    if (originalPathInput) originalPathInput.value = path;
-    if (languageInput) languageInput.value = language;
-    if (timestampInput) timestampInput.value = new Date().toISOString();
-  };
-
-  // Handle email copy
-  const handleEmailCopy = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    try {
-      await navigator.clipboard.writeText(content[language].form.email);
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
-    } catch (err) {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = content[language].form.email;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
-    }
-  };
-
   const content = {
     EN: {
       site: {
@@ -99,7 +67,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         subtitle: "What happens next:",
         steps: [
           "Comprehensive site analysis",
-          "Performance & SEO audit", 
+          "Performance & SEO audit",
           "Personalized recommendations"
         ]
       },
@@ -120,8 +88,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         emailPlaceholder: "Your Email",
         messagePlaceholder: "Your questions, comments, or concerns...",
         submitButton: "Send Message",
-        submittingButton: "Sending...",
-        successMessage: "Thank you! We'll get back to you soon.",
         contactReminder: "Anything else? Feel free to call or email us anytime.",
         phone: "+52 624 264 4012",
         email: "bay@searchwebservices.tech"
@@ -155,8 +121,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         emailPlaceholder: "Tu Email",
         messagePlaceholder: "Tus preguntas, comentarios o inquietudes...",
         submitButton: "Enviar Mensaje",
-        submittingButton: "Enviando...",
-        successMessage: "¡Gracias! Te responderemos pronto.",
         contactReminder: "¿Algo más? No dudes en llamarnos o escribirnos en cualquier momento.",
         phone: "+52 624 264 4012",
         email: "bay@searchwebservices.tech"
@@ -174,12 +138,11 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
     >
       <div className="container mx-auto px-4 md:px-8 max-w-4xl">
         <div className="text-center">
-          
+
           {/* Success Icon with Animation */}
           <div className="relative mb-8">
             <div className="bg-[#A5FF00]/20 rounded-full border-4 border-[#A5FF00] w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mx-auto mb-6 relative overflow-hidden">
               <CheckCircle className="w-12 h-12 md:w-16 md:h-16 text-black relative z-10" />
-              
             </div>
           </div>
 
@@ -188,7 +151,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               {currentContent.title}
             </h2>
-            
+
             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
               {currentContent.message}
             </p>
@@ -198,10 +161,10 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">
                 {currentContent.subtitle}
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 {currentContent.steps.map((step, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="flex items-center space-x-3 p-4"
                   >
@@ -226,69 +189,66 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                   {content[language].form.subtitle}
                 </p>
 
-                <div>
-                  <form
-                    ref={formRef}
-                    name="confirmation-contact"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    className="space-y-4 max-w-2xl mx-auto"
-                    onSubmit={(e) => {
-                      populateFormFields(e.currentTarget);
-                    }}
-                  >
-                    {/* Hidden inputs for Netlify */}
-                    <input type="hidden" name="form-name" value="confirmation-contact" />
-                    <div style={{ display: 'none' }}>
-                      <label>Don't fill this out: <input name="bot-field" /></label>
-                    </div>
+                <form
+                  ref={formRef}
+                  name="confirmation-contact"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  className="space-y-4 max-w-2xl mx-auto"
+                >
+                  {/* Hidden form name for Netlify */}
+                  <input type="hidden" name="form-name" value="confirmation-contact" />
 
-                    {/* Additional hidden fields */}
-                    <input type="hidden" name="originalPath" />
-                    <input type="hidden" name="language" />
-                    <input type="hidden" name="timestamp" />
+                  {/* Honeypot field */}
+                  <div style={{ display: 'none' }}>
+                    <label>Don't fill this out: <input name="bot-field" /></label>
+                  </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder={content[language].form.namePlaceholder}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder={content[language].form.emailPlaceholder}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
-                        />
-                      </div>
-                    </div>
+                  {/* Additional hidden fields */}
+                  <input type="hidden" name="originalPath" />
+                  <input type="hidden" name="language" />
+                  <input type="hidden" name="timestamp" />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <textarea
-                        name="message"
-                        placeholder={content[language].form.messagePlaceholder}
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder={content[language].form.namePlaceholder}
                         required
-                        rows={4}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors resize-none"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
                       />
                     </div>
-                    <div className="text-center">
-                      <button
-                        type="submit"
-                        className="bg-[#A5FF00] hover:bg-[#8FE600] text-black font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center space-x-2"
-                      >
-                        <Send className="w-4 h-4" />
-                        <span>{content[language].form.submitButton}</span>
-                      </button>
+                    <div>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder={content[language].form.emailPlaceholder}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
+                      />
                     </div>
-                  </form>
-                </div>
+                  </div>
+                  <div>
+                    <textarea
+                      name="message"
+                      placeholder={content[language].form.messagePlaceholder}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors resize-none"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="bg-[#A5FF00] hover:bg-[#8FE600] text-black font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center space-x-2"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>{content[language].form.submitButton}</span>
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
@@ -298,24 +258,22 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                 {content[language].form.contactReminder}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a 
+                <a
                   href={`tel:${content[language].form.phone}`}
                   className="flex items-center space-x-2 text-gray-600 hover:text-[#A5FF00] transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   <span className="font-medium">{content[language].form.phone}</span>
                 </a>
-                <button 
-                  onClick={handleEmailCopy}
-                  className="flex items-center space-x-2 text-gray-600 hover:text-[#A5FF00] transition-colors relative"
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(content[language].form.email);
+                  }}
+                  className="flex items-center space-x-2 text-gray-600 hover:text-[#A5FF00] transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   <span className="font-medium">{content[language].form.email}</span>
-                  {emailCopied && (
-                    <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-                      {language === 'EN' ? 'Copied!' : '¡Copiado!'}
-                    </span>
-                  )}
                 </button>
               </div>
             </div>
@@ -326,4 +284,4 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
   );
 };
 
-export default Confirmation; 
+export default Confirmation;

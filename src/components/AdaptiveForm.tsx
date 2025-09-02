@@ -2,8 +2,6 @@ import React from 'react';
 import { CheckCircle, Mail, User, Building, Globe, FileText } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-// Simple HTML form component that works reliably with Netlify
-
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
 try {
@@ -73,8 +71,7 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         url: { label: "Current Website URL", placeholder: "yourwebsite.com" },
         bizDesc: { label: "Business Description", placeholder: "Tell us what your business does and why you're looking to create a website." }
       },
-      submitButton: "Get My Free Quote",
-      submitting: "Sending..."
+      submitButton: "Get My Free Quote"
     },
     ES: {
       headlines: {
@@ -88,37 +85,7 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         url: { label: "URL del Sitio Web Actual", placeholder: "https://tusitio.com" },
         bizDesc: { label: "Descripción del Negocio", placeholder: "Cuéntenos a qué se dedica su negocio y por qué busca crear un sitio web" }
       },
-      submitButton: "Obtener Mi Cotización Gratis",
-      submitting: "Enviando..."
-    }
-  };
-
-      // Function to populate additional form fields before submission
-  const populateFormFields = (form: HTMLFormElement) => {
-    // Set path and language
-    const pathInput = form.querySelector('input[name="path"]') as HTMLInputElement;
-    const languageInput = form.querySelector('input[name="language"]') as HTMLInputElement;
-    const timestampInput = form.querySelector('input[name="timestamp"]') as HTMLInputElement;
-
-    if (pathInput) pathInput.value = path || '';
-    if (languageInput) languageInput.value = language;
-    if (timestampInput) timestampInput.value = new Date().toISOString();
-
-    // Populate UTM fields (as backup, since useEffect should have already done this)
-    const params = new URLSearchParams(window.location.search);
-    const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
-
-    utmFields.forEach(field => {
-      const input = form.querySelector(`input[name="${field}"]`) as HTMLInputElement;
-      if (input && !input.value) {
-        input.value = params.get(field) || '';
-      }
-    });
-
-    // Set referrer
-    const referrerInput = form.querySelector('input[name="referrer_path"]') as HTMLInputElement;
-    if (referrerInput && !referrerInput.value) {
-      referrerInput.value = document.referrer || '';
+      submitButton: "Obtener Mi Cotización Gratis"
     }
   };
 
@@ -150,16 +117,15 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
             data-netlify-honeypot="bot-field"
             className="space-y-6"
             onSubmit={(e) => {
-              // Populate additional fields before submission
-              populateFormFields(e.currentTarget);
-
               // Call parent callbacks
               onStatusChange?.("loading");
-              onFormSubmit?.({ name: '', email: '' }); // Placeholder data
+              onFormSubmit?.({ name: '', email: '' });
             }}
           >
-            {/* Hidden inputs for Netlify */}
+            {/* Hidden form name for Netlify */}
             <input type="hidden" name="form-name" value="adaptive-form" />
+
+            {/* Honeypot field */}
             <div style={{ display: 'none' }}>
               <label>Don't fill this out: <input name="bot-field" /></label>
             </div>
@@ -178,7 +144,7 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
             <input type="hidden" name="gclid" />
             <input type="hidden" name="fbclid" />
             <input type="hidden" name="referrer_path" />
-            
+
             {/* Name Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -270,4 +236,4 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
   );
 };
 
-export default AdaptiveForm; 
+export default AdaptiveForm;
