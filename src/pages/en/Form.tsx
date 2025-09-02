@@ -92,15 +92,6 @@ const FormEn: React.FC = () => {
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     className="space-y-6"
-                    onSubmit={(e) => {
-                      console.log('Form submission starting...');
-                      // Log all form data before submission
-                      const formData = new FormData(e.currentTarget);
-                      console.log('Form data before submission:');
-                      for (let [key, value] of formData.entries()) {
-                        console.log(`${key}: ${value}`);
-                      }
-                    }}
                   >
                     {/* Hidden form name for Netlify */}
                     <input type="hidden" name="form-name" value="adaptive-form" />
