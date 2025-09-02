@@ -4,6 +4,50 @@
     <title>Hidden Forms for Netlify</title>
 </head>
 <body>
+    <!-- Test Form - Simple Test Form -->
+    <form name="test-form" method="POST" action="/test-success" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="test-form" />
+        <div style="display: none;">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+        </div>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="businessName" />
+        <textarea name="message"></textarea>
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+        <input type="hidden" name="gclid" />
+        <input type="hidden" name="fbclid" />
+        <input type="hidden" name="referrer_path" />
+    </form>
+
+    <!-- Adaptive Form - Lead Generation Form -->
+    <form name="adaptive-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="adaptive-form" />
+        <div style="display: none;">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+        </div>
+        <input type="text" name="name" />
+        <input type="text" name="bizName" />
+        <input type="email" name="email" />
+        <input type="text" name="url" />
+        <textarea name="bizDesc"></textarea>
+        <input type="text" name="path" />
+        <input type="text" name="language" />
+        <input type="text" name="timestamp" />
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+        <input type="hidden" name="gclid" />
+        <input type="hidden" name="fbclid" />
+        <input type="hidden" name="referrer_path" />
+    </form>
+
     <!-- Confirmation Form - Follow-up Questions Form -->
     <form name="confirmation-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="confirmation-contact" />
