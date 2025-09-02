@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { CheckCircle, Mail, User, Building, Globe, FileText, Loader2 } from 'lucide-react';
+import React from 'react';
+import { CheckCircle, Mail, User, Building, Globe, FileText } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// Simple HTML form component that works reliably with Netlify
 
 // Try to import Framer Motion, but don't fail if it's not available
 let motion: any;
@@ -11,7 +12,6 @@ try {
   // Fallback for motion elements
   motion = {
     section: 'section',
-    form: 'form',
     div: 'div',
   };
 }
@@ -22,71 +22,29 @@ interface AdaptiveFormProps {
   onFormSubmit?: (data: { name: string; email: string }) => void;
 }
 
-interface FormData {
-  name: string;
-  bizName: string;
-  email: string;
-  url?: string;
-  bizDesc?: string;
-}
-
-function collectAttributionData() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    utm_source: params.get('utm_source'),
-    utm_medium: params.get('utm_medium'),
-    utm_campaign: params.get('utm_campaign'),
-    utm_term: params.get('utm_term'),
-    utm_content: params.get('utm_content'),
-    gclid: params.get('gclid'),
-    fbclid: params.get('fbclid'),
-    referrer_path: document.referrer || ''
-  };
-}
-
-function fillAttributionFields(form: HTMLFormElement | null) {
-  if (!form) return;
-  const attributionData = collectAttributionData();
-  const set = (name: string, value: string | null) => {
-    const input = form.querySelector(`input[name="${name}"]`) as HTMLInputElement | null;
-    if (input) input.value = value || '';
-  };
-  Object.entries(attributionData).forEach(([key, value]) => {
-    set(key, value);
-  });
-}
-
 const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFormSubmit }) => {
   const { language } = useLanguage();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const formRef = React.useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
-    fillAttributionFields(formEl);
+  // Populate UTM fields when component mounts
+  React.useEffect(() => {
+    if (formRef.current) {
+      const params = new URLSearchParams(window.location.search);
+      const setValue = (name: string, value: string | null) => {
+        const input = formRef.current?.querySelector(`input[name="${name}"]`) as HTMLInputElement;
+        if (input) input.value = value || '';
+      };
+
+      setValue('utm_source', params.get('utm_source'));
+      setValue('utm_medium', params.get('utm_medium'));
+      setValue('utm_campaign', params.get('utm_campaign'));
+      setValue('utm_term', params.get('utm_term'));
+      setValue('utm_content', params.get('utm_content'));
+      setValue('gclid', params.get('gclid'));
+      setValue('fbclid', params.get('fbclid'));
+      setValue('referrer_path', document.referrer || '');
+    }
   }, []);
-
-  // Also update attribution fields when URL changes
-  useEffect(() => {
-    const handleLocationChange = () => {
-      const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
-      fillAttributionFields(formEl);
-    };
-
-    // Listen for popstate events (back/forward navigation)
-    window.addEventListener('popstate', handleLocationChange);
-
-    return () => {
-      window.removeEventListener('popstate', handleLocationChange);
-    };
-  }, []);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<FormData>();
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';
@@ -101,7 +59,6 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
 
   // Component selection based on availability
   const Section = isFramerAvailable ? motion.section : 'section';
-  const FormContainer = isFramerAvailable ? motion.form : 'form';
 
   const content = {
     EN: {
@@ -136,68 +93,32 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
     }
   };
 
-    const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    onStatusChange?.("loading");
+      // Function to populate additional form fields before submission
+  const populateFormFields = (form: HTMLFormElement) => {
+    // Set path and language
+    const pathInput = form.querySelector('input[name="path"]') as HTMLInputElement;
+    const languageInput = form.querySelector('input[name="language"]') as HTMLInputElement;
+    const timestampInput = form.querySelector('input[name="timestamp"]') as HTMLInputElement;
 
-    try {
-      // Collect attribution data
-      const attributionData = collectAttributionData();
+    if (pathInput) pathInput.value = path || '';
+    if (languageInput) languageInput.value = language;
+    if (timestampInput) timestampInput.value = new Date().toISOString();
 
-      // Check if we're in development mode
-      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    // Populate UTM fields (as backup, since useEffect should have already done this)
+    const params = new URLSearchParams(window.location.search);
+    const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
 
-      if (isDevelopment) {
-        // In development, log the form data that would be submitted
-        const formData = {
-          name: data.name,
-          bizName: data.bizName,
-          email: data.email,
-          url: data.url || '',
-          bizDesc: data.bizDesc || '',
-          path: path || '',
-          language,
-          timestamp: new Date().toISOString(),
-          ...attributionData
-        };
-
-        console.log('Development mode - form data to be submitted:', formData);
-
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Pass the form data to parent component
-        onFormSubmit?.({ name: data.name, email: data.email });
-
-        setIsSuccess(true);
-        onStatusChange?.("success");
-        reset();
-      } else {
-        // In production, submit the form programmatically to Netlify
-        console.log('Production mode - submitting form to Netlify with data:', {
-          name: data.name,
-          bizName: data.bizName,
-          email: data.email,
-          url: data.url || '',
-          bizDesc: data.bizDesc || '',
-          path: path || '',
-          language,
-          timestamp: new Date().toISOString(),
-          ...attributionData
-        });
-
-        // Get the form element and submit it
-        const formElement = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement;
-        if (formElement) {
-          formElement.submit();
-        } else {
-          throw new Error('Form element not found');
-        }
+    utmFields.forEach(field => {
+      const input = form.querySelector(`input[name="${field}"]`) as HTMLInputElement;
+      if (input && !input.value) {
+        input.value = params.get(field) || '';
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      onStatusChange?.("error");
-      setIsSubmitting(false);
+    });
+
+    // Set referrer
+    const referrerInput = form.querySelector('input[name="referrer_path"]') as HTMLInputElement;
+    if (referrerInput && !referrerInput.value) {
+      referrerInput.value = document.referrer || '';
     }
   };
 
@@ -225,20 +146,34 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         </div>
 
         <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
-          <FormContainer
+          <form
+            ref={formRef}
             name="adaptive-form"
             method="POST"
             action={language === 'EN' ? '/form/formsuccess' : '/formulario/formsuccess'}
             data-netlify="true"
             data-netlify-honeypot="bot-field"
-            onSubmit={handleSubmit(onSubmit)}
             className="space-y-6"
+            onSubmit={(e) => {
+              // Populate additional fields before submission
+              populateFormFields(e.currentTarget);
+
+              // Call parent callbacks
+              onStatusChange?.("loading");
+              onFormSubmit?.({ name: '', email: '' }); // Placeholder data
+            }}
           >
             {/* Hidden inputs for Netlify */}
             <input type="hidden" name="form-name" value="adaptive-form" />
             <div style={{ display: 'none' }}>
               <label>Don't fill this out: <input name="bot-field" /></label>
             </div>
+
+            {/* Additional hidden fields */}
+            <input type="hidden" name="path" />
+            <input type="hidden" name="language" />
+            <input type="hidden" name="timestamp" />
+
             {/* Attribution fields */}
             <input type="hidden" name="utm_source" />
             <input type="hidden" name="utm_medium" />
@@ -256,16 +191,12 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
                 {content[language].fields.name.label}
               </label>
               <input
-                {...register('name', { 
-                  required: 'Name is required',
-                  minLength: { value: 2, message: 'Name must be at least 2 characters' }
-                })}
+                type="text"
+                name="name"
+                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
                 placeholder={content[language].fields.name.placeholder}
               />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-              )}
             </div>
 
             {/* Business Name Field */}
@@ -275,16 +206,12 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
                 {content[language].fields.bizName.label}
               </label>
               <input
-                {...register('bizName', { 
-                  required: 'Business name is required',
-                  minLength: { value: 2, message: 'Business name must be at least 2 characters' }
-                })}
+                type="text"
+                name="bizName"
+                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
                 placeholder={content[language].fields.bizName.placeholder}
               />
-              {errors.bizName && (
-                <p className="mt-1 text-sm text-red-600">{errors.bizName.message}</p>
-              )}
             </div>
 
             {/* Conditional Fields Based on Path */}
@@ -295,15 +222,12 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
                   {content[language].fields.url.label}
                 </label>
                 <input
-                  {...register('url', { 
-                    required: 'Website URL is required'
-                  })}
+                  type="text"
+                  name="url"
+                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
                   placeholder={content[language].fields.url.placeholder}
                 />
-                {errors.url && (
-                  <p className="mt-1 text-sm text-red-600">{errors.url.message}</p>
-                )}
               </div>
             ) : (
               <div>
@@ -312,17 +236,13 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
                   {content[language].fields.bizDesc.label}
                 </label>
                 <textarea
-                  {...register('bizDesc', { 
-                    required: 'Business description is required',
-                    minLength: { value: 10, message: 'Please provide at least 10 characters' }
-                  })}
+                  name="bizDesc"
                   rows={4}
+                  required
+                  minLength={10}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors resize-vertical"
                   placeholder={content[language].fields.bizDesc.placeholder}
                 />
-                {errors.bizDesc && (
-                  <p className="mt-1 text-sm text-red-600">{errors.bizDesc.message}</p>
-                )}
               </div>
             )}
 
@@ -333,38 +253,22 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
                 {content[language].fields.email.label}
               </label>
               <input
-                {...register('email', { 
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Please enter a valid email address'
-                  }
-                })}
                 type="email"
+                name="email"
+                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
                 placeholder={content[language].fields.email.placeholder}
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-              )}
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#A5FF00] text-black font-semibold py-4 px-6 rounded-lg hover:bg-[#94E600] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-[#A5FF00] text-black font-semibold py-4 px-6 rounded-lg hover:bg-[#94E600] transition-colors duration-200"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  {content[language].submitting}
-                </>
-              ) : (
-                content[language].submitButton
-              )}
+              {content[language].submitButton}
             </button>
-          </FormContainer>
+          </form>
         </div>
       </div>
     </Section>

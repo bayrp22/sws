@@ -4,22 +4,26 @@ import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import { websiteJsonLd, breadcrumbJsonLd } from '@/seo/jsonld';
 
 const TestForm: React.FC = () => {
+  const formRef = React.useRef<HTMLFormElement>(null);
+
   // Populate UTM fields when component mounts
   React.useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const setValue = (name: string, value: string | null) => {
-      const input = document.querySelector(`input[name="${name}"]`) as HTMLInputElement;
-      if (input) input.value = value || '';
-    };
+    if (formRef.current) {
+      const params = new URLSearchParams(window.location.search);
+      const setValue = (name: string, value: string | null) => {
+        const input = formRef.current?.querySelector(`input[name="${name}"]`) as HTMLInputElement;
+        if (input) input.value = value || '';
+      };
 
-    setValue('utm_source', params.get('utm_source'));
-    setValue('utm_medium', params.get('utm_medium'));
-    setValue('utm_campaign', params.get('utm_campaign'));
-    setValue('utm_term', params.get('utm_term'));
-    setValue('utm_content', params.get('utm_content'));
-    setValue('gclid', params.get('gclid'));
-    setValue('fbclid', params.get('fbclid'));
-    setValue('referrer_path', document.referrer || '');
+      setValue('utm_source', params.get('utm_source'));
+      setValue('utm_medium', params.get('utm_medium'));
+      setValue('utm_campaign', params.get('utm_campaign'));
+      setValue('utm_term', params.get('utm_term'));
+      setValue('utm_content', params.get('utm_content'));
+      setValue('gclid', params.get('gclid'));
+      setValue('fbclid', params.get('fbclid'));
+      setValue('referrer_path', document.referrer || '');
+    }
   }, []);
 
   return (
@@ -50,6 +54,7 @@ const TestForm: React.FC = () => {
               {/* Pure HTML Netlify Form - No React/JavaScript */}
               <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
                 <form
+                  ref={formRef}
                   name="test-form"
                   method="POST"
                   action="/test-success"

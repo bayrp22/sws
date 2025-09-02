@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CheckCircle, Send, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -21,37 +21,30 @@ interface ConfirmationProps {
 
 const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) => {
   const { language } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: initialFormData?.name || '',
-    email: initialFormData?.email || '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [emailCopied, setEmailCopied] = useState(false);
+  const formRef = React.useRef<HTMLFormElement>(null);
+
+  // Populate form with initial data
+  React.useEffect(() => {
+    if (formRef.current && initialFormData) {
+      const nameInput = formRef.current.querySelector('input[name="name"]') as HTMLInputElement;
+      const emailInput = formRef.current.querySelector('input[name="email"]') as HTMLInputElement;
+
+      if (nameInput) nameInput.value = initialFormData.name || '';
+      if (emailInput) emailInput.value = initialFormData.email || '';
+    }
+  }, [initialFormData]);
 
   // Auto-scroll to this component when it renders
-  useEffect(() => {
+  React.useEffect(() => {
     const timer = setTimeout(() => {
-      document.getElementById('confirmation')?.scrollIntoView({ 
+      document.getElementById('confirmation')?.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
     }, 100);
-    
+
     return () => clearTimeout(timer);
   }, []);
-
-  // Update form data when initialFormData changes
-  useEffect(() => {
-    if (initialFormData) {
-      setFormData(prev => ({
-        ...prev,
-        name: initialFormData.name || prev.name,
-        email: initialFormData.email || prev.email
-      }));
-    }
-  }, [initialFormData]);
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';
@@ -66,80 +59,16 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
   // Component selection based on availability
   const Section = isFramerAvailable ? motion.section : 'section';
 
-  // Handle form submission
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      return;
-    }
+  // Function to populate additional form fields before submission
+  const populateFormFields = (form: HTMLFormElement) => {
+    // Set additional fields
+    const originalPathInput = form.querySelector('input[name="originalPath"]') as HTMLInputElement;
+    const languageInput = form.querySelector('input[name="language"]') as HTMLInputElement;
+    const timestampInput = form.querySelector('input[name="timestamp"]') as HTMLInputElement;
 
-    setIsSubmitting(true);
-    try {
-      // Check if we're in development mode
-      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      
-      if (isDevelopment) {
-        // In development, simulate form submission
-        console.log('Development mode - simulating confirmation form submission:', {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          originalPath: path,
-          language,
-          timestamp: new Date().toISOString()
-        });
-        
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        setFormSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        // In production, submit the form programmatically to Netlify
-        console.log('Production mode - submitting confirmation form to Netlify with data:', {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          originalPath: path,
-          language,
-          timestamp: new Date().toISOString()
-        });
-
-        // Get the form element and submit it
-        const formElement = document.querySelector('form[name="confirmation-contact"]') as HTMLFormElement;
-        if (formElement) {
-          // Populate the form fields with current data
-          const nameInput = formElement.querySelector('input[name="name"]') as HTMLInputElement;
-          const emailInput = formElement.querySelector('input[name="email"]') as HTMLInputElement;
-          const messageTextarea = formElement.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
-          const originalPathInput = formElement.querySelector('input[name="originalPath"]') as HTMLInputElement;
-          const languageInput = formElement.querySelector('input[name="language"]') as HTMLInputElement;
-          const timestampInput = formElement.querySelector('input[name="timestamp"]') as HTMLInputElement;
-
-          if (nameInput) nameInput.value = formData.name;
-          if (emailInput) emailInput.value = formData.email;
-          if (messageTextarea) messageTextarea.value = formData.message;
-          if (originalPathInput) originalPathInput.value = path;
-          if (languageInput) languageInput.value = language;
-          if (timestampInput) timestampInput.value = new Date().toISOString();
-
-          formElement.submit();
-        } else {
-          throw new Error('Confirmation form element not found');
-        }
-      }
-    } catch (error) {
-      console.error('Form submission failed:', error);
-      // You might want to show an error message to the user
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    if (originalPathInput) originalPathInput.value = path;
+    if (languageInput) languageInput.value = language;
+    if (timestampInput) timestampInput.value = new Date().toISOString();
   };
 
   // Handle email copy
@@ -307,27 +236,33 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                     </p>
                   </div>
                 ) : (
-                  <form 
+                  <form
+                    ref={formRef}
                     name="confirmation-contact"
                     method="POST"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    onSubmit={handleFormSubmit} 
                     className="space-y-4 max-w-2xl mx-auto"
+                    onSubmit={(e) => {
+                      populateFormFields(e.currentTarget);
+                    }}
                   >
                     {/* Hidden inputs for Netlify */}
                     <input type="hidden" name="form-name" value="confirmation-contact" />
                     <div style={{ display: 'none' }}>
                       <label>Don't fill this out: <input name="bot-field" /></label>
                     </div>
-                    
+
+                    {/* Additional hidden fields */}
+                    <input type="hidden" name="originalPath" />
+                    <input type="hidden" name="language" />
+                    <input type="hidden" name="timestamp" />
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <input
                           type="text"
                           name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
                           placeholder={content[language].form.namePlaceholder}
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
@@ -337,8 +272,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                         <input
                           type="email"
                           name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
                           placeholder={content[language].form.emailPlaceholder}
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5FF00] focus:border-transparent transition-colors"
@@ -348,8 +281,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                     <div>
                       <textarea
                         name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
                         placeholder={content[language].form.messagePlaceholder}
                         required
                         rows={4}
@@ -359,16 +290,10 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                     <div className="text-center">
                       <button
                         type="submit"
-                        disabled={isSubmitting || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
-                        className="bg-[#A5FF00] hover:bg-[#8FE600] disabled:bg-gray-300 disabled:cursor-not-allowed text-black font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center space-x-2"
+                        className="bg-[#A5FF00] hover:bg-[#8FE600] text-black font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center space-x-2"
                       >
                         <Send className="w-4 h-4" />
-                        <span>
-                          {isSubmitting 
-                            ? content[language].form.submittingButton 
-                            : content[language].form.submitButton
-                          }
-                        </span>
+                        <span>{content[language].form.submitButton}</span>
                       </button>
                     </div>
                   </form>
