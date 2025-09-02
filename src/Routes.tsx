@@ -22,14 +22,14 @@ import FormEn from './pages/en/Form';
 import FormularioEs from './pages/es/Formulario';
 import FormSuccessEn from './pages/en/FormSuccess';
 import FormSuccessEs from './pages/es/FormSuccess';
+import TestForm from './pages/TestForm';
+import TestSuccess from './pages/TestSuccess';
 import FAQ from './pages/FAQ';
 import FAQItem from './pages/FAQItem';
 import PreguntasEs from './pages/es/Preguntas';
 import PreguntaItem from './pages/es/PreguntaItem';
 import CaseStudies from './pages/CaseStudies';
 import EstudiosDeCaso from './pages/es/EstudiosDeCaso';
-import TestForm from './pages/TestForm';
-import TestSuccess from './pages/TestSuccess';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -62,6 +62,9 @@ const AppRoutes: React.FC = () => (
     <Route path="/form/formsuccess" element={<FormSuccessEn />} />
     <Route path="/formulario" element={<FormularioEs />} />
     <Route path="/formulario/formsuccess" element={<FormSuccessEs />} />
+
+    <Route path="/test-form" element={<TestForm />} />
+    <Route path="/test-success" element={<TestSuccess />} />
 
     <Route path="/faq" element={<FAQ />} />
     <Route path="/faq/:slug" element={<FAQItem />} />

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CheckCircle, UserPlus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -17,12 +18,12 @@ try {
 }
 
 interface OfferGateProps {
-  onPathSelected: (path: "site" | "nosite") => void;
   variant?: "default" | "hero";
 }
 
-const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected, variant = "default" }) => {
+const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';
@@ -82,15 +83,10 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected, variant = "defaul
     }
   };
 
-  const handleChoice = (path: "site" | "nosite") => {
-    onPathSelected(path);
-    // Smooth scroll to lead form
-    setTimeout(() => {
-      document.getElementById("lead-form")?.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }, 100);
+  const handleChoice = () => {
+    // Navigate to the appropriate form page based on language
+    const formPath = language === 'EN' ? '/form' : '/formulario';
+    navigate(formPath);
   };
 
   // Conditional styling based on variant
@@ -120,7 +116,7 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected, variant = "defaul
         >
           {/* Has Website Card */}
           <div
-            onClick={() => handleChoice("site")}
+            onClick={handleChoice}
             className={cardClasses}
           >
             <div className="text-center">
@@ -138,7 +134,7 @@ const OfferGate: React.FC<OfferGateProps> = ({ onPathSelected, variant = "defaul
 
           {/* Needs Website Card */}
           <div
-            onClick={() => handleChoice("nosite")}
+            onClick={handleChoice}
             className={cardClasses}
           >
             <div className="text-center">

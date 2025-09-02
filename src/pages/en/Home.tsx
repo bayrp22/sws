@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import Meta from '@/seo/Meta';
 import HeroSection from '@/components/HeroSection';
 import ProblemSection from '@/components/ProblemSection';
@@ -7,29 +6,10 @@ import SolutionSection from '@/components/SolutionSection';
 import PricingSection from '@/components/PricingSection';
 import LocalTeamSection from '@/components/LocalTeamSection';
 import OfferGate from '@/components/OfferGate';
-import AdaptiveForm from '@/components/AdaptiveForm';
-import Confirmation from '@/components/Confirmation';
 
 import { websiteJsonLd, breadcrumbJsonLd } from '@/seo/jsonld';
 
 const HomeEn: React.FC = () => {
-  const navigate = useNavigate();
-  const [path, setPath] = useState<"site" | "nosite" | null>(null);
-  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [submittedFormData, setSubmittedFormData] = useState<{ name: string; email: string } | null>(null);
-
-  // Handle form status changes and URL updates
-  const handleFormStatusChange = (status: "idle" | "loading" | "success" | "error") => {
-    setFormStatus(status);
-    if (status === 'success' && path) {
-      navigate('/form/formsuccess', {
-        state: {
-          path: path,
-          formData: submittedFormData
-        }
-      });
-    }
-  };
 
   return (
     <div className="h-full">
@@ -51,11 +31,7 @@ const HomeEn: React.FC = () => {
         
         <PricingSection />
         <LocalTeamSection />
-        <OfferGate onPathSelected={setPath} />
-        <AdaptiveForm path={path} onStatusChange={handleFormStatusChange} onFormSubmit={setSubmittedFormData as any} />
-        {formStatus === 'success' && path && (
-          <Confirmation path={path} initialFormData={submittedFormData} />
-        )}
+        <OfferGate />
       </main>
     </div>
   );
