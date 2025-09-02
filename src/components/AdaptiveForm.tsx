@@ -173,9 +173,7 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         onStatusChange?.("success");
         reset();
       } else {
-        // In production, let the form submit naturally to Netlify
-        // The form will be submitted with all the hidden fields populated
-        // Netlify will handle the redirect to the success page
+        // In production, submit the form programmatically to Netlify
         console.log('Production mode - submitting form to Netlify with data:', {
           name: data.name,
           bizName: data.bizName,
@@ -188,8 +186,13 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
           ...attributionData
         });
 
-        // The form will submit naturally, so we don't need to do anything here
-        // The success state will be handled by navigation to the success page
+        // Get the form element and submit it
+        const formElement = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement;
+        if (formElement) {
+          formElement.submit();
+        } else {
+          throw new Error('Form element not found');
+        }
       }
     } catch (error) {
       console.error('Form submission error:', error);

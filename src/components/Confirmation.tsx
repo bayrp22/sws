@@ -95,29 +95,38 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
         setFormSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
       } else {
-        // In production, submit to Netlify
-        const netlifyFormData = new FormData();
-        netlifyFormData.append("form-name", "confirmation-contact");
-        netlifyFormData.append("name", formData.name);
-        netlifyFormData.append("email", formData.email);
-        netlifyFormData.append("message", formData.message);
-        netlifyFormData.append("originalPath", path);
-        netlifyFormData.append("language", language);
-        netlifyFormData.append("timestamp", new Date().toISOString());
-
-        // Submit to Netlify
-        const response = await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(netlifyFormData as any).toString()
+        // In production, submit the form programmatically to Netlify
+        console.log('Production mode - submitting confirmation form to Netlify with data:', {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          originalPath: path,
+          language,
+          timestamp: new Date().toISOString()
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // Get the form element and submit it
+        const formElement = document.querySelector('form[name="confirmation-contact"]') as HTMLFormElement;
+        if (formElement) {
+          // Populate the form fields with current data
+          const nameInput = formElement.querySelector('input[name="name"]') as HTMLInputElement;
+          const emailInput = formElement.querySelector('input[name="email"]') as HTMLInputElement;
+          const messageTextarea = formElement.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+          const originalPathInput = formElement.querySelector('input[name="originalPath"]') as HTMLInputElement;
+          const languageInput = formElement.querySelector('input[name="language"]') as HTMLInputElement;
+          const timestampInput = formElement.querySelector('input[name="timestamp"]') as HTMLInputElement;
 
-        setFormSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
+          if (nameInput) nameInput.value = formData.name;
+          if (emailInput) emailInput.value = formData.email;
+          if (messageTextarea) messageTextarea.value = formData.message;
+          if (originalPathInput) originalPathInput.value = path;
+          if (languageInput) languageInput.value = language;
+          if (timestampInput) timestampInput.value = new Date().toISOString();
+
+          formElement.submit();
+        } else {
+          throw new Error('Confirmation form element not found');
+        }
       }
     } catch (error) {
       console.error('Form submission failed:', error);
