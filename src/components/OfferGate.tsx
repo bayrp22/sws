@@ -84,9 +84,8 @@ const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
   };
 
   const handleChoice = () => {
-    // Navigate to the appropriate form page based on language
-    const formPath = language === 'EN' ? '/form' : '/formulario';
-    navigate(formPath);
+    // Temporarily disabled - forms removed for rebuild
+    console.log('Form navigation temporarily disabled');
   };
 
   // Conditional styling based on variant
