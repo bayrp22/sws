@@ -25,4 +25,10 @@
 /wlwmanifest.xml           /           410
 
 # Handle specific file extensions that don't exist
-/*.php                      /           301 
+/*.php                      /           301
+
+# Netlify form redirects
+/adaptive-form              /form/formsuccess  200
+/confirmation-contact       /form/formsuccess  200
+/adaptive-formulario        /formulario/formsuccess  200
+/confirmation-contact-es    /formulario/formsuccess  200 

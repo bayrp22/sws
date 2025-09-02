@@ -4,20 +4,12 @@
     <title>Hidden Forms for Netlify</title>
 </head>
 <body>
-    <!-- AdaptiveForm - Lead Generation Form -->
-    <form name="adaptive-form" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="text" name="bizName" />
-        <input type="email" name="email" />
-        <input type="text" name="url" />
-        <textarea name="bizDesc"></textarea>
-        <input type="text" name="path" />
-        <input type="text" name="language" />
-        <input type="text" name="timestamp" />
-    </form>
-
     <!-- Confirmation Form - Follow-up Questions Form -->
-    <form name="confirmation-contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <form name="confirmation-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="confirmation-contact" />
+        <div style="display: none;">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+        </div>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <textarea name="message"></textarea>

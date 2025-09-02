@@ -136,36 +136,32 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
     }
   };
 
-  const onSubmit = async (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     onStatusChange?.("loading");
-    
+
     try {
+      // Collect attribution data
+      const attributionData = collectAttributionData();
+
       // Check if we're in development mode
       const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      
+
       if (isDevelopment) {
-        // Collect attribution data
-        const attributionData = collectAttributionData();
-
-        // Ensure attribution fields are populated in the form before collecting
-        const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
-        if (formEl) {
-          fillAttributionFields(formEl);
-        }
-
-        // In development, simulate form submission with attribution data
-        console.log('Development mode - simulating form submission:', {
+        // In development, log the form data that would be submitted
+        const formData = {
           name: data.name,
           bizName: data.bizName,
           email: data.email,
-          url: data.url,
-          bizDesc: data.bizDesc,
-          path,
+          url: data.url || '',
+          bizDesc: data.bizDesc || '',
+          path: path || '',
           language,
           timestamp: new Date().toISOString(),
-          attribution: attributionData
-        });
+          ...attributionData
+        };
+
+        console.log('Development mode - form data to be submitted:', formData);
 
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -177,52 +173,27 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         onStatusChange?.("success");
         reset();
       } else {
-        // In production, submit to Netlify
-        const formData = new FormData();
-        formData.append("form-name", "adaptive-form");
-        formData.append("name", data.name);
-        formData.append("bizName", data.bizName);
-        formData.append("email", data.email);
-        if (data.url) formData.append("url", data.url);
-        if (data.bizDesc) formData.append("bizDesc", data.bizDesc);
-        formData.append("path", path || "");
-        formData.append("language", language);
-        formData.append("timestamp", new Date().toISOString());
-
-        // Ensure attribution fields are populated before collecting
-        const formEl = document.querySelector('form[name="adaptive-form"]') as HTMLFormElement | null;
-        if (formEl) {
-          fillAttributionFields(formEl);
-        }
-
-        // Collect and append attribution fields
-        const attributionData = collectAttributionData();
-        Object.entries(attributionData).forEach(([key, value]) => {
-          if (value) formData.append(key, value);
+        // In production, let the form submit naturally to Netlify
+        // The form will be submitted with all the hidden fields populated
+        // Netlify will handle the redirect to the success page
+        console.log('Production mode - submitting form to Netlify with data:', {
+          name: data.name,
+          bizName: data.bizName,
+          email: data.email,
+          url: data.url || '',
+          bizDesc: data.bizDesc || '',
+          path: path || '',
+          language,
+          timestamp: new Date().toISOString(),
+          ...attributionData
         });
 
-        // Submit to Netlify
-        const response = await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData as any).toString()
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Pass the form data to parent component
-        onFormSubmit?.({ name: data.name, email: data.email });
-        
-        setIsSuccess(true);
-        onStatusChange?.("success");
-        reset();
+        // The form will submit naturally, so we don't need to do anything here
+        // The success state will be handled by navigation to the success page
       }
     } catch (error) {
       console.error('Form submission error:', error);
       onStatusChange?.("error");
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -251,12 +222,13 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
         </div>
 
         <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
-          <FormContainer 
+          <FormContainer
             name="adaptive-form"
             method="POST"
+            action={language === 'EN' ? '/form/formsuccess' : '/formulario/formsuccess'}
             data-netlify="true"
             data-netlify-honeypot="bot-field"
-            onSubmit={handleSubmit(onSubmit)} 
+            onSubmit={handleSubmit(onSubmit)}
             className="space-y-6"
           >
             {/* Hidden inputs for Netlify */}
