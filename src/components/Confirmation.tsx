@@ -226,16 +226,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                   {content[language].form.subtitle}
                 </p>
 
-                {formSubmitted ? (
-                  <div className="text-center py-8">
-                    <div className="bg-[#A5FF00]/20 rounded-full border-2 border-[#A5FF00] w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle className="w-8 h-8 text-black" />
-                    </div>
-                    <p className="text-lg font-medium text-gray-900">
-                      {content[language].form.successMessage}
-                    </p>
-                  </div>
-                ) : (
+                <div>
                   <form
                     ref={formRef}
                     name="confirmation-contact"
@@ -297,7 +288,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ path, initialFormData }) =>
                       </button>
                     </div>
                   </form>
-                )}
+                </div>
               </div>
             </div>
 

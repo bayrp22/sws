@@ -127,11 +127,6 @@ const AdaptiveForm: React.FC<AdaptiveFormProps> = ({ path, onStatusChange, onFor
     return null;
   }
 
-  // Hide form after successful submission - Confirmation component will handle success state
-  if (isSuccess) {
-    return null;
-  }
-
   return (
     <Section
       id="lead-form"
