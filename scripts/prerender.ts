@@ -173,6 +173,121 @@ function makeBreadcrumbJsonLd(route: string) {
   };
 }
 
+function getStaticContentForRoute(route: string): string {
+  const isSpanish = route.startsWith('/es');
+  
+  // Static content for different routes
+  const contentMap: Record<string, { title: string; content: string }> = {
+    '/': {
+      title: 'Search Web Services | Professional Web Development Los Cabos',
+      content: `
+        <div class="static-content" data-react-hydration="true">
+          <h1>Professional Web Development in Los Cabos</h1>
+          <p>Custom websites, web design, website development, and website SEO for businesses in Los Cabos and Baja California Sur. Fast delivery, clean code, real results.</p>
+          <h2>Why Choose Search Web Services?</h2>
+          <ul>
+            <li>Professional web design tailored to Los Cabos businesses</li>
+            <li>Fast, secure, and SEO-optimized websites</li>
+            <li>Bilingual support (English/Spanish)</li>
+            <li>Local team based in Los Cabos</li>
+            <li>Affordable pricing for small to medium businesses</li>
+          </ul>
+          <h2>Our Services</h2>
+          <ul>
+            <li>Custom Website Design</li>
+            <li>Web Development</li>
+            <li>SEO Services</li>
+            <li>Website Maintenance</li>
+          </ul>
+          <p>Contact us at +52-624-264-4012 or info@searchwebservices.tech</p>
+        </div>
+      `
+    },
+    '/en': {
+      title: 'Web Design & Website Development in Los Cabos | SWS',
+      content: `
+        <div class="static-content" data-react-hydration="true">
+          <h1>Professional Web Design & Development in Los Cabos</h1>
+          <p>Custom websites, web design, website development, and website SEO for businesses in Los Cabos and Baja California Sur. Fast delivery, clean code, real results.</p>
+          <h2>Without a Website = Less Credibility, Fewer Conversions</h2>
+          <h3>✅ With a Professional Site</h3>
+          <ul>
+            <li>Customers find you 24/7 through Google searches and social media</li>
+            <li>Build trust instantly with professional design and customer testimonials</li>
+            <li>Convert visitors into customers with clear calls-to-action and contact forms</li>
+          </ul>
+          <h3>❌ Without a Website</h3>
+          <ul>
+            <li>Potential customers can't find you when they search online</li>
+            <li>Competitors with websites capture your potential customers</li>
+            <li>Miss out on sales that happen outside business hours</li>
+          </ul>
+          <h2>Our Services</h2>
+          <ul>
+            <li><strong>Web Design Los Cabos:</strong> Professional web design and website design for Los Cabos businesses—high‑performance, mobile‑first, SEO‑ready.</li>
+            <li><strong>Custom Websites:</strong> Custom websites—get a custom website that's fast, secure, SEO‑friendly, and built for your brand.</li>
+            <li><strong>SEO Services:</strong> Website SEO services for Los Cabos businesses—technical and on‑page SEO to increase visibility, traffic, and leads.</li>
+          </ul>
+          <h2>Contact Information</h2>
+          <p>Phone: +52-624-264-4012<br>
+          Email: info@searchwebservices.tech<br>
+          Location: Los Cabos, Baja California Sur, Mexico</p>
+        </div>
+      `
+    },
+    '/es': {
+      title: 'Diseño Web y Desarrollo de Sitios Web en Los Cabos | SWS',
+      content: `
+        <div class="static-content" data-react-hydration="true">
+          <h1>Diseño Web Profesional y Desarrollo de Sitios Web en Los Cabos</h1>
+          <p>Sitios web a medida, diseño web, desarrollo de sitios web y SEO para empresas en Los Cabos y Baja California Sur. Entrega rápida, código limpio y resultados reales.</p>
+          <h2>Sin Página Web = Menos Confianza, Menos Conversiones</h2>
+          <h3>✅ Con un Sitio Web Profesional</h3>
+          <ul>
+            <li>Los clientes te encuentran 24/7 a través de búsquedas de Google y redes sociales</li>
+            <li>Genera confianza con diseño profesional y testimonios de clientes</li>
+            <li>Haz que quien te visite también te escriba — con botones claros y formularios que sí funcionan</li>
+          </ul>
+          <h3>❌ Sin un Sitio Web</h3>
+          <ul>
+            <li>Tus clientes potenciales no te encuentran cuando buscan</li>
+            <li>Tus competidores con sitio web capturan tus clientes potenciales</li>
+            <li>Pierdes ventas y exposición cuando tu negocio está cerrado</li>
+          </ul>
+          <h2>Nuestros Servicios</h2>
+          <ul>
+            <li><strong>Diseño Web Los Cabos:</strong> Sitios de alto rendimiento para Los Cabos y Baja California Sur.</li>
+            <li><strong>Sitios Web a Medida:</strong> Páginas personalizadas, rápidas, seguras y con SEO.</li>
+            <li><strong>Servicios SEO:</strong> SEO para empresas en Los Cabos. Aumenta tu visibilidad.</li>
+          </ul>
+          <h2>Información de Contacto</h2>
+          <p>Teléfono: +52-624-264-4012<br>
+          Email: info@searchwebservices.tech<br>
+          Ubicación: Los Cabos, Baja California Sur, México</p>
+        </div>
+      `
+    }
+  };
+
+  // Default content for service pages
+  const defaultContent = `
+    <div class="static-content" data-react-hydration="true">
+      <h1>${isSpanish ? 'Servicios Web Profesionales en Los Cabos' : 'Professional Web Services in Los Cabos'}</h1>
+      <p>${isSpanish ? 'Servicios de diseño web, desarrollo de sitios web y SEO para empresas en Los Cabos y Baja California Sur.' : 'Web design, website development, and SEO services for businesses in Los Cabos and Baja California Sur.'}</p>
+      <h2>${isSpanish ? 'Nuestros Servicios' : 'Our Services'}</h2>
+      <ul>
+        <li>${isSpanish ? 'Diseño Web Profesional' : 'Professional Web Design'}</li>
+        <li>${isSpanish ? 'Desarrollo de Sitios Web' : 'Website Development'}</li>
+        <li>${isSpanish ? 'Servicios SEO' : 'SEO Services'}</li>
+        <li>${isSpanish ? 'Sitios Web Personalizados' : 'Custom Websites'}</li>
+      </ul>
+      <p>${isSpanish ? 'Contacto: +52-624-264-4012 | info@searchwebservices.tech' : 'Contact: +52-624-264-4012 | info@searchwebservices.tech'}</p>
+    </div>
+  `;
+
+  return contentMap[route]?.content || defaultContent;
+}
+
 function renderShellForRoute(route: string, template: string) {
   // Use JSDOM to manipulate head for canonical snapshots per route
   const dom = new JSDOM(template);
@@ -246,6 +361,39 @@ function renderShellForRoute(route: string, template: string) {
     b.textContent = JSON.stringify(crumbs);
     document.head.appendChild(b);
   }
+
+  // Add static content for AI agents and crawlers
+  const staticContent = getStaticContentForRoute(route);
+  const rootElement = document.querySelector('#root');
+  if (rootElement) {
+    // Remove ALL existing static content to avoid duplicates
+    const existingStatic = rootElement.querySelectorAll('.static-content');
+    existingStatic.forEach(el => el.remove());
+    rootElement.insertAdjacentHTML('beforeend', staticContent);
+  }
+
+  // Add CSS to hide static content when JavaScript loads
+  const hideStaticCSS = `
+    <style>
+      /* Hide static content when JavaScript loads */
+      body.loaded .static-content { display: none !important; }
+      /* Show static content for crawlers and AI agents */
+      .static-content { 
+        display: block !important; 
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      .static-content h1 { font-size: 2rem; margin-bottom: 1rem; }
+      .static-content h2 { font-size: 1.5rem; margin: 1.5rem 0 1rem 0; }
+      .static-content h3 { font-size: 1.25rem; margin: 1rem 0 0.5rem 0; }
+      .static-content ul { margin: 1rem 0; padding-left: 2rem; }
+      .static-content li { margin: 0.5rem 0; }
+      .static-content p { margin: 1rem 0; }
+    </style>
+  `;
+  document.head.insertAdjacentHTML('beforeend', hideStaticCSS);
 
   // Mark prerendered snapshot
   document.head.insertAdjacentHTML('beforeend', '<meta name="prerendered" content="true"/>');
