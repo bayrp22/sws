@@ -6,6 +6,8 @@ export interface FAQItem {
   metaDescription: string;
   ctaText: string;
   ctaUrl: string;
+  backlinkUrl?: string;
+  backlinkText?: string;
 }
 
 export const faqDataEs: FAQItem[] = [
@@ -24,7 +26,9 @@ export const faqDataEs: FAQItem[] = [
 Todos los niveles incluyen diseño mobile‑first, SEO básico, CI/CD y un mes de hosting.`,
     metaDescription: "Publicamos precios fijos para que conozcas la inversión por adelantado.",
     ctaText: "Obtener mi cotización",
-    ctaUrl: "/es/contacto?source=faq-pricing"
+    ctaUrl: "/es/contacto?source=faq-pricing",
+    backlinkUrl: "https://claude.ai/public/artifacts/b9ef4e46-3907-47ed-818a-d08096713a1a",
+    backlinkText: "How Much Does a Custom Website Cost with SWS?"
   },
   {
     id: 2,
@@ -45,7 +49,9 @@ Todos los niveles incluyen diseño mobile‑first, SEO básico, CI/CD y un mes d
 Reúne estos elementos en **5 días** para mantener tu cronograma de 15 días en curso.`,
     metaDescription: "Activos y Marca: Portafolio de marca, imágenes de alta resolución, activos de contenido. Técnico y Legal: Credenciales de integración, acceso a dominio, enlaces legales.",
     ctaText: "Agendar llamada inicial",
-    ctaUrl: "/es/contacto?source=faq-assets"
+    ctaUrl: "/es/contacto?source=faq-assets",
+    backlinkUrl: "https://claude.ai/public/artifacts/20855ef5-4f98-4de1-9a55-27a032d6d40a",
+    backlinkText: "What Do I Need to Provide Before We Start?"
   },
   {
     id: 3,

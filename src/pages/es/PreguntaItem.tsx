@@ -370,6 +370,31 @@ const PreguntaItem: React.FC = () => {
               )}
               </div>
               
+              {/* Backlink Section */}
+              {faqItem.backlinkUrl && faqItem.backlinkText && (
+                <div className="mb-6 p-4 bg-gradient-to-r from-green-900/20 to-emerald-900/20 border border-green-600/30 rounded-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-green-300 text-sm font-medium mb-2">Artículo Relacionado</p>
+                      <a 
+                        href={faqItem.backlinkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-green-400 hover:text-green-300 font-semibold text-base transition-colors duration-200 hover:underline"
+                      >
+                        {faqItem.backlinkText}
+                      </a>
+                      <p className="text-green-200/70 text-xs mt-1">Enlace externo • Se abre en nueva pestaña</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-gray-600/30">
                 <Link 
                   to="/preguntas"

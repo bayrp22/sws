@@ -3,6 +3,7 @@ import Meta from '@/seo/Meta';
 import HeroSection from '@/components/HeroSection';
 import ProblemSection from '@/components/ProblemSection';
 import SolutionSection from '@/components/SolutionSection';
+import ResourcesSection from '@/components/ResourcesSection';
 import PricingSection from '@/components/PricingSection';
 import LocalTeamSection from '@/components/LocalTeamSection';
 import OfferGate from '@/components/OfferGate';
@@ -28,7 +29,7 @@ const HomeEs: React.FC = () => {
         <HeroSection />
         <ProblemSection />
         <SolutionSection />
-        
+        <ResourcesSection />
         <PricingSection />
         <LocalTeamSection />
         <OfferGate />
