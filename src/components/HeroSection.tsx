@@ -66,14 +66,8 @@ const HeroSection: React.FC = () => {
 
   const scrollToOfferGate = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    const offerGateSection = document.getElementById('quote');
-    if (offerGateSection) {
-      offerGateSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    // Redirect all leads to the external get-started page
+    window.location.href = 'https://searchlabs.netlify.app/get-started';
   };
 
   // Use regular React components if Framer Motion isn't available

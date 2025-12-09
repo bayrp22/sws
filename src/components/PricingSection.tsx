@@ -138,10 +138,8 @@ const PricingSection: React.FC = () => {
   ];
 
   const scrollToQuote = () => {
-    const quoteSection = document.getElementById('quote');
-    if (quoteSection) {
-      quoteSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Redirect all leads to the external get-started page
+    window.location.href = 'https://searchlabs.netlify.app/get-started';
   };
 
   return (

@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import Meta from '../seo/Meta';
 import ResponsiveNavigation from '../components/ResponsiveNavigation';
 import SocialProofSection from '../components/SocialProofSection';
@@ -218,12 +217,12 @@ const CaseStudies: React.FC = () => {
                 <p className="text-xl mb-8 text-gray-300 leading-relaxed max-w-2xl mx-auto">
                   Let's create something amazing together. Get your custom quote and timeline today.
                 </p>
-                <Link 
-                  to="/form?source=case-studies"
+                <a 
+                  href="https://searchlabs.netlify.app/get-started"
                   className="inline-block bg-gradient-to-r from-white to-gray-100 text-gray-900 px-12 py-5 rounded-2xl font-bold text-xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:shadow-white/20 hover:from-gray-50 hover:to-white"
                 >
                   Start Your Project
-                </Link>
+                </a>
               </div>
             </div>
           </div>

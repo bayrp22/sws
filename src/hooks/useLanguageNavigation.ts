@@ -106,8 +106,8 @@ export const useLanguageNavigation = () => {
   };
 
   const navigateToForm = () => {
-    const formPath = isSpanish ? '/formulario' : '/form';
-    navigate(formPath);
+    // Redirect all leads to the external get-started page
+    window.location.href = 'https://searchlabs.netlify.app/get-started';
   };
 
   const getLanguageAwareRoute = (englishRoute: string, spanishRoute: string) => {

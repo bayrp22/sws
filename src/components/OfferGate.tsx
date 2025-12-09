@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CheckCircle, UserPlus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -23,7 +22,6 @@ interface OfferGateProps {
 
 const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
   const { language } = useLanguage();
-  const navigate = useNavigate();
 
   // Check if Framer Motion is available
   const isFramerAvailable = typeof motion !== 'object' || motion.section !== 'section';
@@ -84,12 +82,8 @@ const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
   };
 
   const handleChoice = () => {
-    // Navigate to the appropriate form page based on language
-    if (language === 'ES') {
-      navigate('/formulario');
-    } else {
-      navigate('/form');
-    }
+    // Redirect all leads to the external get-started page
+    window.location.href = 'https://searchlabs.netlify.app/get-started';
   };
 
   // Conditional styling based on variant
