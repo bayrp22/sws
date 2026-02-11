@@ -4,7 +4,6 @@ import HeroSection from '@/components/HeroSection';
 import ProblemSection from '@/components/ProblemSection';
 import SolutionSection from '@/components/SolutionSection';
 import ResourcesSection from '@/components/ResourcesSection';
-import PricingSection from '@/components/PricingSection';
 import LocalTeamSection from '@/components/LocalTeamSection';
 import OfferGate from '@/components/OfferGate';
 
@@ -30,7 +29,6 @@ const HomeEn: React.FC = () => {
         <ProblemSection />
         <SolutionSection />
         <ResourcesSection />
-        <PricingSection />
         <LocalTeamSection />
         <OfferGate />
       </main>
