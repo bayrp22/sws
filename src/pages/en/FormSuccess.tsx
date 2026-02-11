@@ -74,11 +74,11 @@ const FormSuccess: React.FC = () => {
                 <div className="space-y-3 text-gray-700">
                   <p className="flex items-center justify-center text-lg">
                     <span className="mr-3">📧</span>
-                    info@searchwebservices.com
+                    hola@searchvisionary.tech
                   </p>
                   <p className="flex items-center justify-center text-lg">
                     <span className="mr-3">📱</span>
-                    WhatsApp: +52 624 123 4567
+                    WhatsApp: +52 624 264 4012
                   </p>
                 </div>
               </div>

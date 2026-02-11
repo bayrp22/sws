@@ -106,8 +106,14 @@ export const useLanguageNavigation = () => {
   };
 
   const navigateToForm = () => {
-    // Redirect all leads to the external get-started page
-    window.location.href = 'https://searchlabs.netlify.app/get-started';
+    const offerGateElement = document.querySelector('[data-section="offer-gate"]');
+    if (offerGateElement) {
+      offerGateElement.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const homePath = isSpanish ? '/es#offer-gate' : '/en#offer-gate';
+    window.location.href = homePath;
   };
 
   const getLanguageAwareRoute = (englishRoute: string, spanishRoute: string) => {

@@ -48,7 +48,7 @@ const FAQ: React.FC = () => {
           Get a custom quote and timeline for your project.
         </p>
         <Link 
-          to="/contact?source=faq-cta"
+          to="/en/contact?source=faq-cta"
           className="inline-block bg-gradient-to-r from-white to-gray-100 text-gray-900 px-12 py-5 rounded-2xl font-bold text-xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:shadow-white/20 hover:from-gray-50 hover:to-white"
         >
           Contact Our Team

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, UserPlus } from 'lucide-react';
+import { Mail, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Try to import Framer Motion, but don't fail if it's not available
@@ -41,7 +41,7 @@ const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
     viewport: { once: true, margin: "-100px" }
   } : {};
 
-  const cardsProps = isFramerAvailable ? {
+  const actionsProps = isFramerAvailable ? {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     transition: { duration: 0.6, delay: 0.4, ease: "easeOut" },
@@ -52,101 +52,83 @@ const OfferGate: React.FC<OfferGateProps> = ({ variant = "default" }) => {
   const Section = isFramerAvailable ? motion.section : 'section';
   const Header = isFramerAvailable ? motion.h2 : 'h2';
   const Subheader = isFramerAvailable ? motion.p : 'p';
-  const Cards = isFramerAvailable ? motion.div : 'div';
+  const Actions = isFramerAvailable ? motion.div : 'div';
 
   const content = {
     EN: {
-      headline: "We Want to Get to Know You — and Help You Grow Online",
-      question: "To build the right solution, we first need to understand your starting point. Do you already have a website?",
-      hasWebsite: {
-        title: "Yes, I have a site",
-        description: "I already have a website but need improvements, updates, or want to start fresh with a better design."
-      },
-      needsWebsite: {
-        title: "No, I need a site",
-        description: "I'm starting from scratch and need a complete website solution built from the ground up."
-      }
+      headline: "START BUILDING YOUR WEBSITE TODAY",
+      subline1: "Talk directly with our team in Los Cabos.",
+      subline2: "Fast responses. Clear next steps.",
+      whatsapp: "WhatsApp Us",
+      email: "Email Us"
     },
     ES: {
-      headline: "Queremos Conocerte — Y Ayudarte a Crecer Online",
-      question: "Para saber el punto de partida, necesitamos el tuyo: ¿Cuentas con un sitio web?",
-      hasWebsite: {
-        title: "Sí, tengo un sitio",
-        description: "Ya tengo un sitio web pero necesito mejoras, actualizaciones o quiero empezar de nuevo con un mejor diseño."
-      },
-      needsWebsite: {
-        title: "No, necesito un sitio",
-        description: "Estoy empezando de cero y necesito una solución web completa construida para mi negocio."
-      }
+      headline: "EMPIEZA TU SITIO WEB HOY",
+      subline1: "Habla directo con nuestro equipo en Los Cabos.",
+      subline2: "Respuesta rapida. Siguientes pasos claros.",
+      whatsapp: "Escribenos por WhatsApp",
+      email: "Escribenos por Correo"
     }
   };
 
-  const handleChoice = () => {
-    // Redirect all leads to the external get-started page
-    window.location.href = 'https://searchlabs.netlify.app/get-started';
-  };
+  const whatsappNumber = "+52 624 264 4012";
+  const whatsappLink = "https://wa.me/526242644012";
+  const email = "hola@searchvisionary.tech";
 
   // Conditional styling based on variant
   const isHeroVariant = variant === "hero";
   const sectionClasses = isHeroVariant 
-    ? "" // No background for hero variant, inherits from parent
-    : "bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 py-16 md:py-20 lg:py-24";
-  
-  const cardClasses = isHeroVariant
-    ? "bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-2xl hover:shadow-lime-400/20 cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-slate-700 hover:border-[#A5FF00]"
-    : "bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 md:hover:transform md:hover:scale-105 border-2 border-transparent hover:border-[#A5FF00]";
-
-  const titleClasses = isHeroVariant ? "text-white" : "text-gray-900";
-  const descriptionClasses = isHeroVariant ? "text-slate-300" : "text-gray-600";
+    ? "py-16 md:py-20 lg:py-24"
+    : "bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-16 md:py-20 lg:py-24";
 
   return (
     <Section
-      id="quote"
+      id="offer-gate"
       data-section="offer-gate"
       className={sectionClasses}
       {...sectionProps}
     >
-      <div className={isHeroVariant ? "" : "container mx-auto px-4 md:px-8 max-w-6xl"}>
-        <Cards
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto"
-          {...cardsProps}
-        >
-          {/* Has Website Card */}
-          <div
-            onClick={handleChoice}
-            className={cardClasses}
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+        <div className="max-w-4xl mx-auto text-center">
+          <Header
+            className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6"
+            {...headerProps}
           >
-            <div className="text-center">
-              <div className="bg-green-900 rounded-full border-4 border-[#A5FF00] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 md:w-10 md:h-10 text-white" />
-              </div>
-              <h3 className={`text-xl md:text-2xl font-bold mb-4 ${titleClasses}`}>
-                {content[language].hasWebsite.title}
-              </h3>
-              <p className={`leading-relaxed ${descriptionClasses}`}>
-                {content[language].hasWebsite.description}
-              </p>
-            </div>
-          </div>
+            {content[language].headline}
+          </Header>
 
-          {/* Needs Website Card */}
-          <div
-            onClick={handleChoice}
-            className={cardClasses}
+          <Subheader className="text-lg md:text-2xl text-white/90 leading-relaxed mb-2" {...headerProps}>
+            {content[language].subline1}
+          </Subheader>
+          <Subheader className="text-lg md:text-2xl text-white/90 leading-relaxed mb-10 md:mb-12" {...headerProps}>
+            {content[language].subline2}
+          </Subheader>
+
+          <Actions
+            className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6"
+            {...actionsProps}
           >
-            <div className="text-center">
-              <div className="bg-pink-900 rounded-full border-4 border-pink-400 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-6">
-                <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-white" />
-              </div>
-              <h3 className={`text-xl md:text-2xl font-bold mb-4 ${titleClasses}`}>
-                {content[language].needsWebsite.title}
-              </h3>
-              <p className={`leading-relaxed ${descriptionClasses}`}>
-                {content[language].needsWebsite.description}
-              </p>
-            </div>
-          </div>
-        </Cards>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-[#A5FF00] text-black font-bold px-8 py-4 rounded-xl hover:bg-[#94E600] transition-colors duration-200 shadow-lg"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>{content[language].whatsapp}</span>
+              <span className="opacity-80">{whatsappNumber}</span>
+            </a>
+
+            <a
+              href={`mailto:${email}`}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-xl hover:bg-white/20 transition-colors duration-200 shadow-lg"
+            >
+              <Mail className="w-5 h-5" />
+              <span>{content[language].email}</span>
+              <span className="opacity-80">{email}</span>
+            </a>
+          </Actions>
+        </div>
       </div>
     </Section>
   );
