@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+  <options>
+    <clientType>WordPress</clientType>
+    <blogID></blogID>
+  </options>
+  <weblog>
+    <serviceName>Search Web Services</serviceName>
+    <imageUrl>https://searchwebservices.tech/img/company-logo.svg</imageUrl>
+    <watermarkImageUrl></watermarkImageUrl>
+    <homepageLinkText>Visit Site</homepageLinkText>
+    <adminLinkText>Dashboard</adminLinkText>
+    <adminUrl>https://searchwebservices.tech/</adminUrl>
+    <postEditingUrl>https://searchwebservices.tech/</postEditingUrl>
+    <allowKeywords>true</allowKeywords>
+    <allowNewCategories>true</allowNewCategories>
+  </weblog>
+  <buttons>
+    <button>
+      <id>0</id>
+      <text>SWS Website</text>
+      <imageUrl>https://searchwebservices.tech/img/company-logo.svg</imageUrl>
+      <clickUrl>https://searchwebservices.tech/</clickUrl>
+    </button>
+  </buttons>
+</manifest> 

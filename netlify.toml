@@ -1,0 +1,130 @@
+[build]
+  publish = "dist"
+  command = "vite build && npm run og && npm run prerender && npm run sitemap"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# --- Consolidate old domain: searchloscabos.com (HTTP + HTTPS + www) -> .tech ---
+[[redirects]]
+  from = "http://searchloscabos.com/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.searchloscabos.com/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://searchloscabos.com/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.searchloscabos.com/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+# --- Consolidate .tech itself: HTTP + www -> HTTPS apex .tech ---
+[[redirects]]
+  from = "http://searchwebservices.tech/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.searchwebservices.tech/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+
+# Host-conditional safety nets (fallbacks)
+[[redirects]]
+  from = "/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+  conditions = { Host = ["searchloscabos.com", "www.searchloscabos.com"] }
+
+[[redirects]]
+  from = "/*"
+  to   = "https://searchwebservices.tech/:splat"
+  status = 301
+  force = true
+  conditions = { Host = ["www.searchwebservices.tech"] }
+
+# Optional: root → /en
+[[redirects]]
+  from = "/"
+  to   = "/en"
+  status = 302
+
+# Security and SEO Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://www.google-analytics.com; font-src 'self' data:;"
+
+# Cache optimization for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# SEO-friendly headers for XML files
+[[headers]]
+  for = "/*.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+# robots.txt headers
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+# sellers.json headers
+[[headers]]
+  for = "/sellers.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+
+# Form handling
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true 

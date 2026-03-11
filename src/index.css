@@ -1,0 +1,310 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Theme System */
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-gradient-start: #f1f5f9;
+  --bg-gradient-middle: #e2e8f0;
+  --bg-gradient-end: #cbd5e1;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-accent: #6366f1;
+  --border-color: #e5e7eb;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme colors */
+:root[data-theme="dark"] {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-gradient-start: #111827;
+  --bg-gradient-middle: #1f2937;
+  --bg-gradient-end: #000000;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-accent: #818cf8;
+  --border-color: #374151;
+  --card-bg: #1f2937;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Auto theme based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-gradient-start: #111827;
+    --bg-gradient-middle: #1f2937;
+    --bg-gradient-end: #000000;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-accent: #818cf8;
+    --border-color: #374151;
+    --card-bg: #1f2937;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer base {
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+  }
+
+  .main-container {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Hero grain overlay */
+  .hero--grain {
+    background-image: url('/grain.png');
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+
+  /* Custom scrollbar styles */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 85, 99, 0.5);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(75, 85, 99, 0.7);
+  }
+}
+
+/* Sequential Loading Animations */
+@layer utilities {
+  /* Background fade-in animation */
+  .animate-bg-fade-in {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+  }
+
+  .animate-bg-fade-in.visible {
+    opacity: 1;
+  }
+
+  /* Slide in from left animation (for top-left logo) */
+  .animate-slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.6s ease-out;
+  }
+
+  .animate-slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fade in up animation (for text elements) */
+  .animate-fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+
+  .animate-fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fade in animation (for language toggle) */
+  .animate-fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+
+  .animate-fade-in.visible {
+    opacity: 1;
+  }
+
+  /* Scale in animation (for center logo) */
+  .animate-scale-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out;
+  }
+
+  .animate-scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Bounce in animation (for CTA button) */
+  .animate-bounce-in {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animate-bounce-in.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Enhanced Typewriter effect for company name */
+  .company-name-transition {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-width: 60px; /* Width for "SWS" */
+  }
+
+  .company-name-expanded {
+    max-width: 220px; /* Width for "Search Web Services" */
+  }
+
+  /* Smooth cursor effect (optional) */
+  .company-name-transition::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: currentColor;
+    margin-left: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .company-name-typing::after {
+    opacity: 1;
+    animation: blink-three-times 1.2s ease-in-out;
+  }
+
+  @keyframes blink-three-times {
+    0% { opacity: 1; }
+    8% { opacity: 0; }
+    16% { opacity: 1; }
+    24% { opacity: 0; }
+    32% { opacity: 1; }
+    40% { opacity: 0; }
+    48% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-bg-fade-in,
+    .animate-slide-in-left,
+    .animate-fade-in-up,
+    .animate-fade-in,
+    .animate-scale-in,
+    .animate-bounce-in {
+      transition: opacity 0.2s ease-out;
+      transform: none !important;
+    }
+    
+    .company-name-transition {
+      transition: opacity 0.1s ease-out;
+    }
+  }
+}
+
+/* Bounce animation for hero arrow */
+@keyframes bounceOnce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Theme-aware utility classes */
+@layer utilities {
+  .bg-theme-primary {
+    background-color: var(--bg-primary);
+  }
+  
+  .bg-theme-secondary {
+    background-color: var(--bg-secondary);
+  }
+  
+  .bg-theme-gradient {
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 50%, var(--bg-gradient-end) 100%);
+  }
+  
+  .text-theme-primary {
+    color: var(--text-primary);
+  }
+  
+  .text-theme-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .text-theme-accent {
+    color: var(--text-accent);
+  }
+  
+  .border-theme {
+    border-color: var(--border-color);
+  }
+  
+  .card-theme {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px -1px var(--card-shadow);
+  }
+  
+  /* Smooth transitions for theme changes */
+  .theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+/* Apply theme transition to common elements */
+body, .bg-theme-primary, .bg-theme-secondary, .text-theme-primary, .text-theme-secondary {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mobile navigation spacing */
+@media (max-width: 1023px) {
+  .mobile-nav-padding {
+    padding-top: 5rem; /* Account for fixed mobile header */
+  }
+  
+  /* Ensure mobile menu has proper z-index */
+  .mobile-menu-overlay {
+    z-index: 9999;
+  }
+}
+
+/* Local font will be added once woff2 files are available in public/fonts */
+html, body { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif; }

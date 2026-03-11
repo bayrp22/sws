@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "contact_email": "info@searchwebservices.tech",
+  "contact_address": "Los Cabos, Baja California Sur, Mexico",
+  "identifiers": [],
+  "sellers": [
+    {
+      "seller_id": "sws-strategic-web-solutions",
+      "name": "Search Web Services",
+      "domain": "searchwebservices.tech",
+      "seller_type": "PUBLISHER",
+      "is_confidential": false,
+      "comment": "Web development agency - no advertising inventory sold"
+    }
+  ]
+} 

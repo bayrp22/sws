@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netlify Forms Configuration</title>
+</head>
+<body>
+    <!-- Netlify Form Definitions for React Components -->
+
+    <!-- English Contact Form -->
+    <form name="contact-form" netlify netlify-honeypot="bot-field" action="/form/success" method="POST" style="display: none;">
+        <input type="hidden" name="form-name" value="contact-form" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="business" />
+        <input type="url" name="website" />
+        <textarea name="message"></textarea>
+
+        <!-- Attribution fields -->
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+        <input type="hidden" name="gclid" />
+        <input type="hidden" name="fbclid" />
+        <input type="hidden" name="referrer_path" />
+    </form>
+
+    <!-- Spanish Contact Form -->
+    <form name="contacto-formulario" netlify netlify-honeypot="bot-field" action="/formulario/success" method="POST" style="display: none;">
+        <input type="hidden" name="form-name" value="contacto-formulario" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="business" />
+        <input type="url" name="website" />
+        <textarea name="message"></textarea>
+
+        <!-- Attribution fields -->
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+        <input type="hidden" name="gclid" />
+        <input type="hidden" name="fbclid" />
+        <input type="hidden" name="referrer_path" />
+    </form>
+</body>
+</html> 
